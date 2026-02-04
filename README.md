@@ -3,7 +3,7 @@
 {% embed url="https://youtu.be/AvEBZp4Uv_Y?feature=shared" %}
 [![COTI Website](https://img.shields.io/badge/COTI%20WEBSITE-4CAF50?style=for-the-badge)](https://coti.io)
 
-### About COTI
+### About COTIX
 
 COTI is a groundbreaking blockchain network designed to enable computation on encrypted data through the use of Garbled Circuits. By combining advanced cryptographic techniques with blockchain technology, COTI opens new possibilities for secure and private data processing.
 
