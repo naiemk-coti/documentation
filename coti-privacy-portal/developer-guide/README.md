@@ -1,10 +1,32 @@
-# Developer Guide
+# 🧑‍💻 Developer Guide
 
-This guide is intended for developers who want to build on top of the COTI [PrivateERC20](ttps://github.com/coti-io/coti-contracts/blob/main/contracts/token/PrivateERC20/PrivateERC20.sol)  standard contract — whether that means deploying a new private token, integrating one into a smart contract, writing tests, or connecting it to a React frontend.
+This guide is for developers who want to build, integrate, and interact with [`PrivateERC20`](https://github.com/coti-io/coti-contracts/blob/main/contracts/token/PrivateERC20/PrivateERC20.sol) tokens on COTI.
 
-It covers the full lifecycle of a `PrivateERC20` token:
+Whether you're:
 
-* What `PrivateERC20` is and how it differs from a standard ERC20
-* How to create your own private token by extending the base contract
-* How to mint and burn tokens using both public and encrypted amounts
-* How to read encrypted balances and send encrypted transactions from a React app using ethers.js and the COTI SDK&#x20;
+- deploying a new private token
+- integrating privacy into an existing smart contract
+- writing tests
+- connecting a frontend application
+
+this guide walks you through the full development process.
+
+## What you'll learn
+
+By the end of this guide, you will be able to:
+
+- understand what `PrivateERC20` is and how it differs from a standard ERC20
+- create your own private token by extending the base contract
+- mint and burn tokens using both public and encrypted amounts
+- work with encrypted balances
+- send encrypted transactions from a React app using ethers.js and the COTI SDK
+
+## What this guide covers
+
+This guide follows the full lifecycle of a `PrivateERC20` token:
+
+- understanding the `PrivateERC20` model
+- creating and deploying a private token
+- minting and burning tokens
+- reading encrypted balances
+- sending encrypted transactions from a frontend
