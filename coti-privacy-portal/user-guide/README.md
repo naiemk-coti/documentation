@@ -1,12 +1,34 @@
-# User guide
+# 👤 User Guide
 
-The **Privacy Portal** serves as a comprehensive graphical interface designed for seamless interaction with digital assets and [PrivateERC20](../developer-guide/privateerc20.sol.md) tokens. The portal empowers you to manage two distinct types of digital assets: **Public Tokens** and **Private Tokens**.
+The Privacy Portal is COTI V2's user-facing `dApp` for interacting with tokens on COTI, letting you bridge between Public tokens and [PrivateERC20](../developer-guide/privateerc20.sol.md) tokens.
 
-**Public Tokens** are those assets that reside transparent ob the ledger, offering visibility and traceability in the network’s  blockchain infrastructure. In contrast, **Private Tokens** present an advanced layer of privacy, with their balances being  encrypted on-chain. The critical aspect of these tokens is that they can only be decrypted within the secure environments of your local wallet, ensuring a robust level of financial confidentiality.
+It allows you to work with two types of tokens:
 
-To make the most of the **Privacy Portal**, this guide will provide you with detailed,  step-by-step instructions, making sure you are equipped to securely establish a connection with your digital wallet. You will learn how to efficiently handle private tokens, manage transactions, and maintain your digital asset portfolio with supported confidentiality. These instructions will empower you to achieve  sovereignty over your financial privacy, reinforcing your control over sensitive data and enhancing your ability to conduct transactions with privacy.
+## Public Tokens
 
+Public Tokens behave like standard blockchain tokens:
 
+- balances are visible on-chain
+- transactions are transparent
 
+## Private Tokens
 
+Private Tokens add an extra layer of privacy:
 
+- balances are stored encrypted on-chain
+- you decrypt and view them locally using your wallet and the COTI MetaMask Snap
+
+This helps keep your financial data confidential.
+
+## What you’ll learn
+
+This guide will walk you through how to:
+
+- connect your wallet to the Privacy Portal
+- bridge public tokens into private tokens
+- send and receive private transactions
+- view your balances securely
+
+## Why use the Privacy Portal?
+
+The Privacy Portal lets you move your tokens into a private state, giving you more control over what information is visible on-chain while keeping sensitive data confidential.
