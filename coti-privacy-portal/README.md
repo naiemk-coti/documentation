@@ -1,27 +1,81 @@
-# COTI Privacy Portal
+# 🔐 COTI Privacy Portal
 
-### Introduction
+## Introduction
 
-As the decentralized web matures, the necessity for robust, scalable financial privacy has become paramount. Traditional blockchain networks mandate total transparency, exposing all transaction histories and asset balances to public surveillance.
+As the decentralized web evolves, the need for financial privacy has become increasingly important.
 
-COTI V2 addresses a critical need by deploying an advanced, EVM-compatible Layer 2 network utilizing Garbled Circuits. The Privacy Portal serves as the primary interface for interacting with privacy-protected digital assets, granting complete control over financial data.
+Many blockchain networks are fully transparent, meaning:
 
+- transaction histories are public
+- wallet balances are visible
+- sensitive financial activity can be exposed
 
+COTI V2 addresses this limitation by introducing an EVM-compatible Layer 2 network that enables computation on encrypted data, powered by advanced cryptography such as Garbled Circuits.
 
-### Core Functionalities&#x20;
+The Privacy Portal is the primary web interface for interacting with this system. It allows users to manage private assets, perform confidential transactions, and keep control over their financial data.
 
-The Privacy Portal enables a seamless transition from transparent ledgers to encrypted sovereignty. The **COTI Privacy Portal** enables:<br>
+## 🧭 What is the Privacy Portal?
 
-* Token Minting: Seamlessly convert selected public ERC20 tokens into Private Tokens.
-* Secure Storage: Manage private balances securely via the COTI MetaMask Snap.
-* Confidential Transfers: Move assets between COTI wallets with full privacy regarding transaction amounts.
-* On-Chain Encryption: Balances remain encrypted on the ledger, visible only to the authorized key holder.
+The Privacy Portal is COTI V2's dApp for interacting with privacy-enabled tokens. It lets users bridge supported ERC20 tokens into private tokens, view and use encrypted balances, and submit confidential transfers while balances and transfer amounts remain encrypted on-chain, with decryption handled locally through the COTI MetaMask Snap.
 
-### Why COTI V2 for Privacy?
+## ✨ What you can do with the Privacy Portal?
 
-Unlike standard ERC20 tokens where balances are public, COTI’s PrivateERC20 stores all data as ciphertexts.<br>
+With the Privacy Portal, you can:
 
-1. Garbled Circuits & MPC: Using the [`MpcCore`](../how-coti-works/advanced-topics/precompiles.md) precompile (address `0x64`), the network performs arithmetic (addition, subtraction, comparisons) on encrypted numbers without ever revealing the underlying plaintext to validators.&#x20;
-2. Local Decryption: Your private balances are decrypted locally in your browser using a personal AES key stored in the [COTI Snap](../build-on-coti/guides/setting-up-coti-snap-with-your-metamask-wallet.md). No one else can see your holdings.
-3. EVM Compatibility: Developers can extend the [`PrivateERC20`](developer-guide/privateerc20.sol.md) abstract contract to create private versions of any token using familiar tools like Hardhat and Solidity.
+- **🪙 Mint Private Tokens**  
+  Convert supported ERC20 tokens into Private Tokens, allowing you to use them within COTI's privacy layer.
+- **🔐 Manage Private Balances**  
+  View and manage your encrypted balances securely using the COTI MetaMask Snap.
+- **🔄 Send Confidential Transactions**  
+  Transfer assets between wallets while keeping transaction amounts private.
+- **👁️ View Your Data Privately**  
+  Decrypt and view your balances locally. Only you have access to your financial data.
+- **🧾 Keep Balances Encrypted On-Chain**  
+  All balances remain encrypted on the ledger and are only accessible to the authorized key holder.
+
+## ⚙️ How does it work?
+
+COTI enables computation on encrypted data, meaning your data remains private even while it is being used.
+
+The Privacy Portal acts as a bridge between you and this system:
+
+- You convert assets into Private Tokens
+- Your balances are stored encrypted on-chain
+- Transactions are executed without revealing sensitive data
+- Your data is decrypted locally when you need to view it
+
+This allows you to interact with blockchain-based assets while preserving strong privacy for balances and transaction amounts.
+
+## 🛡️ Why COTI V2 for Privacy?
+
+COTI V2 introduces a new approach to blockchain privacy by combining encryption, secure computation, and developer-friendly infrastructure.
+
+### 🔒 Encrypted Token Balances
+
+Unlike standard ERC20 tokens, where balances and transactions are public, COTI's `PrivateERC20` stores all balances and amounts as encrypted data (ciphertexts).
+
+### 🧮 Secure Computation (Garbled Circuits and MPC)
+
+COTI uses advanced cryptographic techniques such as Multi-Party Computation (MPC) and Garbled Circuits to process encrypted data.
+
+Through the [`MpcCore`](../how-coti-works/advanced-topics/precompiles.md) precompile (address `0x64`), the network can perform operations like:
+
+- addition
+- subtraction
+- comparisons
+
+All without revealing the underlying data to validators or external observers.
+
+### 🔑 Local Decryption
+
+Your private balances are decrypted locally in your browser, using a personal AES key managed by the [COTI Snap](../build-on-coti/guides/setting-up-coti-snap-with-your-metamask-wallet.md). Decryption keys are managed locally by you.
+
+### 🧩 EVM Compatibility
+
+COTI V2 is fully EVM-compatible, allowing developers to build using familiar tools such as:
+
+- Solidity
+- Hardhat
+
+Developers can extend the [`PrivateERC20`](developer-guide/privateerc20.sol.md) contract to create privacy-enabled tokens without learning a new stack.
 
