@@ -1,16 +1,27 @@
 # Prerequisites
 
-1.  Before you can start interacting with Private Tokens, there are a few steps you need to complete. The primary requirement involves the installation of the [MetaMask](https://metamask.io/download) wallet, which supports the necessary COTI Snap plugin required for Portal interaction. To ensure a seamless experience, follow the steps outlined below:<br>
+Before interacting with Private Tokens, make sure your setup is complete.
 
-    1. **Install MetaMask in Your Browser**
-       * First, [download](https://metamask.io/download) and install the MetaMask extension for your preferred web browser. This tool acts as your digital wallet and interface for managing COTI tokens and other cryptocurrencies.
-    2. **Configure the COTI Network in MetaMask**
-       * Once MetaMask is installed, you need to [add the COTI Network ](#user-content-fn-1)[^1]to it. This [configuration](../../networks/testnet/adding-the-coti-testnet-to-metamask.md) is crucial as it enables communication with the COTI blockchain. If the network is not already set up, the Portal will prompt you to add it when needed.
-    3. **Install COTI Snap in MetaMask**
-       * The COTI Snap is a plugin essential for handling Private Tokens within MetaMask. Follow the detailed installation [instructions](metamask-snap-setup.md) provided by COTI to configure it properly. This step is vital to ensure that all functionalities associated with Private Tokens are accessible.
-    4. **Ensure Sufficient Native COTI for Transaction Fees**
-       * Transactions involving Private Tokens will require native COTI for transaction fees. Make sure to have enough COTI in your MetaMask wallet to cover these fees. This preparation will prevent any interruptions in your token interactions.
+1. **Install MetaMask**
 
-    By completing all the above steps, you’ll be well-prepared to engage effectively and securely with Private Tokens using the COTI platform.
+   Install the [MetaMask](https://metamask.io/download) extension in your browser.
+   This will serve as your wallet for interacting with the COTI network.
 
-[^1]: 
+2. **Add the COTI Network**
+
+   Once MetaMask is installed, add the COTI network to it.
+   This [configuration](../../networks/testnet/adding-the-coti-testnet-to-metamask.md) enables communication with the COTI blockchain.
+   If the network is not already set up, the Privacy Portal will prompt you to add it.
+
+3. **Install the COTI Snap**
+
+   Install the COTI Snap in MetaMask.
+   The COTI Snap is essential for handling Private Tokens within MetaMask.
+   Follow the [installation instructions](metamask-snap-setup.md) to configure it properly.
+   It enables encryption, decryption, and key management for private token operations.
+
+4. **Fund your wallet**
+
+   Make sure your wallet has enough native COTI to cover transaction fees.
+
+## You're ready
