@@ -9,9 +9,8 @@ Before interacting with Private Tokens, make sure your setup is complete.
 
 2. **Add the COTI Network**
 
-   Once MetaMask is installed, add the COTI network to it.
-   This [configuration](../../networks/testnet/adding-the-coti-testnet-to-metamask.md) enables communication with the COTI blockchain.
-   If the network is not already set up, the Privacy Portal will prompt you to add it.
+   Once MetaMask is installed, add the COTI network you will use: [COTI Testnet](../../networks/testnet/adding-the-coti-testnet-to-metamask.md) or [COTI Mainnet](../../networks/mainnet/adding-the-coti-mainnet-to-metamask.md).
+   If the network is not already configured, the Privacy Portal can prompt you to add it.
 
 3. **Install the COTI Snap**
 

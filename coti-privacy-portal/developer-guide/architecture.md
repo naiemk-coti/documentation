@@ -6,7 +6,7 @@ The diagram below shows how `PrivateERC20` is composed. It inherits from standar
 PrivateERC20 (abstract)
 ├── inherits: Context, ERC165, IPrivateERC20, AccessControl, ReentrancyGuard
 ├── storage:
-│   ├── _balances: mapping(address => utUint256)   // { ciphertext, userCiphertext }
+│   ├── _balances: per-account encrypted balance (MPC ciphertext + user ciphertext)
 │   ├── _allowances: mapping(address => mapping(address => Allowance))
 │   ├── _totalSupply: ctUint256                    // always decrypts to real supply
 │   └── _accountEncryptionAddress: mapping(address => address)

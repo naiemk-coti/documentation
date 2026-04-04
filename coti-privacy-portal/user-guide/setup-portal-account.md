@@ -8,8 +8,8 @@ While managing public assets is straightforward, the true power of the COTI Priv
 {% step %}
 ### Connecting Your Wallet
 
-* Navigate your secure web browser to the official to the [COTI Privacy Portal](https://privacy.coti.io/). Make sure you followed [Prerequisites](prerequisites.md) instructions and you already have MetaMask plugin installed.
-*   Click on the **Connect Wallet** button on top Privacy Portal left corner. Your MetaMask wallet will present a dialogue box requesting authorization to connect to the portal.  Review the request details and authorize the connection.\
+* Open the [COTI Privacy Portal](https://privacy.coti.io/) (production) or [dev Privacy Portal](https://dev.privacy.coti.io/) (testnet/staging) in a secure browser. Make sure you completed the [Prerequisites](prerequisites.md) and have the MetaMask extension installed.
+* Click **Connect Wallet** in the top-left area of the portal. MetaMask will ask you to authorize the connection. Review the request and approve it.\
     <br>
 
     <figure><img src="../../.gitbook/assets/portal_connect.png" alt="Public Tokens"><figcaption><p>Public Tokens Balances</p></figcaption></figure>
@@ -20,7 +20,7 @@ While managing public assets is straightforward, the true power of the COTI Priv
 {% step %}
 ### Check Your Tokens Public Balance
 
-Once your MetaMask wallet is connected, you can navigate to the **Public Tokens** dashboard within the interface. In this section, the application displays **public assets** balance (e.g., COTI, WETH, USDT) that lies on COTI blockchain. To learn how to bridge digital assets to COTI, please review [COTI Bridge instrunctions](../../coti-bridge/).\
+Once your wallet is connected, open the **Public Tokens** dashboard. It shows **public** asset balances (e.g., COTI, WETH, USDT) on the COTI network. To bridge assets onto COTI, see the [COTI Bridge documentation](../../coti-bridge/).\
 \
 Before proceeding, please verify that your assets public balances accurately reflect your on-chain holdings, as this confirms that your wallet is communicating flawlessly with COTI Privacy Portal.<br>
 
@@ -32,7 +32,7 @@ Before proceeding, please verify that your assets public balances accurately ref
 {% endstep %}
 
 {% step %}
-### Unlock your privates tokens​
+### Unlock your private tokens​
 
 Please focus on the Private Tokens section of the portal interface. By default, this section is locked, and your balances are encrypted and hidden from view. To unlock them, follow the steps below.\
 \
@@ -41,7 +41,7 @@ Please focus on the Private Tokens section of the portal interface. By default, 
 <div data-with-frame="true"><figure><img src="../../.gitbook/assets/Screenshot 2026-03-24 at 8.46.58 AM.png" alt="Unlock Button"><figcaption><p>Unlock button</p></figcaption></figure></div>
 
 {% hint style="info" %}
-If this is your first time using the Privacy Portal, it will prompt you to install the official COTI MetaMask Snap.  This extension handles the encryption and decryption of your private balances.  [Follow the instrunctions here](metamask-snap-setup.md).
+If this is your first time using the Privacy Portal, it will prompt you to install the official COTI MetaMask Snap. This extension handles encryption and decryption of your private balances. [Follow the instructions here](metamask-snap-setup.md).
 {% endhint %}
 
 2.  After clicking the unlock button, a modal screen will appear, requesting authorization to access your [COTI AES security key.](../../how-coti-works/advanced-topics/aes-keys.md) Please review and authorize the request on the MetaMask snap.<br>

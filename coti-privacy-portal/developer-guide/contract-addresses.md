@@ -1,16 +1,18 @@
 # Contract Addresses
 
+Addresses for **COTI Testnet (7082400)** below match the Privacy Portal source of truth: `coti-privacy-portal/src/contracts/config.ts`. They may change after contract redeploys; always verify against that file or your deployed environment.
+
 #### COTI Testnet (Chain ID: 7082400)
 
 | Token                | Address                                      |
 | -------------------- | -------------------------------------------- |
-| p.COTI (PrivateCoti) | `0x03eeA59b1F0Dfeaece75531b27684DD882f79759` |
-| p.WETH               | `0xc79fC578D7Fe1677c72F88cAdD63D9199D56ebe0` |
-| p.WBTC               | `0x362F5a50423163c0f8E1bC4C8867FdC22bd74Da1` |
-| p.USDT               | `0xF08633c9BbcfEf6F309e84FdE6D4c49b0118C4D3` |
-| p.USDC.e             | `0xcA04109fE8CC1390666b78A82AeCa07de1C893C7` |
-| p.WADA               | `0x66c85092DaF2531E920B1f36560535E3D19985a0` |
-| p.gCOTI              | `0x285483dB100B068dfEf34584CA3be4B5418e9f0a` |
+| p.COTI (PrivateCoti) | `0x6cE8907414986E73De9e7D28d62Ea2080F8E88E1` |
+| p.WETH               | `0xF009BADb181d471995a1CFF406C3Db7B180F64eA` |
+| p.WBTC               | `0xB50F1680a4C69145ABc09A2A71c8D5b8051578cF` |
+| p.USDT               | `0xcEF137E96eDF68EE99D4CdEa7085f154d74895cD` |
+| p.USDC.e             | `0x37f78dcCd15876F74391EF1F01b76557D9FF1dea` |
+| p.WADA               | `0x1245f50a3E9129A219b4bf66D10fEaEA47467B69` |
+| p.gCOTI              | `0x1503b02a4Aa27812306c65116FD23b733603F142` |
 
 #### COTI Testnet — Public Tokens
 
@@ -27,13 +29,30 @@
 
 | Bridge                  | Address                                      |
 | ----------------------- | -------------------------------------------- |
-| PrivacyBridgeCotiNative | `0x7c078A2879e5fC23F97f4DfE24461Bc8360EAa31` |
-| PrivacyBridgeWETH       | `0x0D50cCb9D6a166BaB32906fc43Fc44cc32Ff4a7D` |
-| PrivacyBridgeWBTC       | `0x623517502761Dac598Bdf24788337b1e006BB881` |
-| PrivacyBridgeUSDT       | `0xB2eD9486d20368d7F6Eb49019c13159aF3d61BC6` |
-| PrivacyBridgeUSDCe      | `0x90c117e743C683897795dd6577B0f1846aD03aed` |
-| PrivacyBridgeWADA       | `0x71c11C77a68546A2927E7a7B8aB931ac9d6526cb` |
-| PrivacyBridgegCOTI      | `0x3d3908ee7D0aec4baa0336f987bd636CCc041A0D` |
+| PrivacyBridgeCotiNative | `0x13d1F98236eC09219b009d843F8A7f150fDc9E46` |
+| PrivacyBridgeWETH       | `0x56192C1Bf282DA179F48241be2054bF432Ed2A7C` |
+| PrivacyBridgeWBTC       | `0x4298bEcBa4f31bA90B36EaCDf97D198c814dBfE5` |
+| PrivacyBridgeUSDT       | `0xc0062799Ed7e7D3A8AFE5A6493b1b1DC74eE98fE` |
+| PrivacyBridgeUSDCe      | `0xBB6cE68F692B8B2eE95Bfa8B22947F1c577F92B0` |
+| PrivacyBridgeWADA       | `0x29BbF8E9Db86803837e19Cb4009AFFe0cEec1044` |
+| PrivacyBridgegCOTI      | `0x3CFc34C728ECAf70c9723D3e3718137236e88715` |
+
+#### COTI Mainnet (Chain ID: 2632500)
+
+Mainnet **native private COTI** bridge and **public** token addresses from the same portal config:
+
+| Role / token              | Address                                      |
+| ------------------------- | -------------------------------------------- |
+| p.COTI (PrivateCoti)      | `0x143705349957A236d74e0aDb5673F880fEDB101f` |
+| PrivacyBridgeCotiNative   | `0x6056bFE6776df4bEa7235A19f6D672089b4cdBeB` |
+| WETH                      | `0x639aCc80569c5FC83c6FBf2319A6Cc38bBfe26d1` |
+| WBTC                      | `0x8C39B1fD0e6260fdf20652Fc436d25026832bfEA` |
+| USDT                      | `0xfA6f73446b17A97a56e464256DA54AD43c2Cbc3E` |
+| USDC.e                    | `0xf1Feebc4376c68B7003450ae66343Ae59AB37D3C` |
+| WADA                      | `0xe757Ca19d2c237AA52eBb1d2E8E4368eeA3eb331` |
+| gCOTI                     | `0x7637C7838EC4Ec6b85080F28A678F8E234bB83D1` |
+
+In the current portal `config.ts`, **wrapped private tokens** (`p.WETH`, `p.USDT`, etc.) and **ERC20 privacy bridges** on mainnet are empty placeholders until deployed. Use the repository’s `config.ts` for updates.
 
 ### Token Decimals Reference
 

@@ -17,7 +17,7 @@ Hover over the address of the desired private token (e.g., p.WETH) in the portal
 \
 To add your private token balances to MetaMask:<br>
 
-* Navigate to the  [COTI Metamask wallet page](https://metamask.coti.io/wallet)
+* Open the COTI MetaMask wallet page for your network: [dev.metamask.coti.io/wallet](https://dev.metamask.coti.io/wallet) on **COTI Testnet**, or [metamask.coti.io/wallet](https://metamask.coti.io/wallet) on **COTI Mainnet** (same split as in the portal Snap install links).
 * Click the menu icon (...) and select **Import Token**.&#x20;
 * Copy the **Contract Address** from the Private Tokens list in the Portal (via the copy icon).
 * Paste the copied contract address to sync the token to your local Snap.

@@ -80,7 +80,7 @@
     * [Prerequisites](coti-privacy-portal/user-guide/prerequisites.md)
     * [Setup Portal Account](coti-privacy-portal/user-guide/setup-portal-account.md)
     * [MetaMask Snap Setup](coti-privacy-portal/user-guide/metamask-snap-setup.md)
-    * [Create Private Tokens](coti-privacy-portal/user-guide/create-private-tokens.md)
+    * [Convert to Private Tokens](coti-privacy-portal/user-guide/convert-to-private-tokens.md)
     * [Convert to Public Tokens](coti-privacy-portal/user-guide/convert-to-public-tokens.md)
     * [Private Tokens on MetaMask](coti-privacy-portal/user-guide/private-tokens-on-metamask.md)
     * [Transfer Private Tokens](coti-privacy-portal/user-guide/transfer-private-tokens.md)
