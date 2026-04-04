@@ -1,4 +1,4 @@
-# Create Private Tokens
+# Convert to Private Tokens
 
 The Privacy Portal allows you to seamlessly mint privacy-preserving equivalents of your public tokens, and subsequently burn them to redeem your public assets. Converting standard public tokens into private tokens requires a two-step approval process:
 
