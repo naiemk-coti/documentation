@@ -102,9 +102,8 @@ const txHash = await fundEpoch(client, {
 
 ## Contract configuration
 
-Use `getContractConfig()` when you need the contract-level limits:
+Use `getContractConfig()` when you need the contract-level timing and chunk limits:
 
-- `owner`
 - `epochDuration`
 - `genesisTimestamp`
 - `maxChunkCells`
