@@ -103,6 +103,14 @@
     * [Contract Addresses](coti-privacy-portal/developer-guide/contract-addresses.md)
     * [Frontend Integration](coti-privacy-portal/developer-guide/frontend-integration.md)
     * [Troubleshooting](coti-privacy-portal/developer-guide/troubleshooting.md)
+* [Privacy on Demand](privacy-on-demand/README.md)
+  * [What is Privacy on Demand?](privacy-on-demand/what-is-privacy-on-demand.md)
+  * [How a private request travels end to end](privacy-on-demand/how-a-private-request-travels-end-to-end.md)
+  * [Architecture and main components](privacy-on-demand/architecture-and-components.md)
+  * [Glossary](privacy-on-demand/glossary.md)
+  * [Async private operations](privacy-on-demand/async-private-operations.md)
+  * [For developers: mapping concepts to the SDK](privacy-on-demand/for-developers-mapping-to-the-sdk.md)
+  * [Tutorial: private Adder on Sepolia](privacy-on-demand/tutorial-private-adder-sepolia.md)
 
 ## Security
 
