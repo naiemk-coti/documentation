@@ -2,6 +2,27 @@
 
 Privacy on Demand lets applications use **strong privacy for data and computation** while still using **ordinary EVM chains** (Ethereum, L2s, and other compatible networks) for accounts, assets, and business workflows.
 
+
+<div style="font-size: 1.45rem; line-height: 1.72; margin-bottom: 2rem;">
+
+<h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 0; margin-bottom: 1rem; line-height: 1.2;">Quick Access</h2>
+
+- **[Start building with PoD (example)](tutorial-private-adder-sepolia.md)** — Step-by-step Adder on Sepolia with Solidity and TypeScript.
+- **[Architecture and design](architecture-and-components.md)** — Inbox, MPC executor, PodUser, PodLib, and how they connect.
+- **[Learn about fees](how-poa-fees-work.md)** — How PoA/PoD fees split across COTI and your host chain.
+- **[Millionaires demo](https://milionaire.demo.coti.io)** — Live demo (external).
+
+<h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 1rem; line-height: 1.2;">Further resources</h2>
+
+- **[Examples](https://github.com/cotitech-io/coti-pod-sdk/tree/main/contracts/examples)** — Contract examples in the PoD SDK repo.
+- **[PoD SDK documentation](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)** — Full SDK docs on GitHub.
+
+The same **Quick Access** and **Further resources** blocks appear on the [docs homepage](../README.md).
+
+</div>
+
+---
+
 This section explains **what PoD is**, **how it feels to users and operators**, and **how the main pieces fit together**. For step-by-step integration with the **COTI PoD SDK**, use the [npm package](https://www.npmjs.com/package/@coti/pod-sdk), the [documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs), and the links below.
 
 ## Who this documentation is for
@@ -24,8 +45,9 @@ This section explains **what PoD is**, **how it feels to users and operators**, 
 ### Deeper context
 
 5. [Async private operations (why it is not instant)](async-private-operations.md) — What “pending” means and why UX must reflect it.
-6. [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — Checklists and links to the [PoD SDK documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs).
-7. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — How to write a minimal adder contract, deploy with `PodUserSepolia`, and encrypt/decrypt with TypeScript.
+6. [How do PoA fees work?](how-poa-fees-work.md) — Two-way Inbox budgets, oracle conversion, and step-by-step gas-unit consumption (worked example).
+7. [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — Checklists and links to the [PoD SDK documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs).
+8. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — How to write a minimal adder contract, deploy with `PodUserSepolia`, and encrypt/decrypt with TypeScript.
 
 ## Official technical reference
 
