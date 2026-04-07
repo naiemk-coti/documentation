@@ -10,7 +10,7 @@ Privacy on Demand lets applications use **strong privacy for data and computatio
 - **[Start building with PoD (example)](tutorial-private-adder-sepolia.md)** — Step-by-step Adder on Sepolia with Solidity and TypeScript.
 - **[Architecture and design](architecture-and-components.md)** — Inbox, MPC executor, PodUser, PodLib, and how they connect.
 - **[Learn about fees](how-poa-fees-work.md)** — How PoA/PoD fees split across COTI and your host chain.
-- **[Millionaires demo](https://milionaire.demo.coti.io)** — Live demo (external).
+- **[Millionaires demo](https://millionaire.demo.coti.io)** — Live demo (external).
 
 <h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 1rem; line-height: 1.2;">Further resources</h2>
 
