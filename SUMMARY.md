@@ -109,6 +109,7 @@
   * [Architecture and main components](privacy-on-demand/architecture-and-components.md)
   * [Glossary](privacy-on-demand/glossary.md)
   * [Async private operations](privacy-on-demand/async-private-operations.md)
+  * [How do PoA fees work?](privacy-on-demand/how-poa-fees-work.md)
   * [For developers: mapping concepts to the SDK](privacy-on-demand/for-developers-mapping-to-the-sdk.md)
   * [Tutorial: private Adder on Sepolia](privacy-on-demand/tutorial-private-adder-sepolia.md)
 
