@@ -10,7 +10,7 @@ In this example we will do the following:
 
 1. **Use one built-in executor operation** from `PodLib` (here, `add64`) so you do not write a custom COTI contract yet.
 2. **Submit a payable request** that forwards `msg.value` and splits out `callbackFeeLocalWei` for the return leg (two-way Inbox message).
-3. **Implement a success callback** that decodes `abi.encode(ctUint64)` and stores the ciphertext.
+3. **Implement a success callback** that decodes `abi.encode(ctUint256)` and stores the ciphertext.
 4. **Wire `onDefaultMpcError.selector`** so failed remote runs surface through the SDK’s default error path (and emit `ErrorRemoteCall` from `PodUser`).
 
 After that works, you harden for production: per-user request ownership, explicit `pending / completed / failed` state, fee estimation via the Inbox, and tests for under-funded sends. The SDK’s [Examples with description](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05c-examples-with-description.md) lists what the shipped `MpcAdder` omits on purpose.
@@ -55,7 +55,7 @@ contract PrivateAdder is PodLib, PodUserSepolia {
         Completed
     }
 
-    mapping(bytes32 => ctUint64) public sumByRequest;
+    mapping(bytes32 => ctUint256) public sumByRequest;
     mapping(bytes32 => RequestStatus) public statusByRequest;
 
     event AddRequested(bytes32 indexed requestId, address indexed caller);
@@ -68,14 +68,14 @@ contract PrivateAdder is PodLib, PodUserSepolia {
 
     /// @param callbackFeeLocalWei Wei reserved for the callback leg; must be <= msg.value (see SDK fee docs).
     function add(
-        itUint64 calldata a,
-        itUint64 calldata b,
+        itUint256 calldata a,
+        itUint256 calldata b,
         uint256 callbackFeeLocalWei
     ) external payable returns (bytes32 requestId) {
-        requestId = add64(
+        requestId = add256( // Add two encrypted 256 bit integers
             a,
             b,
-            msg.sender,
+            msg.sender, // Who can decrypt the result
             this.addCallback.selector,
             this.onDefaultMpcError.selector,
             msg.value,
@@ -91,7 +91,7 @@ contract PrivateAdder is PodLib, PodUserSepolia {
             requestId = inbox.inboxRequestId();
         }
 
-        ctUint64 sum = abi.decode(data, (ctUint64));
+        ctUint256 sum = abi.decode(data, (ctUint256));
         sumByRequest[requestId] = sum;
         statusByRequest[requestId] = RequestStatus.Completed;
         emit AddCompleted(requestId);
@@ -125,9 +125,9 @@ const plainB = "20";
 const encA = await CotiPodCrypto.encrypt(plainA, "testnet", DataType.Uint64);
 const encB = await CotiPodCrypto.encrypt(plainB, "testnet", DataType.Uint64);
 
-// encA / encB match Solidity itUint64: { ciphertext, signature }
+// encA / encB match Solidity itUint256: { ciphertext, signature }
 // Normalize for ethers (example: bigint ciphertext if your ABI encoder expects it)
-function toItUint64(enc: { ciphertext: string | bigint; signature: string }) {
+function toitUint256(enc: { ciphertext: string | bigint; signature: string }) {
   return {
     ciphertext: typeof enc.ciphertext === "bigint"
       ? enc.ciphertext
@@ -146,8 +146,8 @@ Use your wallet provider and contract ABI. The call must be **payable** with suf
 // totalWei and callbackFeeWei from your fee estimation
 
 const tx = await privateAdder.add(
-  toItUint64(encA),
-  toItUint64(encB),
+  toitUint256(encA),
+  toitUint256(encB),
   callbackFeeWei,
   { value: totalWei }
 );
@@ -170,7 +170,7 @@ Private addition is **asynchronous**: the sum appears only after the Inbox invok
 
 ## Step 7: Read the encrypted sum and decrypt locally
 
-After status is **Completed**, read **`sumByRequest(requestId)`**. The value is **`ctUint64`** (ciphertext), not plaintext.
+After status is **Completed**, read **`sumByRequest(requestId)`**. The value is **`ctUint256`** (ciphertext), not plaintext.
 
 ```typescript
 import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
@@ -197,8 +197,8 @@ console.log("sum (plaintext string):", decryptedString);
 
 ## Step 8: Sanity checks and next steps
 
-- **Callback decode** must stay **`(ctUint64)`** — changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
-- **Type width** must stay **uint64** end to end: `DataType.Uint64`, `itUint64`, `ctUint64`.
+- **Callback decode** must stay **`(ctUint256)`** — changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
+- **Type width** must stay **uint64** end to end: `DataType.Uint64`, `itUint256`, `ctUint256`.
 - **Production**: add tests for non-Inbox callers on `addCallback`, under-funded `msg.value`, and decrypt failures; follow the [first production checklist](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) in Getting started.
 
 ## Reference links
