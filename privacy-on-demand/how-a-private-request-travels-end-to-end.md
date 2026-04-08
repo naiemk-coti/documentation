@@ -28,15 +28,17 @@ This page describes **one full cycle** of Privacy on Demand **without assuming S
 
 **Colors:** the **blue** box is **contracts on your host chain (Ethereum)**—**Your dApp contract** and **Inbox (EVM)**. The **amber** box is **contracts on COTI**—**Inbox (COTI)** and **MPC Executor**. **User** and **Client app** are off-chain (no fill). Arrows **between** the blue and amber boxes are **cross-chain / cross-domain** handoffs.
 
+**Mermaid quirk:** do not use `rgb(r, g, b)` on the same line as a title that contains another pair of parentheses (for example `(COTI)`). Mermaid’s parser treats everything from the opening `(` of `rgb(` through the **last** `)` on that line as the color, so the fill fails and the whole line can show as plain text. Here the fills are **PowderBlue** (Ethereum) and **PeachPuff** (COTI)—ordinary CSS color names that stay reliable.
+
 ```mermaid
 sequenceDiagram
     participant User as User
     participant Client as Client app
-    box rgb(200, 225, 255) Your dApp + Inbox (Ethereum)
+    box PowderBlue Your dApp + Inbox (Ethereum)
         participant Dapp as Your dApp (Ethereum)
         participant InboxEvm as Inbox (Ethereum)
     end
-    box rgb(255, 224, 185) Inbox + MPC Executor (COTI)
+    box PeachPuff Inbox + MPC Executor (Coti)
         participant InboxCoti as Inbox (Coti)
         participant Exec as MPC Executor (Coti)
     end
