@@ -26,21 +26,39 @@ This page describes **one full cycle** of Privacy on Demand **without assuming S
 
 ## Sequence diagram (conceptual)
 
-**Colors:** the **blue** box is **contracts on your host chain (Ethereum)**—**Your dApp contract** and **Inbox (EVM)**. The **amber** box is **contracts on COTI**—**Inbox (COTI)** and **MPC Executor**. **User** and **Client app** are off-chain (no fill). Arrows **between** the blue and amber boxes are **cross-chain / cross-domain** handoffs.
+**Colors:** the **cool charcoal** panel is **contracts on your host chain (Ethereum)**—**Your dApp contract** and **Inbox (EVM)**. The **warm charcoal** panel is **contracts on COTI**—**Inbox (COTI)** and **MPC Executor**. **User** and **Client app** are off-chain (default styling). Arrows **between** the two dark panels are **cross-chain / cross-domain** handoffs. The diagram uses a **dark theme** so labels stay light-on-dark and readable.
 
-**Mermaid quirk:** do not use `rgb(r, g, b)` on the same line as a title that contains another pair of parentheses (for example `(COTI)`). Mermaid’s parser treats everything from the opening `(` of `rgb(` through the **last** `)` on that line as the color, so the fill fails and the whole line can show as plain text. Here the fills are **PowderBlue** (Ethereum) and **PeachPuff** (COTI)—ordinary CSS color names that stay reliable.
+**Mermaid quirk:** on a `box` line, do not put **ASCII** parentheses in the title after `rgb(r, g, b)` (for example `(COTI)`). The parser treats everything from `rgb(` through the **last** `)` on that line as the color string, which breaks the fill. Use an em dash in the box title instead—`(Ethereum)` / `(COTI)` still appear on participant labels below.
 
 ```mermaid
+%%{init: {
+  'theme': 'dark',
+  'themeVariables': {
+    'background': '#0b0d11',
+    'actorBkg': '#151922',
+    'actorBorder': '#2a3140',
+    'actorTextColor': '#e8eaef',
+    'actorLineColor': '#6b7280',
+    'signalColor': '#9ca6b8',
+    'sequenceNumberColor': '#9ca6b8',
+    'labelBoxBkgColor': '#151922',
+    'labelTextColor': '#e8eaef',
+    'loopTextColor': '#e8eaef',
+    'noteTextColor': '#e8eaef',
+    'noteBkgColor': '#1c2230',
+    'noteBorderColor': '#2a3140'
+  }
+}}%%
 sequenceDiagram
     participant User as User
     participant Client as Client app
-    box PowderBlue Your dApp + Inbox (Ethereum)
-        participant Dapp as Your dApp (Ethereum)
-        participant InboxEvm as Inbox (Ethereum)
+    box rgb(28, 32, 44)  Ethereum
+        participant Dapp as Your dApp contract
+        participant InboxEvm as Inbox
     end
-    box PeachPuff Inbox + MPC Executor (Coti)
-        participant InboxCoti as Inbox (Coti)
-        participant Exec as MPC Executor (Coti)
+    box rgb(44, 34, 28) Coti
+        participant InboxCoti as Inbox
+        participant Exec as MPC Executor
     end
 
     User->>Client: Approve action
