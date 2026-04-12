@@ -7,7 +7,7 @@ Privacy on Demand lets applications use **strong privacy for data and computatio
 
 <h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 0; margin-bottom: 1rem; line-height: 1.2;">Quick Access</h2>
 
-- **[Start building with PoD (example)](tutorial-private-adder-sepolia.md)** — Step-by-step Adder on Sepolia with Solidity and TypeScript.
+- **[Tutorials: PoD dApps (choose your integration model)](tutorials-privacy-on-demand.md)** — Primitive-only vs custom COTI logic, then links to step-by-step guides.
 - **[Architecture and design](architecture-and-components.md)** — Inbox, MPC executor, PodUser, PodLib, and how they connect.
 - **[Learn about fees](how-poa-fees-work.md)** — How PoA/PoD fees split across COTI and your host chain.
 - **[Millionaires demo](https://millionaire.demo.coti.io)** — Live demo (external).
@@ -47,7 +47,12 @@ This section explains **what PoD is**, **how it feels to users and operators**, 
 5. [Async private operations (why it is not instant)](async-private-operations.md) — What “pending” means and why UX must reflect it.
 6. [How do PoA fees work?](how-poa-fees-work.md) — Two-way Inbox budgets, oracle conversion, and step-by-step gas-unit consumption (worked example).
 7. [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — Checklists and links to the [PoD SDK documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs).
-8. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — How to write a minimal adder contract, deploy with `PodUserSepolia`, and encrypt/decrypt with TypeScript.
+
+### Tutorials (hands-on)
+
+8. [Tutorials: building PoD dApps](tutorials-privacy-on-demand.md) — When to use **MpcLib / PodLib** primitives vs **custom COTI + host** contracts, with links to focused walkthroughs.
+9. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — Minimal primitive-only adder: `PodUserSepolia`, fees, TypeScript crypto.
+10. [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) — Encrypted messaging shape: `DirectMessageCotiSide` + Sepolia orchestrator.
 
 ## Official technical reference
 

@@ -1,6 +1,8 @@
 # Tutorial: private Adder on Ethereum Sepolia
 
-This walkthrough shows how to build a minimal **Privacy on Demand** dApp that **adds two encrypted 64-bit integers** on COTI and stores the **encrypted sum** on your EVM contract. It follows the same ideas as the SDK’s [MpcAdder.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/examples/MpcAdder.sol) example, extended with **Sepolia routing presets** and **request correlation** suitable for a real UI.
+This walkthrough is the **primitive-only** path: your host-chain contract calls **`PodLib`** helpers (the SDK surface for **MpcLib**-style primitives) and never deploys custom Solidity on COTI. If you are unsure whether that is enough for your product, read **[Tutorials: building Privacy on Demand (PoD) dApps](tutorials-privacy-on-demand.md)** first.
+
+This guide shows how to build a minimal **Privacy on Demand** dApp that **adds two encrypted integers** on COTI and stores the **encrypted sum** on your EVM contract. It follows the same ideas as the SDK’s [MpcAdder.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/examples/MpcAdder.sol) example, extended with **Sepolia routing presets** and **request correlation** suitable for a real UI.
 
 For background on async flows and fees, see [Async private operations](async-private-operations.md), [How do PoA fees work?](how-poa-fees-work.md), and the SDK’s [Fees, gas, and oracle](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/04-fees-gas-and-oracle.md) page.
 
@@ -8,7 +10,7 @@ For background on async flows and fees, see [Async private operations](async-pri
 
 In this example we will do the following:
 
-1. **Use one built-in executor operation** from `PodLib` (here, `add64`) so you do not write a custom COTI contract yet.
+1. **Use one built-in executor operation** from `PodLib` (the sample below uses **`add256`**) so you do not write a custom COTI contract yet.
 2. **Submit a payable request** that forwards `msg.value` and splits out `callbackFeeLocalWei` for the return leg (two-way Inbox message).
 3. **Implement a success callback** that decodes `abi.encode(ctUint256)` and stores the ciphertext.
 4. **Wire `onDefaultMpcError.selector`** so failed remote runs surface through the SDK’s default error path (and emit `ErrorRemoteCall` from `PodUser`).

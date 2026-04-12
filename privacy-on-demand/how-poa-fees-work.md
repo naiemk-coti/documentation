@@ -48,7 +48,7 @@ Read the **first table top to bottom:** user ETH is split by leg, oracles supply
 
 ## Where to implement this in code
 
-- Solidity: payable **`add`** with **`msg.value`** and **`callbackFeeLocalWei`**, as in [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md).  
+- Solidity: payable **`add`** with **`msg.value`** and **`callbackFeeLocalWei`**, as in [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) (see [Tutorials overview](tutorials-privacy-on-demand.md) for how this fits the **primitive-only** model).  
 - Estimation: Inbox **`calculateTwoWayFeeRequiredInLocalToken`** and the [Fees, gas, and oracle](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/04-fees-gas-and-oracle.md) document in the PoD SDK repo.
 
 ## Disclaimer

@@ -111,7 +111,9 @@
   * [Async private operations](privacy-on-demand/async-private-operations.md)
   * [How do PoA fees work?](privacy-on-demand/how-poa-fees-work.md)
   * [For developers: mapping concepts to the SDK](privacy-on-demand/for-developers-mapping-to-the-sdk.md)
+  * [Tutorials: building PoD dApps](privacy-on-demand/tutorials-privacy-on-demand.md)
   * [Tutorial: private Adder on Sepolia](privacy-on-demand/tutorial-private-adder-sepolia.md)
+  * [Tutorial: custom privacy logic with PoD](privacy-on-demand/tutorial-custom-logic.md)
 
 ## Security
 
