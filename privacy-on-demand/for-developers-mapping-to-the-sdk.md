@@ -2,7 +2,7 @@
 
 This page is the **bridge** from [Architecture and main components](architecture-and-components.md) to the canonical [PoD SDK documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs). It repeats a few facts on purpose so engineers can verify mental models quickly.
 
-For a guided first implementation (Solidity + TypeScript, Sepolia presets), follow [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md).
+For a guided first implementation, read **[Tutorials: building Privacy on Demand (PoD) dApps](tutorials-privacy-on-demand.md)** to pick the integration model, then follow [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) for a **primitive-only** Solidity + TypeScript walkthrough (Sepolia presets).
 
 ## Official reading order (SDK)
 
