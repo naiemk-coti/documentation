@@ -146,3 +146,11 @@ This chapter stops at **Solidity** to highlight the **chain split**. For **encry
 | **Client** | Encrypt inputs, submit transactions, decrypt outputs using the account key flow from the SDK. |
 
 When your feature fits this shape—**heavy private logic on COTI**, **Sepolia as router and ciphertext cache**—you are in the **custom PoD dApp** model described on the [tutorials overview](tutorials-privacy-on-demand.md#2-custom-pod-dapps-host-chain--coti-contracts).
+
+<div style="width:100%; box-sizing:border-box; margin:2rem 0 0 0; padding:1.35rem 1rem; border:2px solid #334155; border-radius:10px; background:#f8fafc; text-align:center;">
+
+<p style="margin:0.4rem 0; font-size:1.25rem; font-weight:700;"><a href="tutorial-private-adder-sepolia.md" style="color:#0f172a; text-decoration:none;">Tutorial: private Adder on Sepolia</a></p>
+
+<p style="margin:0.4rem 0; font-size:1.25rem; font-weight:700;"><a href="tutorial-custom-logic.md" style="color:#0f172a; text-decoration:none;">Tutorial: custom privacy logic with PoD</a></p>
+
+</div>
