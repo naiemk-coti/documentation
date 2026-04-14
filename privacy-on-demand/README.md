@@ -51,8 +51,9 @@ This section explains **what PoD is**, **how it feels to users and operators**, 
 ### Tutorials (hands-on)
 
 8. [Tutorials: building PoD dApps](tutorials-privacy-on-demand.md) — When to use **MpcLib / PodLib** primitives vs **custom COTI + host** contracts, with links to focused walkthroughs.
-9. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — Minimal primitive-only adder: `PodUserSepolia`, fees, TypeScript crypto.
-10. [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) — Encrypted messaging shape: `DirectMessageCotiSide` + Sepolia orchestrator.
+9. [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md) — Encryption/decryption, fee estimation, method calls, and request ID extraction.
+10. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — Minimal primitive-only adder: `PodUserSepolia`, fees, TypeScript crypto.
+11. [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) — Encrypted messaging shape: `DirectMessageCotiSide` + Sepolia orchestrator.
 
 ## Official technical reference
 
