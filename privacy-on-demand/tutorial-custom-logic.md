@@ -133,9 +133,12 @@ contract DirectMessageEvm is PodUserSepolia {
 
 This chapter stops at **Solidity** to highlight the **chain split**. For **encryption**, **Inbox fee estimation**, and **client-side decryption** of `ctString`, continue with:
 
-- [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) (TypeScript patterns transfer to custom flows once callbacks fire).
+- [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — includes **`PodContract`**, **`encryptAndCallMethod`**, **`estimateFee`**, and **`extractRequestIds`** so you can copy the same client pattern to **`sendMessage`** (build **`PodMethodArgument[]`** with types that match your ABI: **`itString`** for the ciphertext argument, plain types for addresses and the callback-fee slot, **`isCallBackFee: true`** on the fee parameter).
+- [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md) — short reference for **`CotiPodCrypto`** and **`PodContract`** with links to [`coti-pod-crypto.ts`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts) and [`pod-method-call.ts`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/pod-method-call.ts).
 - [TypeScript integration — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06-typescript-integration-ux-development.md)
 - [Writing privacy contracts on Ethereum — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md) (custom mode)
+
+After **`encryptAndCallMethod("sendMessage", args, feeCfg)`** (or a raw **`ethers.Contract`** send), use **`await pod.extractRequestIds(receipt.hash)`** on the same **`PodContract`** instance so your UI stores the **`requestId`** emitted in the Inbox **`MessageSent`** logs—same helper as in the adder walkthrough.
 
 ## Summary
 

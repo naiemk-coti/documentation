@@ -37,7 +37,7 @@ npm install "@coti/pod-sdk"
 Save as `PrivateAdder.sol`. The contract:
 
 - Inherits **`PodLib`** and **`PodUserSepolia`** (Sepolia defaults for Inbox and COTI routing).
-- Calls **`add64`** with the caller’s encrypted inputs and your callback selector.
+- Calls **`add256`** with the caller’s encrypted inputs and your callback selector.
 - Resolves **`requestId`** in the callback the same way as the SDK’s [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) example.
 
 ```solidity
@@ -116,7 +116,9 @@ Two-way Inbox traffic needs enough native token to cover **outbound execution** 
 
 ## Step 5: Encrypt the two summands (TypeScript)
 
-`CotiPodCrypto.encrypt` calls the PoD encryption service. For Sepolia-style test usage, pass **`"testnet"`** as the network key (see `coti-pod-crypto.ts` in the SDK: `testnet` maps to the COTI testnet encryption endpoint).
+`CotiPodCrypto.encrypt` calls the PoD encryption service. For Sepolia-style test usage, pass **`"testnet"`** as the network key (see [`coti-pod-crypto.ts`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts) in the SDK: `testnet` maps to the COTI testnet encryption endpoint).
+
+Use **`DataType.itUint256`** when you build **`itUint256`** calldata yourself (for example with **`ethers.Contract`**). If you use **`PodContract.encryptAndCallMethod`** in the next step, you can skip manual encryption: pass **plaintext numeric strings** and **`DataType.itUint256`** in each `PodMethodArgument`, and the SDK encrypts before encoding the transaction.
 
 ```typescript
 import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
@@ -124,28 +126,71 @@ import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
 const plainA = "10";
 const plainB = "20";
 
-const encA = await CotiPodCrypto.encrypt(plainA, "testnet", DataType.Uint64);
-const encB = await CotiPodCrypto.encrypt(plainB, "testnet", DataType.Uint64);
+const encA = await CotiPodCrypto.encrypt(plainA, "testnet", DataType.itUint256);
+const encB = await CotiPodCrypto.encrypt(plainB, "testnet", DataType.itUint256);
 
-// encA / encB match Solidity itUint256: { ciphertext, signature }
-// Normalize for ethers (example: bigint ciphertext if your ABI encoder expects it)
-function toitUint256(enc: { ciphertext: string | bigint; signature: string }) {
-  return {
-    ciphertext: typeof enc.ciphertext === "bigint"
-      ? enc.ciphertext
-      : BigInt(enc.ciphertext),
-    signature: enc.signature,
-  };
-}
 ```
 
-## Step 6: Submit the `add` transaction
+## Step 6: Submit the `add` transaction (`PodContract`, fees, `extractRequestIds`)
 
-Use your wallet provider and contract ABI. The call must be **payable** with sufficient **`value`** and a valid **`callbackFeeLocalWei`**.
+[`PodContract`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/pod-method-call.ts) wraps your **`ethers.Contract`**: it **`estimateFee`**s against the Inbox, maps **`PodMethodArgument`** values (including **`encryptAndCallMethod`** encryption for **`it*`** types), injects the **`callBackFee`** into the slot marked **`isCallBackFee: true`**, sends **`value: totalFee`** on payable functions, and exposes **`extractRequestIds(txHash)`** to read **`requestId`** values from **`MessageSent`** logs on the Inbox (reliable across layouts where parsing logs from the app contract alone is brittle).
 
 ```typescript
-// privateAdder: ethers.Contract instance, signer funded on Sepolia
-// totalWei and callbackFeeWei from your fee estimation
+import {
+  PodContract,
+  DataType,
+  type PodFeeEstimationConfig,
+  type PodMethodArgument,
+} from "@coti/pod-sdk";
+import { ethers } from "ethers";
+
+// Minimal ABI fragment — prefer the full artifact from your build (Hardhat / Foundry).
+const privateAdderAbi = [
+  "function add((uint256 ciphertext,bytes signature),(uint256 ciphertext,bytes signature),uint256) payable returns (bytes32)",
+] as const;
+
+const pod = new PodContract(
+  privateAdderAddress,
+  privateAdderAbi,
+  signer,
+  { encryptionNetwork: "testnet" }
+);
+
+const args: PodMethodArgument[] = [
+  { type: DataType.itUint256, value: "10", isCallBackFee: false },
+  { type: DataType.itUint256, value: "20", isCallBackFee: false },
+  { type: DataType.Uint256, value: "0", isCallBackFee: true },
+];
+
+const feeCfg: PodFeeEstimationConfig = {
+  forwardGasLimit: 400_000n,
+  gasPrice: (await signer.provider!.getFeeData()).gasPrice ?? 0n,
+  callBackGasLimit: 250_000n,
+  callBackDataSize: 512n,
+};
+
+const estimated = await pod.estimateFee("add", args, feeCfg);
+// estimated.totalFee — forward + callback legs in local wei (see SDK fee docs)
+
+const txResponse = await pod.encryptAndCallMethod("add", args, feeCfg);
+const receipt = await (txResponse as ethers.ContractTransactionResponse).wait();
+
+const requestIds = receipt?.hash ? await pod.extractRequestIds(receipt.hash) : [];
+const requestId = requestIds[0];
+// requestId is 0x-prefixed bytes32 — keep it for status polling and decryption
+```
+
+Tune **`forwardGasLimit`**, **`callBackGasLimit`**, and **`callBackDataSize`** from measurements on your contract; **`estimateFee`** requires **`callBackGasLimit`** and **`callBackDataSize`** together or neither. For **`callMethod`** instead of **`encryptAndCallMethod`**, supply **JSON ciphertext strings** for **`it*`** arguments (what the encryption service returns), for example when the browser already called **`CotiPodCrypto.encrypt`**.
+
+**Alternative (raw `ethers.Contract`)** — If you are not using **`PodContract`**, call **`add`** with **`toitUint256(encA)`**, **`toitUint256(encB)`**, **`callbackFeeLocalWei`**, and **`{ value: totalWei }`**, then still use **`extractRequestIds`** for correlation:
+
+```typescript
+const podRead = new PodContract(
+  privateAdderAddress,
+  privateAdderAbi,
+  signer,
+  { encryptionNetwork: "testnet" }
+);
 
 const tx = await privateAdder.add(
   toitUint256(encA),
@@ -153,19 +198,8 @@ const tx = await privateAdder.add(
   callbackFeeWei,
   { value: totalWei }
 );
-
 const receipt = await tx.wait();
-const requestId = receipt?.logs
-  .map((log) => {
-    try {
-      return privateAdder.interface.parseLog(log)?.args.requestId;
-    } catch {
-      return null;
-    }
-  })
-  .find(Boolean);
-
-// requestId is bytes32 — keep it for reads and decryption
+const requestIds = receipt?.hash ? await podRead.extractRequestIds(receipt.hash) : [];
 ```
 
 Private addition is **asynchronous**: the sum appears only after the Inbox invokes **`addCallback`** in a later transaction. Poll **`statusByRequest(requestId)`** or wait for **`AddCompleted`**.
@@ -179,7 +213,7 @@ import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
 
 // accountAesKey: hex string from your app’s COTI onboarding flow (never log it)
 
-const ct = await privateAdder.sumByRequest(requestId);
+const ct = await privateAdder.sumByRequest(requestId); // bytes32 from extractRequestIds or return value
 const ctHex =
   typeof ct === "bigint"
     ? "0x" + ct.toString(16)
@@ -200,11 +234,12 @@ console.log("sum (plaintext string):", decryptedString);
 ## Step 8: Sanity checks and next steps
 
 - **Callback decode** must stay **`(ctUint256)`** — changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
-- **Type width** must stay **uint64** end to end: `DataType.Uint64`, `itUint256`, `ctUint256`.
+- **Type lane** — This contract uses **`add256`** with **`itUint256`** / **`ctUint256`** on chain. **`CotiPodCrypto.decrypt`** still takes a **`DataType`** for the scalar decode; keep **`DataType.Uint64`** (or **`Uint256`**, etc.) aligned with how your app and onboarding produce the ciphertext for this flow, per your installed SDK.
 - **Production**: add tests for non-Inbox callers on `addCallback`, under-funded `msg.value`, and decrypt failures; follow the [first production checklist](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) in Getting started.
 
 ## Reference links
 
+- [`pod-method-call.ts` (`PodContract`, fees, `extractRequestIds`)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/pod-method-call.ts)
 - [MpcAdder.sol (minimal repo example)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/examples/MpcAdder.sol)
 - [Examples with description](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05c-examples-with-description.md)
 - [Getting started (PodUserSepolia pattern)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md)
