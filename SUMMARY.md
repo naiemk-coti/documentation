@@ -105,6 +105,7 @@
     * [Troubleshooting](coti-privacy-portal/developer-guide/troubleshooting.md)
 * [Privacy on Demand](privacy-on-demand/README.md)
   * [What is Privacy on Demand?](privacy-on-demand/what-is-privacy-on-demand.md)
+  * [Privacy on Demand (PoD) for Dummies](privacy-on-demand/pod-for-dummies.md)
   * [How a private request travels end to end](privacy-on-demand/how-a-private-request-travels-end-to-end.md)
   * [Architecture and main components](privacy-on-demand/architecture-and-components.md)
   * [Glossary](privacy-on-demand/glossary.md)
@@ -112,6 +113,7 @@
   * [How do PoA fees work?](privacy-on-demand/how-poa-fees-work.md)
   * [For developers: mapping concepts to the SDK](privacy-on-demand/for-developers-mapping-to-the-sdk.md)
   * [Tutorials: building PoD dApps](privacy-on-demand/tutorials-privacy-on-demand.md)
+  * [TypeScript PoD SDK (CotiPodCrypto, PodContract)](privacy-on-demand/typescript-pod-sdk.md)
   * [Tutorial: private Adder on Sepolia](privacy-on-demand/tutorial-private-adder-sepolia.md)
   * [Tutorial: custom privacy logic with PoD](privacy-on-demand/tutorial-custom-logic.md)
 
