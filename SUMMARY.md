@@ -120,6 +120,7 @@
   * [For developers: mapping concepts to the SDK](privacy-on-demand/for-developers-mapping-to-the-sdk.md)
   * [Tutorials: building PoD dApps](privacy-on-demand/tutorials-privacy-on-demand.md)
   * [TypeScript PoD SDK (CotiPodCrypto, PodContract)](privacy-on-demand/typescript-pod-sdk.md)
+  * [Cookbook: private investor allocations with PoD](privacy-on-demand/cookbook-private-investor-allocations.md)
   * [Tutorial: private Adder on Sepolia](privacy-on-demand/tutorial-private-adder-sepolia.md)
   * [Tutorial: custom privacy logic with PoD](privacy-on-demand/tutorial-custom-logic.md)
 

@@ -44,6 +44,16 @@ TypeScript usage is documented on a dedicated page so this overview stays short:
 
 - [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md) — encryption/decryption, `estimateFee`, `encryptAndCallMethod`, `callMethod`, and `extractRequestIds`.
 
+### Business dApp cookbook
+
+If you want a walkthrough that starts from a familiar public Solidity app, use the investor-allocation cookbook. It begins with a simple Sepolia token-allocation contract, shows why public mappings leak sensitive launch data, then evolves the app into a custom PoD flow with private allocation reads, async callbacks, fee estimation, decryption, withdrawal execution, and explorer-based lifecycle checks.
+
+<div style="width:100%; box-sizing:border-box; margin:1.75rem 0 0 0; padding:1.35rem 1rem; border:2px solid #334155; border-radius:10px; background:#f8fafc; text-align:center;">
+
+<p style="margin:0; font-size:1.35rem; font-weight:700;"><a href="cookbook-private-investor-allocations.md" style="color:#0f172a; text-decoration:none;">Cookbook: private investor allocations with PoD</a></p>
+
+</div>
+
 ---
 
 ## 2. Custom PoD dApps (host chain + COTI contracts)
@@ -129,6 +139,7 @@ flowchart LR
 | Your situation | Start here |
 | --- | --- |
 | Logic fits the primitive list and a small number of MPC steps | [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md), [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md), then [MPC library (PodLib) — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05b-multi-party-computing-library-mpclib.md) |
+| You want a business-oriented public-to-private migration | [Cookbook: private investor allocations with PoD](cookbook-private-investor-allocations.md), then [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) |
 | Logic needs custom COTI processing, `gt*` handling, or richer state | [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md), then [Writing privacy contracts on Ethereum — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md) and [Request builder and remote calls — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/03-request-builder-and-remote-calls.md) |
 | Fees, async UX, and components | [How do PoA fees work?](how-poa-fees-work.md), [Async private operations](async-private-operations.md), [Architecture and main components](architecture-and-components.md) |
 
