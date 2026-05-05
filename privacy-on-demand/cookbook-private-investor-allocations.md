@@ -23,6 +23,18 @@ flowchart LR
 
 The public version is useful because it gives you a known baseline: owner assigns allocations, investors read their allocation, launch happens, withdrawals open, and investors claim tokens. The private version preserves the same user story, but changes how allocation data moves through the system.
 
+## Parts in this cookbook
+
+1. [Build the public Sepolia dApp](#part-1-build-the-public-sepolia-dapp)
+2. [Script allocation and withdrawal](#part-2-script-allocation-and-withdrawal)
+3. [Make allocations private with PoD](#part-3-make-allocations-private-with-pod)
+4. [Async calls and request IDs](#part-4-async-calls-and-request-ids)
+5. [Understand fees](#part-5-understand-fees)
+6. [Encrypt and decrypt](#part-6-encrypt-and-decrypt)
+7. [Allocate and read private allocations](#part-7-allocate-and-read-private-allocations)
+8. [Withdraw with execution callback](#part-8-withdraw-with-execution-callback)
+9. [Follow the lifecycle in explorers](#part-9-follow-the-lifecycle-in-explorers)
+
 ## Prerequisites
 
 - A Solidity toolchain such as Hardhat or Foundry.
