@@ -4,7 +4,7 @@ The Privacy Portal allows you to seamlessly mint privacy-preserving equivalents 
 
 {% stepper %}
 {% step %}
-### Authorize the Conversion&#x20;
+#### Authorize the Conversion
 
 If you are depositing ERC20 tokens (not native COTI), you must first approve the Portal to access your tokens:
 
@@ -15,11 +15,11 @@ If you are depositing ERC20 tokens (not native COTI), you must first approve the
 {% endstep %}
 
 {% step %}
-### Convert to Private
+#### Convert to Private
 
 * After the spending approval is processed on-chain, click the **Portal In** button.
 * Confirm the minting transaction in your wallet.
-* Your new minted  Private Tokens will appear in the **Private Tokens** dashboard.
+* Your new minted Private Tokens will appear in the **Private Tokens** dashboard.
 
 <div align="left" data-with-frame="true"><figure><img src="../../.gitbook/assets/out.png" alt="Private Tokens"><figcaption><p>Private Tokens</p></figcaption></figure></div>
 {% endstep %}

@@ -64,7 +64,7 @@ You’ve successfully added the COTI Snap to MetaMask!
 \
 \\
 
-<figure><img src="../../.gitbook/assets/unknown (4) (1).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/unknown (4).png" alt="" width="375"><figcaption></figcaption></figure>
 
 #### Step 6 — Onboard your account
 
@@ -86,7 +86,7 @@ This simply verifies your ownership and uses a small amount of COTI for gas.\
 \
 \\
 
-<figure><img src="../../.gitbook/assets/unknown (7) (1).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/unknown (7).png" alt="" width="375"><figcaption></figcaption></figure>
 
 #### Step 8 — Approve the connection
 

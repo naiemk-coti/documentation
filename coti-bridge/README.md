@@ -10,7 +10,7 @@ The COTI bridge allows users to bridge funds to and from other networks and the 
 | Ethereum Sepolia | <ul><li>COTI (ERC20)</li><li>gCOTI (ERC20)</li></ul>  |
 
 {% hint style="info" %}
-#### A Note on Processing Timelines
+**A Note on Processing Timelines**
 
 Please note that bridging on Mainnet may be slower due to network congestion. Processing times between 2-4 minutes are normal during regular network load.
 {% endhint %}
@@ -26,7 +26,7 @@ MetaMask is required to bridge tokens using the COTI bridge. If you don't have i
     <figure><img src="../.gitbook/assets/image (22).png" alt=""><figcaption><p>COTI Bridge Homepage</p></figcaption></figure>
 2.  Once MetaMask prompts you to connect, click the "**Connect**" button on MetaMask.
 
-    <figure><img src="../.gitbook/assets/image (23) (1).png" alt=""><figcaption><p>COTI Bridge MetaMask Connection</p></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (23).png" alt=""><figcaption><p>COTI Bridge MetaMask Connection</p></figcaption></figure>
 3.  Once connected, set the following parameters for the desired transaction
 
     1. Source Network

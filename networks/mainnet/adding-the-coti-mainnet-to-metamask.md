@@ -17,6 +17,6 @@ Follow these instructions to add the COTI mainnet directly to your MetaMask wall
 | Currency Symbol    | COTI                                                       |
 | Block Explorer URL | [https://mainnet.cotiscan.io](https://mainnet.cotiscan.io) |
 
-![](<../../.gitbook/assets/image (4) (2).png>)\\
+![](<../../.gitbook/assets/image (4).png>)\\
 
 4. Click **Save**.
