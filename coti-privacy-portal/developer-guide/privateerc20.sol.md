@@ -1,4 +1,4 @@
-# 📄 PrivateERC20.sol
+# PrivateERC20.sol
 
 ### Overview
 
@@ -8,8 +8,8 @@ Unlike a standard ERC20, where balances and transfer amounts are publicly visibl
 
 These values:
 
-- can only be decrypted by the token holder
-- use a personal AES key managed via the COTI Snap
+* can only be decrypted by the token holder
+* use a personal AES key managed via the COTI Snap
 
 All token operations, such as transfers, minting, and burning, are performed directly on encrypted data.
 
@@ -19,9 +19,9 @@ Encryption and arithmetic on encrypted values are handled by COTI's [`MpcCore`](
 
 This precompile enables the network to perform operations such as:
 
-- addition
-- subtraction
-- comparisons
+* addition
+* subtraction
+* comparisons
 
 on encrypted numbers without revealing the underlying plaintext, including to validators.
 
@@ -43,11 +43,10 @@ PrivateERC20 follows the ERC20 interface, but changes how data is stored and exp
 
 #### Balances
 
-Balances are stored on-chain as `ctUint256` (ciphertext).
-Each account maintains two ciphertext values:
+Balances are stored on-chain as `ctUint256` (ciphertext). Each account maintains two ciphertext values:
 
-- `ciphertext` - used by the MPC network
-- `userCiphertext` - re-encrypted for the user
+* `ciphertext` - used by the MPC network
+* `userCiphertext` - re-encrypted for the user
 
 #### Transfers
 
@@ -57,15 +56,15 @@ Transfers are executed via the MPC precompile using `MpcCore.transfer()`, which 
 
 To read a balance:
 
-- call `balanceOf(address)` to retrieve the ciphertext
-- decrypt it locally using your AES key via the COTI SDK
+* call `balanceOf(address)` to retrieve the ciphertext
+* decrypt it locally using your AES key via the COTI SDK
 
 #### Writing encrypted amounts
 
 Operations such as transfer, approve, mint, and burn require constructing an `itUint256`:
 
-- an AES-encrypted value
-- plus an ECDSA signature
+* an AES-encrypted value
+* plus an ECDSA signature
 
 This allows the MPC network to verify that the input was created by the rightful key holder.
 

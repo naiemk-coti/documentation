@@ -4,7 +4,7 @@ Three burn variants mirror the mint variants. Burns are called by the token hold
 
 {% stepper %}
 {% step %}
-### Public Burn
+#### Public Burn
 
 ```javascript
 const amount = hre.ethers.parseUnits("100", 18);
@@ -14,7 +14,7 @@ await tx.wait();
 {% endstep %}
 
 {% step %}
-### Encrypted Burn (itUint256)
+#### Encrypted Burn (itUint256)
 
 ```javascript
 const BURN_SELECTOR = ethers.id("burn(((uint256,uint256),bytes))").slice(0, 10);
@@ -35,7 +35,7 @@ await tx.wait();
 {% endstep %}
 
 {% step %}
-### GT Burn
+#### GT Burn
 
 ```solidity
 // Inside a Solidity contract
