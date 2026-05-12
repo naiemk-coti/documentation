@@ -26,12 +26,14 @@ For the shortest path, run:
 
 ```bash
 npx coti-private-messaging-init
+npx coti-private-messaging-send-read-smoke
 ```
 
 From the SDK repository checkout, use:
 
 ```bash
 npm run init
+npm run smoke:send-read
 ```
 
 The init command is idempotent:
