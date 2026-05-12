@@ -5,12 +5,11 @@ This is the shortest path for an operator who already runs an agent and wants to
 ## What you need
 
 - Node.js 20+
-- a COTI wallet private key
-- the wallet AES key
-- native COTI for gas
+- no pre-existing wallet, AES key, or gas is required
 - optionally, a second recipient wallet address for receiver-side inbox testing
 
-Use `testnet` for the first run unless you are intentionally sending on mainnet.
+The default path is mainnet. Use `--network testnet` only when you intentionally want testnet.
+The SDK init command can generate a wallet, request starter gas, onboard the wallet, recover the AES key, and write `.env`.
 
 ## Install
 
@@ -23,12 +22,32 @@ npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv
 
 ## Configure
 
-Create `.env`:
+For the shortest path, run:
 
 ```bash
-PRIVATE_KEY=0xyour_sender_private_key
-AES_KEY=your_sender_aes_key
-COTI_NETWORK=testnet
+npx coti-private-messaging-init
+```
+
+From the SDK repository checkout, use:
+
+```bash
+npm run init
+```
+
+The init command is idempotent:
+
+- keeps existing `PRIVATE_KEY`
+- keeps existing `AES_KEY`
+- creates a wallet only when `PRIVATE_KEY` is missing
+- requests a starter grant when the wallet has no gas
+- runs onboarding/recovery only when `AES_KEY` is missing
+
+Manual `.env` configuration is still supported:
+
+```bash
+PRIVATE_KEY=0xyour_sender_private_key # optional if you run init
+AES_KEY=your_sender_aes_key           # optional if you run init
+COTI_NETWORK=mainnet
 ```
 
 Optional overrides:
@@ -69,7 +88,7 @@ import {
   sendMessage
 } from "@coti-io/coti-sdk-private-messaging";
 
-const network = (process.env.COTI_NETWORK ?? "testnet") === "mainnet"
+const network = (process.env.COTI_NETWORK ?? "mainnet") === "mainnet"
   ? CotiNetwork.Mainnet
   : CotiNetwork.Testnet;
 const provider = new JsonRpcProvider(
@@ -145,7 +164,7 @@ import {
   listInbox
 } from "@coti-io/coti-sdk-private-messaging";
 
-const network = (process.env.COTI_NETWORK ?? "testnet") === "mainnet"
+const network = (process.env.COTI_NETWORK ?? "mainnet") === "mainnet"
   ? CotiNetwork.Mainnet
   : CotiNetwork.Testnet;
 const provider = new JsonRpcProvider(
@@ -202,10 +221,10 @@ Required environment variables:
 
 - `PRIVATE_KEY`
 - `AES_KEY`
-- `COTI_NETWORK`
 
 Optional overrides:
 
+- `COTI_NETWORK`
 - `PRIVATE_MESSAGING_CONTRACT_ADDRESS_OVERRIDE`
 - `COTI_RPC_URL_OVERRIDE`
 - `COTI_TESTNET_RPC_URL_OVERRIDE`
@@ -217,7 +236,7 @@ Optional overrides:
 
 ## If the wallet has no gas
 
-New wallets need native COTI before they can send a transaction. Use the starter grant helper:
+New wallets need native COTI before they can onboard or send a transaction. The init command handles this automatically. If you are wiring the flow yourself, use the starter grant helper:
 
 ```javascript
 import { requestStarterGrant } from "@coti-io/coti-sdk-private-messaging";
@@ -226,8 +245,15 @@ const grant = await requestStarterGrant(client);
 console.log(grant.transactionHash);
 ```
 
+If your grant service is not at the SDK default, configure it with:
+
+```bash
+STARTER_GRANT_SERVICE_URL=
+STARTER_GRANT_SERVICE_AUTH_TOKEN=
+```
+
 The starter grant is one-time per wallet. If the wallet already claimed or is ineligible, fund it manually before sending messages.
 
 ## Timing target
 
-For an operator who already has a funded wallet and AES key, this should be a 15-30 minute setup. If wallet creation, AES-key handling, or starter-grant funding is required, budget 45-90 minutes until you have measured the path in your own environment.
+This should be a 10-20 minute setup when the init path works: one command to create/reuse keys, request starter gas, onboard/recover AES, then one smoke command to send/read. If custom custody or manual AES-key handling is required, budget 45-90 minutes until you have measured the path in your own environment.
