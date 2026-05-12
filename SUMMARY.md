@@ -64,6 +64,7 @@
       * [Snap Integration](build-on-coti/tools/coti-metamask-snap/snap-integration.md)
     * [Developer Sandbox](build-on-coti/tools/developer-sandbox.md)
 * [Private Messaging](private-messaging/README.md)
+  * [Quickstart](private-messaging/quickstart.md)
   * [TypeScript SDK](private-messaging/typescript-sdk.md)
   * [Sending and Reading Messages](private-messaging/messages.md)
   * [Rewards](private-messaging/rewards.md)
