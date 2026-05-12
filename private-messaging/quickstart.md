@@ -174,6 +174,14 @@ Run it:
 node read-inbox.mjs
 ```
 
+From the SDK repository checkout, you can run the same receiver-side check with:
+
+```bash
+npm run smoke:read-inbox
+```
+
+Use the [Private Messaging Dogfood Report](private-messaging-dogfood-report.md) to capture setup time, receiver-side errors, visible metadata, and whether the CTA/reply path was clear.
+
 ## MCP server
 
 If the SDK is installed in your project, run the stdio MCP server with:

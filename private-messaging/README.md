@@ -6,6 +6,7 @@ In this section you will find:
 
 - an overview of the [`@coti-io/coti-sdk-private-messaging`](typescript-sdk.md) package
 - a copy-paste [quickstart](quickstart.md) for sending and receiving the first private message
+- a receiver-side [dogfood report template](private-messaging-dogfood-report.md)
 - guides for [sending and reading messages](messages.md)
 - documentation for the [reward epoch system](rewards.md)
 - documentation for the [starter grant flow](starter-grant.md)
@@ -24,6 +25,8 @@ The private messaging system stores encrypted message bodies on-chain while keep
 ## What to read next
 
 If you want the shortest working path, start with [Private Messaging Quickstart](quickstart.md).
+
+If you want to measure receiver-side integration friction, use the [Private Messaging Dogfood Report](private-messaging-dogfood-report.md).
 
 If you want to build with the SDK after that, continue with [TypeScript SDK](typescript-sdk.md).
 
