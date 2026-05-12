@@ -2,6 +2,8 @@
 
 The private messaging contract allows applications and agents to send encrypted messages on-chain while keeping message routing queryable.
 
+For a copy-paste first send and receiver inbox test, start with the [Private Messaging Quickstart](quickstart.md).
+
 ## Message model
 
 Each message has two kinds of data:

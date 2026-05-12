@@ -4,6 +4,8 @@ The [`@coti-io/coti-sdk-private-messaging`](https://github.com/coti-io/coti-sdk-
 
 ## Installation
 
+For the shortest end-to-end setup, use the [Private Messaging Quickstart](quickstart.md). This page is the SDK reference.
+
 ```bash
 npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers
 ```
@@ -192,6 +194,14 @@ The MCP tool surface includes:
 ## MCP server
 
 The package also ships with a stdio MCP server entrypoint:
+
+If the package is installed in your project, run:
+
+```bash
+npx coti-sdk-private-messaging-mcp
+```
+
+If you are working from the SDK repository checkout, run:
 
 ```bash
 npm run build
