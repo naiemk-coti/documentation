@@ -41,6 +41,8 @@ The same **COTI full node** software powers the network whether you onboard thro
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
+**Certified OS and hardware** for both paths are documented once on [**Server requirements**](server-requirements.md).
+
 Operators on the **manual** path can still earn **rewards** when they satisfy the same thresholds as wizard users (FQDN, reachability, uptime, license / holdings, etc.) — see [**Installation**](installation.md) and [**Manual full node setup**](manual-full-node.md).
 
 ## Networks
@@ -105,11 +107,12 @@ flowchart LR
 **Start here (wizard — fastest for most operators):**
 
 * [**Installation**](installation.md) — what the automated `curl | sudo bash` installer does, DNS and server requirements.
+* [**Server requirements**](server-requirements.md) — certified OS, tested Docker stack, hardware and disk sizing (shared with the manual path).
 * [**UI guide**](ui-guide.md) — page-by-page tour of the web app, spin-up flow, and warm-up period.
 
 **Advanced / self-managed:**
 
-* [**Manual full node setup (without the web app wizard)**](manual-full-node.md) — hardware, Docker Compose, ports, Git clone, restart/stop, FAQ.
+* [**Manual full node setup (without the web app wizard)**](manual-full-node.md) — Git clone, Docker Compose, open ports, restart/stop, FAQ (OS and hardware: [**Server requirements**](server-requirements.md)).
 
 **Reference:**
 

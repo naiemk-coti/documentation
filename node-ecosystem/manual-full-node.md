@@ -5,7 +5,7 @@ This page is the **operator-managed** path: you install and run a COTI full node
 > **New to running a node?** Use the **wizard** first — [**Installation**](installation.md) and [**UI guide**](ui-guide.md). It is the quickest path for most people; return here only if you intentionally skip the web app.
 
 {% hint style="success" %}
-**Web app wizard (recommended for most operators):** follow [**Installation**](installation.md) and the [**UI guide**](ui-guide.md). You get the guided flow, installer from the [Networks](README.md#networks) table, HTTPS, and monitoring hooks from the product.
+**Web app wizard (recommended for most operators):** follow [**Installation**](installation.md), [**Server requirements**](server-requirements.md) (OS and sizing), and the [**UI guide**](ui-guide.md). You get the guided flow, installer from the [Networks](README.md#networks) table, HTTPS, and monitoring hooks from the product.
 
 **This page (manual path):** you clone the repo, configure the host, and run `start` / `stop` scripts yourself. Reward **eligibility is the same** as the wizard path when your node satisfies ecosystem rules (FQDN, JSON-RPC reachability, license / holdings, uptime thresholds, etc.) — see [**Node Ecosystem overview**](README.md) and [**Installation**](installation.md) for authoritative requirements.
 {% endhint %}
@@ -22,50 +22,9 @@ COTI full node software is published as a Docker image.
 **Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide.md) flow or assigning their license to an existing operator.
 {% endhint %}
 
-#### Software
+**Certified operating system, tested Docker/Compose versions, and hardware** (CPU, memory, disk by network, example cloud SKUs) are **identical** for the [wizard](installation.md) and this manual path — see [**Server requirements**](server-requirements.md).
 
-The versions below reflect **what we have certified and tested at the time this page was written**. Newer **patch and minor** releases of the same software (Ubuntu LTS point releases, Docker Engine, Compose) **usually work** without changes; if you use a newer stack, validate on Testnet before relying on it for Mainnet.
-
-* **Operating system**: the following have been certified to run the node software:
-  * Ubuntu 24.04.x (see [**Linux requirements for Docker**](https://docs.docker.com/desktop/setup/install/linux/#general-system-requirements))
-* **Docker**: version 28.0.1 (tested)
-* **Docker Compose**: version 2.29.1 (tested)
-
-#### Hardware
-
-CPU and memory targets are **the same on Testnet and Mainnet**. **Disk size depends on the network** you run — Mainnet chain data and traffic require substantially more storage than Testnet. Use the [Storage by network](#storage-by-network) table for sizing.
-
-| Specification    | Minimum | Recommended | Professional |
-| ---------------- | ------- | ----------- | ------------ |
-| **vCPUs**        | 2       | 4           | 8            |
-| **Memory (GiB)** | 8       | 16          | 64           |
-
-##### Storage by network
-
-Size the disk for the **network you join** (Testnet vs Mainnet). Figures are planning guides; leave headroom for chain growth, snapshots, and logs.
-
-| Network      | Minimum | Recommended | Professional (extra headroom) |
-| ------------ | ------- | ----------- | ------------------------------- |
-| **Testnet**  | 100 GB  | 200 GB      | 500 GB                          |
-| **Mainnet**  | 700 GB  | 1 TB        | 1.5 TB                          |
-
-These bands align with the [**Networks**](README.md#networks) recommendations (≥ 100 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem-operated nodes).
-
-In addition to the above hardware, a reliable, high-bandwidth internet connection is recommended.
-
-### Recommended **minimum** hosted configuration
-
-* AWS: m7a.Large (2 vCPUs, 8GB memory)
-* OVH: b2-15 (4 vCPUs, 15GB memory)
-
-_**Disclaimer**: The above configuration has been certified on Testnet. Mainnet typically needs **larger disk** (see [Storage by network](#storage-by-network)); higher transaction volumes on Mainnet may also require increased CPU and memory._
-
-### Recommended **optimal** hosted configuration
-
-* AWS: r5n.2xlarge (8 vCPUs, 64GB memory)
-* OVH: r2-120 (8 vCPUs, 120GB memory)
-
-_**Disclaimer**: Size attached volumes using [Storage by network](#storage-by-network) for Testnet vs Mainnet; these instance types emphasize CPU and RAM._
+***
 
 ### Network Configuration
 
@@ -87,6 +46,8 @@ COTI full nodes are run using docker. Docker provides a way for everyone to run 
 #### Prerequisites
 
 <table data-header-hidden><thead><tr><th width="257.44818115234375"></th><th></th></tr></thead><tbody><tr><td><ol><li>Git</li></ol></td><td>See <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"><strong>git-scm.com/book/en/v2/Getting-Started-Installing-Git</strong></a></td></tr><tr><td><ol start="2"><li>Docker</li></ol></td><td>See <a href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository"><strong>docs.docker.com/engine/install/ubuntu</strong></a></td></tr><tr><td><ol start="3"><li>Docker Compose</li></ol></td><td>See <a href="https://docs.docker.com/compose/install/standalone/"><strong>docs.docker.com/compose/install/standalone</strong></a></td></tr></tbody></table>
+
+Target the **Docker Engine** and **Compose** versions listed under [**Server requirements → Software stack**](server-requirements.md#software-stack) so your stack matches what COTI certifies.
 
 ### Installation Steps
 

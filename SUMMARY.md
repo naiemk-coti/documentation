@@ -74,6 +74,7 @@
     * [COTI Starter Grant](private-messaging/skills/coti-starter-grant.md)
 * [Node Ecosystem](node-ecosystem/README.md)
   * [Installation](node-ecosystem/installation.md)
+  * [Server requirements](node-ecosystem/server-requirements.md)
   * [UI Guide](node-ecosystem/ui-guide.md)
   * [Manual full node setup (without the wizard)](node-ecosystem/manual-full-node.md)
   * [COTI Node Ecosystem Litepaper](node-ecosystem/coti-node-ecosystem-litepaper.md)
