@@ -95,7 +95,7 @@ At the end of each **103-hour epoch**, the rewards service:
 
 1. Snapshots each node operator's USDC and COTI holdings.
 2. Reads each node's uptime for the epoch from the monitoring platform.
-3. Applies the eligibility rules: **uptime is mandatory**, and the operator must meet **at least one** of the USDC-holdings threshold **or** the COTI-holdings threshold (with whitelist overrides for specific operators).
+3. Applies the eligibility rules: **uptime is mandatory** on every path, and the operator must satisfy **Path 1** (USDC and COTI each ≥ combo thresholds, plus uptime) **or** **Path 2** (COTI ≥ solo threshold, plus uptime), with whitelist overrides for specific operators.
 4. Allocates each eligible node its share of the epoch's reward pool in the on-chain **rewards smart contract**.
 5. Records the per-epoch result: earned amount, snapshot values, uptime %, eligibility.
 

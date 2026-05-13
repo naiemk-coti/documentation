@@ -13,7 +13,7 @@ The top-level navigation exposes three tabs: **Overview**, **My Node**, and **El
 | `/setup`       | (from Join)             | 7-step guided installation wizard                               |
 | `/my-nodes`    | My Node                 | Per-operator dashboard (wallet-gated)                           |
 | `/edit-node`   | (from My Node)          | Rename your node (stored on the NFT)                            |
-| `/eligibility` | Eligibility             | Explainer of reward eligibility rules                           |
+| `/eligibility` | Eligibility             | Node reward eligibility: two paths (USDC + COTI vs COTI-only) + notes |
 | `/terms`       | (footer)                | Terms of service                                                |
 
 ## Overview (`/`)
@@ -177,7 +177,7 @@ Once the NFT exists, the dashboard shows:
 
 * **Node identity card** — NFT image, node name, `LIVE` badge, node ID (address), **Edit** button → `/edit-node`, and the headline **Total Earned** in COTI with a **Claim Now** button that withdraws the accrued balance from the rewards smart contract into the connected wallet. Operators who prefer to claim from outside the UI can also call the rewards contract directly.
 * **At-a-glance stats** — **All-Time Uptime** with a performance badge (for example _Excellent_), **Eligibility Streak (Days)**, and **COTI Claimed**.
-* **Eligibility panel** — your current USDC holdings, COTI holdings, and node uptime for the current epoch, each compared to its threshold with a progress bar. **Uptime is always required**; for the holdings requirement, meeting **either** the USDC threshold **or** the COTI threshold is enough. A row that fails shows a warning and the shortfall.
+* **Eligibility panel** — two side-by-side **paths** for the current epoch (same structure as **`/eligibility`**): **Path 1 — USDC + COTI** (USDC, COTI, and uptime bars) and **Path 2 — COTI only** (higher COTI bar and uptime). You qualify when **either** path is fully met. Each requirement shows current value vs threshold; cards show met / unmet while loading resolves.
 * **Past Epochs table** — paginated per-epoch history with columns:
   * **Epoch** — epoch number.
   * **USDC** — USDC balance at the epoch snapshot.
@@ -192,8 +192,19 @@ A focused flow that renames the node. Because the name is stored on the Soulboun
 
 ## Eligibility (`/eligibility`)
 
-<figure><img src="../../.gitbook/assets/node-ecosystem-eligibility.png" alt="Eligibility tab showing the three reward requirements: USDC Holdings, COTI Holdings, and Operate a Node uptime"><figcaption><p>The three reward requirements, with current thresholds.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/node-ecosystem-eligibility.png" alt="Node Reward Eligibility page with Path 1 USDC plus COTI and Path 2 COTI only separated by OR"><figcaption><p><strong>Node Reward Eligibility</strong>: two paths, numeric thresholds from the rewards contract, and an <strong>OR</strong> between paths.</p></figcaption></figure>
 
-A static explainer that lists the reward requirements — **USDC Holdings**, **COTI Holdings**, and **Operate a Node** (minimum uptime) — with each threshold. A **Check My Eligibility** button opens a modal that compares the connected wallet's current values against the rules.
+The page opens with an **Eligibility Criteria** pill, the title **Node Reward Eligibility**, and the subtitle *Two ways to qualify. Meet either path's requirements — and run a node — to earn rewards.*
 
-The rule combining those requirements is: **uptime is always required**, and the wallet qualifies on holdings by meeting **either** the USDC threshold **or** the COTI threshold (see [Features → Eligibility checks](../features.md#4-eligibility-checks)).
+Under **Eligibility Paths**, two cards sit on either side of a centered **OR** divider:
+
+* **Path 1 — USDC + COTI** — *Hold both USDC and COTI on the COTI network, plus run a node.* Lists **USDC Holdings** (stablecoins on COTI network), **COTI Holdings** (non-custodial wallets; not CEX), and **Uptime** (while running your node). You must satisfy **all three** rows on this path for Path 1 to count.
+* **Path 2 — COTI only** — *Hold COTI alone — no USDC required — plus run a node.* Lists **COTI Holdings** at the **solo** threshold (higher than Path 1’s COTI bar) and **Uptime**. Both must be met for Path 2 to count.
+
+The exact numbers (for example `1+` / `2+` / `98%+`) are loaded from the on-chain eligibility rules and can differ by network or governance updates.
+
+Below the cards, an info strip states that you can meet **either** path for rewards eligibility, that balances refresh about every **24 hours**, and includes a **Check My Eligibility** button: if the connected wallet already holds a node NFT, it routes to **My Node**; otherwise it opens a modal that summarizes status and can steer you to **`/setup`**.
+
+Further down, **Important Notes** (*Things to Know*) expands on topics such as the two-path rule, that **COTI on centralized exchanges does not count**, continuous checks, and that node status is evaluated dynamically.
+
+Authoritative rule logic is summarized under [Features → Eligibility checks](../features.md#4-eligibility-checks) and [Glossary → Eligibility](glossary.md#eligibility).
