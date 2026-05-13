@@ -32,11 +32,11 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) (including **COTI-managed tunnel** with `--with-frp` vs **your own domain** with `--nginx`) and the [**UI guide**](ui-guide.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--nginx`) — plus the [**UI guide**](ui-guide/README.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
 | Path | When to use it | Documentation |
 | ---- | --------------- | --------------- |
-| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--nginx`). | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
+| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/README.md) |
 | **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
@@ -98,16 +98,16 @@ flowchart LR
 ```
 
 {% hint style="warning" %}
-**A valid DNS (FQDN) is required to earn rewards.** The ecosystem measures your node's uptime by reaching its JSON-RPC endpoint through the domain name you configure. A node without a reachable DNS can still sync the chain, but it will **not** be credited with uptime and therefore will **not** receive rewards. See [installation.md](installation.md) for DNS prerequisites.
+**A valid DNS (FQDN) is required to earn rewards.** The ecosystem measures your node's uptime by reaching its JSON-RPC endpoint through the domain name you configure. A node without a reachable DNS can still sync the chain, but it will **not** be credited with uptime and therefore will **not** receive rewards. See [**Own domain (Nginx + TLS)**](installation-own-domain.md) for DNS and port prerequisites (or [**Wizard tunnel**](installation-wizard-tunnel.md) for the COTI-assigned hostname path).
 {% endhint %}
 
 ## Where to go next
 
 **Start here (wizard — fastest for most operators):**
 
-* [**Installation**](installation.md) — what the automated `curl | sudo bash` installer does, DNS and server requirements.
+* [**Installation**](installation.md) — hub for the automated installer; then [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--nginx`).
 * [**Server requirements**](server-requirements.md) — certified OS, tested Docker stack, hardware and disk sizing (shared with the manual path).
-* [**UI guide**](ui-guide/) — page-by-page tour of the web app, spin-up flow, and warm-up period.
+* [**UI guide**](ui-guide/README.md) — page-by-page tour of the web app, spin-up flow, and warm-up period.
 
 **Advanced / self-managed:**
 

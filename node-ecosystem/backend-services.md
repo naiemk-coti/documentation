@@ -71,7 +71,7 @@ The operator does not configure or pay for Better Stack — the ecosystem manage
 * A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](./#networks).
 
 {% hint style="info" %}
-Because monitoring happens over HTTPS against your FQDN, a node without a valid DNS cannot be monitored — see [installation.md](installation.md) and the [Glossary](ui-guide/glossary.md) FQDN entry.
+Because monitoring happens over HTTPS against your public RPC hostname, a node without valid DNS / routing cannot be monitored — see [**Installation**](installation.md) ([**Own domain**](installation-own-domain.md), [**Wizard tunnel**](installation-wizard-tunnel.md)) and the [Glossary](ui-guide/glossary.md) FQDN entry.
 {% endhint %}
 
 ## Node Health Monitor

@@ -78,6 +78,8 @@
     * [Glossary](node-ecosystem/ui-guide/glossary.md)
   * [Server requirements](node-ecosystem/server-requirements.md)
   * [Installation](node-ecosystem/installation.md)
+    * [Wizard tunnel (COTI subdomain)](node-ecosystem/installation-wizard-tunnel.md)
+    * [Own domain (Nginx + TLS)](node-ecosystem/installation-own-domain.md)
   * [Manual full node setup (without the wizard)](node-ecosystem/manual-full-node.md)
   * [COTI Node Ecosystem Litepaper](node-ecosystem/coti-node-ecosystem-litepaper.md)
   * [Backend Services](node-ecosystem/backend-services.md)
