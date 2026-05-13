@@ -2,6 +2,8 @@
 
 This page is the **operator-managed** path: you install and run a COTI full node using the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository and Docker on your own server — **not** through the Nodes web app wizard, one-liner installer host, or guided spin-up UI.
 
+> **New to running a node?** Use the **wizard** first — [**Installation**](installation.md) and [**UI guide**](ui-guide.md). It is the quickest path for most people; return here only if you intentionally skip the web app.
+
 {% hint style="success" %}
 **Web app wizard (recommended for most operators):** follow [**Installation**](installation.md) and the [**UI guide**](ui-guide.md). You get the guided flow, installer from the [Networks](README.md#networks) table, HTTPS, and monitoring hooks from the product.
 

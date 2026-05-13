@@ -30,12 +30,14 @@ This section documents the product — what it does, how to install a node throu
 
 ## Running a full node: two paths
 
-The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself. Pick the path that matches how you want to operate.
+The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
+
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then use [**Installation**](installation.md) and the [**UI guide**](ui-guide.md) for details. [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
 | Path | When to use it | Documentation |
 | ---- | --------------- | --------------- |
-| **Web app wizard** | You want the guided flow, the one-liner installer from [Networks](#networks), HTTPS, and automatic monitoring hooks from the product. | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
-| **Manual (without the wizard)** | You prefer Git clone, Docker Compose, and scripts on your own terms — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
+| **Web app wizard (recommended first)** | Guided flow, one-liner installer from [Networks](#networks), HTTPS, automatic monitoring hooks. | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
+| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
@@ -100,10 +102,18 @@ flowchart LR
 
 ## Where to go next
 
+**Start here (wizard — fastest for most operators):**
+
+* [**Installation**](installation.md) — what the automated `curl | sudo bash` installer does, DNS and server requirements.
+* [**UI guide**](ui-guide.md) — page-by-page tour of the web app, spin-up flow, and warm-up period.
+
+**Advanced / self-managed:**
+
 * [**Manual full node setup (without the web app wizard)**](manual-full-node.md) — hardware, Docker Compose, ports, Git clone, restart/stop, FAQ.
+
+**Reference:**
+
 * [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) — Node Economy (PDF embed).
-* [**Installation**](installation.md) — automated installer (wizard path) and DNS/server requirements.
-* [**UI guide**](ui-guide.md) — a page-by-page tour of the web app, with focus on the spin-up flow and the warm-up period.
 * [**Features**](features.md) — everything the product does, end-to-end.
 * [**Backend services**](backend-services.md) — the five services behind the ecosystem, described from an operator's perspective.
 * [**Glossary**](glossary.md) — thermal states, NFT states, warm-up windows, eligibility, and other terms you will see in the UI.
