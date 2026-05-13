@@ -4,7 +4,7 @@ The COTI Node Ecosystem packages node operation into a small number of high-leve
 
 ## 1. Guided installation
 
-A step-by-step wizard at **`/setup`** takes an operator from a fresh Ubuntu server to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname).
+A step-by-step wizard at **`/setup`** takes an operator from a fresh **certified Ubuntu** environment (Linux server or **Windows 11** + **WSL 2** + **Ubuntu 26.04 LTS** — see [**Server requirements**](server-requirements.md)) to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname).
 
 * Generates (or accepts) a node private key locally — the key never leaves the browser.
 * On **Setup FQDN**, offers **Generate FQDN for Me** (success banner and read-only **Node FQDN**) or **Bring your own FQDN** (hostname field, A/CNAME reminder, verification checkbox, and **Back to Generation**); for BYO, validates the hostname via a live DNS lookup before continuing.

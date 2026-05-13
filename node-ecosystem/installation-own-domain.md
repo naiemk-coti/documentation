@@ -6,7 +6,7 @@ Use this flow when you **own a DNS name** and want **HTTPS on your server** via 
 
 ## Prerequisites
 
-1. **Server** meeting [**Server requirements**](server-requirements.md), with **root access**.
+1. **Environment** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 26.04 LTS**), with **root access**.
 2. **Ports 80 and 443** free on the host (ACME HTTP-01 + HTTPS).
 3. **Port 7400 (TCP + UDP)** free and **allowed** through host firewall and cloud security groups — see [**Manual full node setup → Network configuration**](manual-full-node.md#network-configuration) for the port table.
 4. **FQDN** (e.g. `node1.example.com`) with an **A record** to your server’s public IP, propagated **before** install.
@@ -26,7 +26,7 @@ curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<
 
 ## What the installer does (this flow)
 
-1. **OS and inputs** — Ubuntu 24.04 check, root, valid key and FQDN.
+1. **OS and inputs** — Certified Ubuntu version check, root, valid key and FQDN (non-24.04 may prompt; see [**Server requirements → Windows 11 with WSL 2**](server-requirements.md#windows-11-with-wsl-2)).
 2. **Pre-checks** — Disk space; ports **80**, **443**, and **7400** free; `ufw` / `iptables` must not block them when those checks apply.
 3. **Packages** — Docker, Compose, **`certbot`**, plus `curl`, `git`, `jq`, `dnsutils`.
 4. **Clone** — `coti-full-node` into an empty directory.

@@ -9,10 +9,20 @@ Path-specific steps (DNS, ports, tunnel vs Nginx) live on the [**Installation**]
 
 ## Certified operating system
 
-The COTI full node stack is **certified on Ubuntu 24.04 LTS**. It is the only operating system COTI officially tests end-to-end.
+### Linux servers (primary)
+
+The COTI full node stack is **certified on Ubuntu 24.04 LTS** for normal **Linux** deployments (cloud VMs, bare metal, on-prem). This is the primary baseline COTI tests end-to-end.
 
 * **Wizard installer:** other Debian-family distributions *may* run the script — the installer will warn and prompt for confirmation — but COTI does **not** guarantee compatibility and does **not** support those targets. When in doubt, deploy a fresh **Ubuntu 24.04 LTS** server.
-* **Manual path:** use **Ubuntu 24.04.x** to stay aligned with what COTI certifies.
+* **Manual path:** use **Ubuntu 24.04.x** to stay aligned with this baseline.
+
+### Windows 11 with WSL 2
+
+Installation is **also certified** on **Microsoft Windows 11** when you use **WSL 2** and an **Ubuntu 26.04 LTS** distribution as the WSL guest. Run Docker Engine and the node stack **inside** that Ubuntu environment (same expectations as on a native Linux host: root-capable install, disk and RAM for the network you join, and a supported Docker setup for WSL). Follow current **Microsoft WSL** and **Docker** documentation for kernel, storage, and networking limits on Windows hosts.
+
+The one-liner installer’s built-in OS check still prints its **Ubuntu 24.04 LTS** target message when `VERSION_ID` is **26.04**; on this certified WSL image, confirming **Proceed anyway** is expected until the script’s version gate is updated to recognize **26.04** explicitly.
+
+Other Windows versions, WSL 1, or non-certified distros under WSL are **not** treated as supported targets unless listed here.
 
 ## Software stack
 
