@@ -32,12 +32,12 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](./#networks), follow the setup flow, then use [**Installation**](installation.md) and the [**UI guide**](ui-guide/) for details. [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) (including **COTI-managed tunnel** with `--with-frp` vs **your own domain** with `--nginx`) and the [**UI guide**](ui-guide.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
-| Path                                   | When to use it                                                                                    | Documentation                                                  |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Web app wizard (recommended first)** | Guided flow, one-liner installer from [Networks](./#networks), HTTPS, automatic monitoring hooks. | [**Installation**](installation.md), [**UI guide**](ui-guide/) |
-| **Manual (without the wizard)**        | You administer the stack yourself — not the Nodes web UI installer.                               | [**Manual full node setup**](manual-full-node.md)              |
+| Path | When to use it | Documentation |
+| ---- | --------------- | --------------- |
+| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--nginx`). | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
+| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
@@ -59,7 +59,7 @@ The **status page** is the public [Better Stack](https://betterstack.com/) dashb
 
 ## What the COTI Node Ecosystem gives you
 
-* **One-command install** of a COTI full node on a certified OS (Ubuntu 24.04 LTS) with HTTPS and a proxy already configured.
+* **One-command install** of a COTI full node on a certified OS (Ubuntu 24.04 LTS), with either a **COTI-managed tunnel** (no host Nginx) or **HTTPS on your server** when you bring your own domain.
 * **Live visibility** into the node fleet — Who is online, which nodes are hot, how many earned rewards this epoch.
 * **Per-operator dashboard** for your own node(s): thermal state, uptime, latency, rewards history, eligibility.
 * **Automatic monitoring registration** in Better Stack once your node is recognized by the network.
