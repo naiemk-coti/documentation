@@ -1,11 +1,13 @@
 # Manual full node setup (without the wizard)
 
+← [**Installation**](installation.md) (this page is the last subpage under Installation)
+
 This page is the **operator-managed** path: you install and run a COTI full node using the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository and Docker on your own server — **not** through the Nodes web app wizard, one-liner installer host, or guided spin-up UI.
 
-> **New to running a node?** Use the **wizard** first — [**Installation**](installation.md) and [**UI guide**](ui-guide/). It is the quickest path for most people; return here only if you intentionally skip the web app.
+> **New to running a node?** Use the **wizard** first — [**Installation**](installation.md) and [**UI guide**](ui-guide/README.md). It is the quickest path for most people; return here only if you intentionally skip the web app.
 
 {% hint style="success" %}
-**Web app wizard (recommended for most operators):** follow [**Installation**](installation.md), [**Server requirements**](server-requirements.md) (OS and sizing), and the [**UI guide**](ui-guide/). You get the guided flow, installer from the [Networks](./#networks) table, HTTPS, and monitoring hooks from the product.
+**Web app wizard (recommended for most operators):** follow [**Installation**](installation.md), [**Server requirements**](server-requirements.md) (OS and sizing), and the [**UI guide**](ui-guide/README.md). You get the guided flow, installer from the [Networks](./#networks) table, HTTPS, and monitoring hooks from the product.
 
 **This page (manual path):** you clone the repo, configure the host, and run `start` / `stop` scripts yourself. Reward **eligibility is the same** as the wizard path when your node satisfies ecosystem rules (FQDN, JSON-RPC reachability, license / holdings, uptime thresholds, etc.) — see [**Node Ecosystem overview**](./) and [**Installation**](installation.md) for authoritative requirements.
 {% endhint %}
@@ -19,7 +21,7 @@ For **what a COTI node is** and **why operators run one**, see [**What is a COTI
 COTI full node software is published as a Docker image.
 
 {% hint style="info" %}
-**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide/) flow or assigning their license to an existing operator.
+**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide/README.md) flow or assigning their license to an existing operator.
 {% endhint %}
 
 **Certified operating system, tested Docker/Compose versions, and hardware** (CPU, memory, disk by network, example cloud SKUs) are **identical** for the [wizard](installation.md) and this manual path — see [**Server requirements**](server-requirements.md).
@@ -252,7 +254,7 @@ Congratulations on setting up your COTI node using the **manual** path. Reward e
 The following related sections may be helpful:
 
 * [coti-node-ecosystem-litepaper.md](coti-node-ecosystem-litepaper.md "mention")
-* [**Node Ecosystem overview**](./) — eligibility, thresholds, and the managed experience at [testnet.nodes.coti.io](https://testnet.nodes.coti.io) / [nodes.coti.io](https://nodes.coti.io), including the guided [installer](installation.md), [UI walkthrough](ui-guide/), and [glossary](ui-guide/glossary.md).
+* [**Node Ecosystem overview**](./) — eligibility, thresholds, and the managed experience at [testnet.nodes.coti.io](https://testnet.nodes.coti.io) / [nodes.coti.io](https://nodes.coti.io), including the guided [installer](installation.md), [UI walkthrough](ui-guide/README.md), and [glossary](ui-guide/glossary.md).
 
 {% hint style="warning" %}
 **Rewards require a valid FQDN and reachable JSON-RPC.** The Node Ecosystem measures uptime by calling your node’s JSON-RPC through the domain you register. A node that syncs locally but is **not** publicly reachable on a valid FQDN will **not** accrue credited uptime and will **not** be eligible for rewards — whether you installed via this manual guide or via the web app wizard. See [Installation](installation.md).

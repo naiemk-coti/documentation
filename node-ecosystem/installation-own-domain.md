@@ -2,7 +2,7 @@
 
 Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--nginx`**.
 
-← Back to [**Installation overview**](installation.md) · Related: [**Wizard tunnel**](installation-wizard-tunnel.md)
+← Back to [**Installation overview**](installation.md) · Related: [**Wizard tunnel**](installation-wizard-tunnel.md) · [**Manual full node setup**](manual-full-node.md)
 
 ## Prerequisites
 

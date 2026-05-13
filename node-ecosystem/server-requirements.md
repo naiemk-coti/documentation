@@ -2,10 +2,10 @@
 
 This page lists the **certified operating system**, **tested software stack**, and **hardware sizing** that apply to **both**:
 
-* the [web app wizard / Installation](installation.md) flow (`curl | sudo bash` from the official installer host), and
-* [manual full node setup](manual-full-node.md) (Git clone, Docker Compose, and scripts on your own).
+* the **wizard** one-liner from [**Installation**](installation.md) (`curl | sudo bash` from the official installer host), and
+* **self-managed** install from [**Manual full node setup**](manual-full-node.md) (Git clone, Docker Compose, and scripts on your own) — also under Installation.
 
-Path-specific steps stay in [**Installation**](installation.md) ([**Wizard tunnel**](installation-wizard-tunnel.md) or [**Own domain**](installation-own-domain.md)) or [manual full node setup](manual-full-node.md).
+Path-specific steps (DNS, ports, tunnel vs Nginx) live on the [**Installation**](installation.md) subpages linked above.
 
 ## Certified operating system
 
@@ -59,5 +59,4 @@ In addition to the above, a **reliable, high-bandwidth internet connection** is 
 
 ## Related documentation
 
-* [Installation](installation.md) — wizard hub; [**Wizard tunnel**](installation-wizard-tunnel.md) and [**Own domain (Nginx)**](installation-own-domain.md) for each flow.
-* [Manual full node setup](manual-full-node.md) — Git clone, Compose, open ports table, restart/stop, FAQ.
+* [**Installation**](installation.md) — hub; subpages [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**Manual full node setup**](manual-full-node.md).

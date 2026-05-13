@@ -2,7 +2,7 @@
 
 This is the **simplest** wizard path: you complete the [**UI guide**](ui-guide/README.md), get a **COTI-assigned hostname** (for example under `fullnode.<network>.coti.io`), generate a key, and run the installer with **`--with-frp`**.
 
-← Back to [**Installation overview**](installation.md) · Related: [**Own domain (Nginx)**](installation-own-domain.md)
+← Back to [**Installation overview**](installation.md) · Related: [**Own domain (Nginx)**](installation-own-domain.md) · [**Manual full node setup**](manual-full-node.md)
 
 ## What COTI provides
 
