@@ -25,12 +25,12 @@ The on-chain thermal flag stored on the node's Soulbound NFT:
 
 The combined state shown to operators, derived from node status + NFT state:
 
-| Node status | NFT state | Thermal status |
-|---|---|---|
-| Active / Syncing | Cold | **Warming up** |
-| Active / Syncing | Hot | **Hot** |
-| Offline | Hot | **Cooling down** |
-| Offline | Cold | **Cold** |
+| Node status      | NFT state | Thermal status   |
+| ---------------- | --------- | ---------------- |
+| Active / Syncing | Cold      | **Warming up**   |
+| Active / Syncing | Hot       | **Hot**          |
+| Offline          | Hot       | **Cooling down** |
+| Offline          | Cold      | **Cold**         |
 
 ### Warming up
 
@@ -54,9 +54,9 @@ The length of the rolling window used to decide whether a node is stable enough 
 
 ### HOT\_THRESHOLD\_HOURS
 
-The minimum number of hours *within* `HOT_WINDOW_HOURS` that a node must be continuously present to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
+The minimum number of hours _within_ `HOT_WINDOW_HOURS` that a node must be continuously present to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
 
-In plain language: *"To become hot, a node must be seen by peers for at least `HOT_THRESHOLD_HOURS` hours during the last `HOT_WINDOW_HOURS` hours."*
+In plain language: _"To become hot, a node must be seen by peers for at least `HOT_THRESHOLD_HOURS` hours during the last `HOT_WINDOW_HOURS` hours."_
 
 ### COLD\_WINDOW\_HOURS
 
@@ -64,9 +64,9 @@ The length of the rolling window used to decide whether a node has become unstab
 
 ### COLD\_THRESHOLD\_HOURS
 
-The minimum number of hours *within* `COLD_WINDOW_HOURS` that a previously-hot node must be absent to be marked cold. When reached, the node must warm up again before it can return to hot. Defaults to **144 hours**.
+The minimum number of hours _within_ `COLD_WINDOW_HOURS` that a previously-hot node must be absent to be marked cold. When reached, the node must warm up again before it can return to hot. Defaults to **144 hours**.
 
-In plain language: *"A hot node that stays offline for more than `COLD_THRESHOLD_HOURS` hours in any rolling `COLD_WINDOW_HOURS` window cools back to cold and must redo the warm-up."*
+In plain language: _"A hot node that stays offline for more than `COLD_THRESHOLD_HOURS` hours in any rolling `COLD_WINDOW_HOURS` window cools back to cold and must redo the warm-up."_
 
 ## Identity & ownership
 
@@ -86,7 +86,7 @@ The wallet connected to the web app (for example via MetaMask). For the per-oper
 
 The public hostname the operator configures for their node (for example `node1.example.com`). An A record must point the FQDN to the server's public IP before installation.
 
-The FQDN is a **prerequisite for rewards**: the ecosystem probes the node's JSON-RPC endpoint through the FQDN to determine uptime, so a node without a reachable FQDN cannot accrue uptime and therefore cannot earn rewards. See [installation.md](installation.md).
+The FQDN is a **prerequisite for rewards**: the ecosystem probes the node's JSON-RPC endpoint through the FQDN to determine uptime, so a node without a reachable FQDN cannot accrue uptime and therefore cannot earn rewards. See [installation.md](../installation.md).
 
 ### RPC URL
 
@@ -149,4 +149,4 @@ The external uptime-monitoring platform used by the ecosystem to probe every hot
 
 ### Status page
 
-The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](README.md#networks).
+The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../#networks).

@@ -1,6 +1,6 @@
-# Backend services
+# Backend Services
 
-The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](README.md#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
+The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](./#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
 
 ```mermaid
 flowchart LR
@@ -28,7 +28,7 @@ flowchart LR
 
 **What it does for you**
 
-Peer Discovery is the service that first *sees* your node. It repeatedly calls `admin_peers` on a set of reference nodes and records which peers are currently connected. As soon as your node shows up in those responses, it is considered **online** in the ecosystem.
+Peer Discovery is the service that first _sees_ your node. It repeatedly calls `admin_peers` on a set of reference nodes and records which peers are currently connected. As soon as your node shows up in those responses, it is considered **online** in the ecosystem.
 
 Peer Discovery is also responsible for the **thermal state machine**:
 
@@ -68,10 +68,10 @@ The operator does not configure or pay for Better Stack — the ecosystem manage
 **Where it shows up in the UI**
 
 * The **all-time uptime percentage** displayed for your node in the dashboard and nodes table.
-* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](README.md#networks).
+* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](./#networks).
 
 {% hint style="info" %}
-Because monitoring happens over HTTPS against your FQDN, a node without a valid DNS cannot be monitored — see [installation.md](installation.md) and the [Glossary](glossary.md) FQDN entry.
+Because monitoring happens over HTTPS against your FQDN, a node without a valid DNS cannot be monitored — see [installation.md](installation.md) and the [Glossary](ui-guide/glossary.md) FQDN entry.
 {% endhint %}
 
 ## Node Health Monitor

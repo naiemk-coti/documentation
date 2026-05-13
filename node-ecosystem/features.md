@@ -1,6 +1,6 @@
 # Features
 
-The COTI Node Ecosystem packages node operation into a small number of high-level features. Each one is surfaced in the web app (see [Networks](README.md#networks) for the testnet and mainnet URLs) and backed by one or more of the ecosystem services described in [backend-services.md](backend-services.md).
+The COTI Node Ecosystem packages node operation into a small number of high-level features. Each one is surfaced in the web app (see [Networks](./#networks) for the testnet and mainnet URLs) and backed by one or more of the ecosystem services described in [backend-services.md](backend-services.md).
 
 ## 1. Guided installation
 
@@ -11,7 +11,7 @@ A step-by-step wizard at **`/setup`** takes an operator from a fresh Ubuntu serv
 * Produces a single-line installer command, tailored to the node's key and domain, that the operator runs as root on the target server.
 * Watches the peer-discovery network and advances automatically once the node is seen by peers.
 
-See [installation.md](installation.md) for what the installer does on the server, and [ui-guide.md](ui-guide.md) for the wizard walkthrough.
+See [installation.md](installation.md) for what the installer does on the server, and [ui-guide.md](ui-guide/) for the wizard walkthrough.
 
 ## 2. Live ecosystem view
 
@@ -59,7 +59,7 @@ Once a node has been continuously seen by peer discovery for long enough to be c
 **Rewards require a valid DNS.** The ecosystem only measures uptime by calling the node's RPC through the FQDN the operator supplies during setup. A node without a reachable FQDN cannot be monitored and therefore cannot earn rewards — even if it is fully synced on the network.
 {% endhint %}
 
-The operator does not interact with Better Stack directly — monitoring is fully automatic. A **public status page** aggregates every hot node's monitor and is available at the URL listed in [Networks](README.md#networks).
+The operator does not interact with Better Stack directly — monitoring is fully automatic. A **public status page** aggregates every hot node's monitor and is available at the URL listed in [Networks](./#networks).
 
 ## 6. Rewards distribution
 
@@ -67,7 +67,7 @@ Rewards are distributed each **epoch** (103 hours). At the end of every epoch, t
 
 1. Reads the node's per-epoch uptime from the monitoring platform.
 2. Reads the operator's USDC and COTI holdings at the epoch snapshot.
-3. Evaluates the eligibility rules (see [Feature 4](#4-eligibility-checks)).
+3. Evaluates the eligibility rules (see [Feature 4](features.md#4-eligibility-checks)).
 4. Records each eligible node's reward allocation in the on-chain **rewards smart contract**.
 
 Rewards are **not** auto-deposited to the operator's wallet. Once the contract has been credited, the operator claims the accrued balance either from the **Claim Now** button in the **My Node** dashboard or by calling the rewards smart contract directly from any wallet they control. Unclaimed rewards remain available until claimed.
