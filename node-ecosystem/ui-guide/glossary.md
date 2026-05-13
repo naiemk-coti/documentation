@@ -84,9 +84,9 @@ The wallet connected to the web app (for example via MetaMask). For the per-oper
 
 ### FQDN (Fully Qualified Domain Name)
 
-The public hostname the operator configures for their node (for example `node1.example.com`). An A record must point the FQDN to the server's public IP before installation.
+The public hostname the operator uses for their node. It may be **your own domain** (for example `node1.example.com`) or a **COTI-assigned** name when using the tunnel installer (`--with-frp`).
 
-The FQDN is a **prerequisite for rewards**: the ecosystem probes the node's JSON-RPC endpoint through the FQDN to determine uptime, so a node without a reachable FQDN cannot accrue uptime and therefore cannot earn rewards. See [installation.md](../installation.md).
+The FQDN is a **prerequisite for rewards**: the ecosystem probes JSON-RPC through that name to determine uptime. See [**Installation**](../installation.md), [**Own domain**](../installation-own-domain.md), and [**Wizard tunnel**](../installation-wizard-tunnel.md).
 
 ### RPC URL
 

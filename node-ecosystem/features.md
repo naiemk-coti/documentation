@@ -4,14 +4,14 @@ The COTI Node Ecosystem packages node operation into a small number of high-leve
 
 ## 1. Guided installation
 
-A step-by-step wizard at **`/setup`** takes an operator from a fresh Ubuntu server to a running, HTTPS-fronted COTI full node.
+A step-by-step wizard at **`/setup`** takes an operator from a fresh Ubuntu server to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname).
 
 * Generates (or accepts) a node private key locally — the key never leaves the browser.
 * Validates the node's **FQDN** via a live DNS lookup before continuing.
-* Produces a single-line installer command, tailored to the node's key and domain, that the operator runs as root on the target server.
+* Produces a single-line installer command, tailored to the node's key and hostname, that the operator runs as root on the target server (see [**Installation**](installation.md) — [**Wizard tunnel**](installation-wizard-tunnel.md) or [**Own domain**](installation-own-domain.md)).
 * Watches the peer-discovery network and advances automatically once the node is seen by peers.
 
-See [installation.md](installation.md) for what the installer does on the server, and [ui-guide.md](ui-guide/) for the wizard walkthrough.
+See [**Installation**](installation.md) for what the installer does on the server, and the [**UI guide**](ui-guide/README.md) for the wizard walkthrough.
 
 ## 2. Live ecosystem view
 

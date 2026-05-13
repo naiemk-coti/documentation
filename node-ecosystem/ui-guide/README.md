@@ -104,7 +104,7 @@ Enter the public hostname that will point to your node (for example `node1.examp
 * Failure — an inline error explains that the domain did not resolve; fix the A/CNAME record at your DNS provider and retry.
 
 {% hint style="warning" %}
-**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** It must be live, its A record must point to your server, and ports 80/443 must be reachable from the public internet. Without a valid FQDN your node cannot earn rewards — see [installation.md](../installation.md).
+**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** Requirements depend on install mode: **own domain + Nginx** needs a live DNS record to your server and reachable **80/443** — see [**Own domain (Nginx + TLS)**](../installation-own-domain.md). **COTI tunnel** (`--with-frp`) uses the COTI-assigned hostname and edge TLS — see [**Wizard tunnel**](../installation-wizard-tunnel.md). Overview: [**Installation**](../installation.md). Without a reachable public RPC name your node cannot earn rewards.
 {% endhint %}
 
 ### Step 5 — Run the command
@@ -117,7 +117,7 @@ The wizard displays the one-liner tailored to the key and FQDN from the previous
 curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>"
 ```
 
-Copy and run it as root on your server. A **"Learn more about installation"** link opens [installation.md](../installation.md) (this documentation). Tick **"I've run this command"** to advance.
+Copy and run it as root on your server. A **"Learn more about installation"** link opens the [**Installation** overview](../installation.md). Tick **"I've run this command"** to advance.
 
 ### Step 6 — Waiting for node connection
 
