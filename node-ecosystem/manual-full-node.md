@@ -1,49 +1,53 @@
-# Running a COTI Node
+# Manual full node setup (without the web app wizard)
 
-Running a node helps secure and decentralize the COTI network and support the overall ecosystem. While there are some similarities to other L2 networks, COTI’s architecture has its own nuances and requirements that we’ll cover here.
+This page is the **operator-managed** path: you install and run a COTI full node using the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository and Docker on your own server — **not** through the Nodes web app wizard, one-liner installer host, or guided spin-up UI.
 
-### What is a COTI Node?
+{% hint style="success" %}
+**Web app wizard (recommended for most operators):** follow [**Installation**](installation.md) and the [**UI guide**](ui-guide.md). You get the guided flow, installer from the [Networks](README.md#networks) table, HTTPS, and monitoring hooks from the product.
 
-In the COTI network, Full Nodes are decentralized, lean clients that play a critical role in maintaining the network’s security, scalability, and overall functionality. Anyone is able to run a Full Node to support the network and optionally gain rewards.
+**This page (manual path):** you clone the repo, configure the host, and run `start` / `stop` scripts yourself. Reward **eligibility is the same** as the wizard path when your node satisfies ecosystem rules (FQDN, JSON-RPC reachability, license / holdings, uptime thresholds, etc.) — see [**Node Ecosystem overview**](README.md) and [**Installation**](installation.md) for authoritative requirements.
+{% endhint %}
 
-Running a COTI full node, downloads a copy of the COTI blockchain and verifies the validity of every block. Unlike validator nodes in Ethereum, COTI full nodes do not actively participate in consensus nor in block proposal, as that is the job of the COTI sequencer (see [**COTI Architecture**](https://docs.coti.io/coti-documentation/how-coti-works/introduction/coti-architecture))
-
-***
-
-### Why Run a Node?
-
-Running a COTI Node offers several benefits:
-
-* **Network Participation**: Contribute to the decentralization and robustness of the network.
-* **Community Support**: Strengthen the ecosystem and help drive adoption of COTI’s technology.
-* **Rewards & Incentives**: Earn fees for processing and confirming transactions (licensed nodes only).
+For **what a COTI node is** and **why operators run one**, see [**What is a COTI node?**](README.md#what-is-a-coti-node) and [**Why run a node?**](README.md#why-run-a-node).
 
 ***
 
 ### Requirements
 
-COTI Full Node software is provided as a docker image.
+COTI full node software is published as a Docker image.
 
 {% hint style="info" %}
-**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider assigning their license to an existing node operator to minimize their technical requirements.
+**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide.md) flow or assigning their license to an existing operator.
 {% endhint %}
 
 #### Software
 
-* **Operating System**: the following operating systems have been certified to run the node software:
-  * Ubuntu 24.04.x (see [**Linux Requirements for Docker**](https://docs.docker.com/desktop/setup/install/linux/#general-system-requirements)**)**
-* **Docker**: version 28.0.1
-* **Docker-Compose:** version 2.29.1
+The versions below reflect **what we have certified and tested at the time this page was written**. Newer **patch and minor** releases of the same software (Ubuntu LTS point releases, Docker Engine, Compose) **usually work** without changes; if you use a newer stack, validate on Testnet before relying on it for Mainnet.
+
+* **Operating system**: the following have been certified to run the node software:
+  * Ubuntu 24.04.x (see [**Linux requirements for Docker**](https://docs.docker.com/desktop/setup/install/linux/#general-system-requirements))
+* **Docker**: version 28.0.1 (tested)
+* **Docker Compose**: version 2.29.1 (tested)
 
 #### Hardware
 
-The following hardware specs are required to run a COTI full node:
+CPU and memory targets are **the same on Testnet and Mainnet**. **Disk size depends on the network** you run — Mainnet chain data and traffic require substantially more storage than Testnet. Use the [Storage by network](#storage-by-network) table for sizing.
 
 | Specification    | Minimum | Recommended | Professional |
 | ---------------- | ------- | ----------- | ------------ |
 | **vCPUs**        | 2       | 4           | 8            |
 | **Memory (GiB)** | 8       | 16          | 64           |
-| **Storage**      | 100 GB  | 200 GB      | 500 GB       |
+
+##### Storage by network
+
+Size the disk for the **network you join** (Testnet vs Mainnet). Figures are planning guides; leave headroom for chain growth, snapshots, and logs.
+
+| Network      | Minimum | Recommended | Professional (extra headroom) |
+| ------------ | ------- | ----------- | ------------------------------- |
+| **Testnet**  | 100 GB  | 200 GB      | 500 GB                          |
+| **Mainnet**  | 700 GB  | 1 TB        | 1.5 TB                          |
+
+These bands align with the [**Networks**](README.md#networks) recommendations (≥ 100 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem-operated nodes).
 
 In addition to the above hardware, a reliable, high-bandwidth internet connection is recommended.
 
@@ -52,12 +56,14 @@ In addition to the above hardware, a reliable, high-bandwidth internet connectio
 * AWS: m7a.Large (2 vCPUs, 8GB memory)
 * OVH: b2-15 (4 vCPUs, 15GB memory)
 
-_**Disclaimer**: The above configuration has been certified on Testnet; higher transaction volumes on Mainnet may require increased specifications._
+_**Disclaimer**: The above configuration has been certified on Testnet. Mainnet typically needs **larger disk** (see [Storage by network](#storage-by-network)); higher transaction volumes on Mainnet may also require increased CPU and memory._
 
 ### Recommended **optimal** hosted configuration
 
 * AWS: r5n.2xlarge (8 vCPUs, 64GB memory)
 * OVH: r2-120 (8 vCPUs, 120GB memory)
+
+_**Disclaimer**: Size attached volumes using [Storage by network](#storage-by-network) for Testnet vs Mainnet; these instance types emphasize CPU and RAM._
 
 ### Network Configuration
 
@@ -241,11 +247,11 @@ Metrics monitoring is not available yet for Testnet .
 
 ### Incentives
 
-The economic structure of COTI nodes is designed to incentivize active participation and ensure the long-term sustainability of the network.
+Validation rewards are governed by the [**Node Ecosystem**](README.md) program (uptime, FQDN reachability, license and holdings rules, epoch cadence, and other thresholds). Exact requirements can change — use the ecosystem documentation, web app, and the **Node Economy** section of the [litepaper](coti-node-ecosystem-litepaper.md) as the source of truth.
 
-Licensed Full Nodes that maintain a minimum uptime of 98% are eligible to receive **Validation Rewards**, which are distributed every **103-hour Period** (epoch). This uptime requirement underscores the importance of reliability and consistent performance within the network.
+Licensed full nodes have commonly been expected to sustain **high uptime** (for example **≥ 98%** over an epoch of roughly **103 hours**) to remain eligible for validation rewards; confirm the current bar in the Node Ecosystem pages.
 
-For more information on incentives, visit the "Node Economy" section of the [coti-node-ecosystem-litepaper.md](coti-node-ecosystem-litepaper.md "mention").
+Following **this manual guide** instead of the ecosystem installer **does not change** those rules: you can still earn rewards when your deployment meets the **same** eligibility conditions the ecosystem enforces.
 
 ### Maintenance & Monitoring
 
@@ -278,13 +284,13 @@ Where to Get Help:
 
 ### Next Steps
 
-Congratulations on setting up your COTI Node! By running a node, you’re contributing to the security and decentralization of the COTI network.
+Congratulations on setting up your COTI node using the **manual** path. Reward eligibility still follows the **Node Ecosystem** rules linked below.
 
-The following related sections may provide helpful information:
+The following related sections may be helpful:
 
-* [coti-node-ecosystem-litepaper.md](coti-node-ecosystem-litepaper.md "mention")
-* [**Node Ecosystem**](../node-ecosystem/README.md) — the managed product experience at [dev.nodes.coti.io](https://dev.nodes.coti.io), including the guided [installer](../node-ecosystem/installation.md), a [UI walkthrough](../node-ecosystem/ui-guide.md) of the spin-up flow, and a [glossary](../node-ecosystem/glossary.md) of thermal states and warm-up windows.
+* [COTI Node Ecosystem Litepaper](coti-node-ecosystem-litepaper.md "mention")
+* [**Node Ecosystem overview**](README.md) — eligibility, thresholds, and the managed experience at [dev.nodes.coti.io](https://dev.nodes.coti.io) / [nodes.coti.io](https://nodes.coti.io), including the guided [installer](installation.md), [UI walkthrough](ui-guide.md), and [glossary](glossary.md).
 
 {% hint style="warning" %}
-**Running a node without a valid FQDN means no rewards.** The ecosystem measures uptime by calling your node's JSON-RPC endpoint through your domain name. A node that is fully synced but not publicly reachable over a valid FQDN will not accrue uptime and will not be eligible for rewards. See [Node Ecosystem → Installation](../node-ecosystem/installation.md).
+**Rewards require a valid FQDN and reachable JSON-RPC.** The Node Ecosystem measures uptime by calling your node’s JSON-RPC through the domain you register. A node that syncs locally but is **not** publicly reachable on a valid FQDN will **not** accrue credited uptime and will **not** be eligible for rewards — whether you installed via this manual guide or via the web app wizard. See [Installation](installation.md).
 {% endhint %}
