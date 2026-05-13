@@ -3,25 +3,20 @@
 This page explains what happens when you run the automated installer produced by the [**`/setup`** wizard](ui-guide.md). It is the destination for the **"Learn more about installation"** link in the installer step. See [Networks](README.md#networks) for the testnet and mainnet web-app URLs.
 
 {% hint style="info" %}
-This page covers the **automated** installer (the single `curl | sudo bash` command) — the **web app wizard** path. If you want the **manual** Docker-based procedure (hardware specs, ports, step-by-step Git clone and start scripts, FAQ) **without** the wizard, see [**Manual full node setup**](manual-full-node.md).
+This page covers the **automated** installer (the single `curl | sudo bash` command) — the **web app wizard** path. OS, Docker, and hardware sizing are shared with the manual path — see [**Server requirements**](server-requirements.md). For the **manual** Docker-based procedure (Git clone, start scripts, FAQ) **without** the wizard, see [**Manual full node setup**](manual-full-node.md).
 {% endhint %}
 
-## Certified operating system
+## Certified operating system and hardware
 
-The installer is **certified on Ubuntu 24.04 LTS**. It is the only officially tested target.
-
-Other Debian-family distributions may work — the installer will warn and prompt for confirmation — but COTI does not guarantee compatibility and does not support installations on other systems. When in doubt, deploy a fresh Ubuntu 24.04 LTS server.
+The **same** certified OS and server sizing apply to the wizard and to [manual full node setup](manual-full-node.md). Full detail — Ubuntu version, tested Docker/Compose, CPU, memory, disk by network, and example cloud SKUs — is on [**Server requirements**](server-requirements.md).
 
 ## What you need before running the installer
 
-1. **A server running Ubuntu 24.04 LTS** with root access.
-2. **Free disk space** on the install directory's partition, per network:
-   * **Testnet:** at least **100 GB**.
-   * **Mainnet:** at least **700 GB** (the mainnet chain history is significantly larger and grows over time).
-3. **Ports 80 and 443** free on the server (used for HTTP challenge + HTTPS).
-4. **Port 7400 (TCP + UDP)** free and not blocked by firewall or iptables (peer-to-peer + node discovery).
-5. **A publicly-resolvable FQDN** (for example `node1.example.com`) with an **A record pointing to the server's public IP** — configured and propagated **before** you run the installer.
-6. **A node private key** (64 hex characters) — the wizard can generate one for you, or you can bring your own.
+1. **A server** that satisfies [**Server requirements**](server-requirements.md) (certified operating system, CPU, memory, and **free disk** on the install partition sized for **Testnet vs Mainnet** — the installer checks this), with **root access**.
+2. **Ports 80 and 443** free on the server (used for HTTP challenge + HTTPS).
+3. **Port 7400 (TCP + UDP)** free and not blocked by firewall or iptables (peer-to-peer + node discovery).
+4. **A publicly-resolvable FQDN** (for example `node1.example.com`) with an **A record pointing to the server's public IP** — configured and propagated **before** you run the installer.
+5. **A node private key** (64 hex characters) — the wizard can generate one for you, or you can bring your own.
 
 {% hint style="warning" %}
 **The FQDN is a reward prerequisite, not just a convenience.** The installer requests a Let's Encrypt certificate for your FQDN, and the ecosystem later probes your node's JSON-RPC **through that FQDN** to measure uptime. If the FQDN is missing, misconfigured, or the certificate cannot be issued, **your node will not be credited with uptime and will not earn rewards** — even if the node is fully synced. See [glossary.md](glossary.md) for the FQDN entry.
@@ -54,7 +49,7 @@ The installer is driven by [`install_coti-full-node.sh`](https://github.com/coti
 
 ### 2. Environment pre-checks
 
-* Confirms the current directory is writable and has enough free disk space for the selected network (see [What you need](#what-you-need-before-running-the-installer)).
+* Confirms the current directory is writable and has enough free disk space for the selected network (see [**Server requirements → Storage by network**](server-requirements.md#storage-by-network)).
 * Confirms ports 80, 443 (for Nginx) and 7400 (for the node) are free.
 * Confirms no active `ufw` or `iptables` rules block those ports.
 
