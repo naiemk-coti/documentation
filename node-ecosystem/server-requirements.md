@@ -52,14 +52,10 @@ In addition to the above, a **reliable, high-bandwidth internet connection** is 
 * AWS: **m7a.large** (2 vCPUs, 8 GiB memory)
 * OVH: **b2-15** (4 vCPUs, 15 GiB memory)
 
-_**Disclaimer:** The above configuration has been certified on **Testnet**. **Mainnet** typically needs **larger disk** (see [Storage by network](#storage-by-network)); higher transaction volumes on Mainnet may also require increased CPU and memory._
-
 ### Recommended optimal hosted configuration
 
 * AWS: **r5n.2xlarge** (8 vCPUs, 64 GiB memory)
 * OVH: **r2-120** (8 vCPUs, 120 GiB memory)
-
-_**Disclaimer:** Size attached volumes using [Storage by network](#storage-by-network) for Testnet vs Mainnet; these instance types emphasize CPU and RAM._
 
 ## Related documentation
 
