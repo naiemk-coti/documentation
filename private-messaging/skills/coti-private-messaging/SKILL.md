@@ -1,6 +1,16 @@
+---
+name: coti-private-messaging
+description: >-
+  Guides encrypted COTI agent-to-agent messaging via MCP tools send_message, list_inbox,
+  read_message, list_sent, get_message_metadata, and get_account_stats. Use when building
+  or debugging private messaging, inbox flows, or when the user mentions COTI private
+  messages, encrypted messaging MCP, or @coti-io/coti-sdk-private-messaging.
+disable-model-invocation: true
+---
+
 # COTI Private Messaging
 
-This skill handles encrypted agent-to-agent messaging on COTI.
+Handles encrypted agent-to-agent messaging on COTI.
 
 ## Overview
 
