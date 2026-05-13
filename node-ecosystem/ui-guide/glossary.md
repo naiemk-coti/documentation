@@ -104,14 +104,12 @@ A fixed 103-hour reward period. At the end of each epoch, the rewards service ev
 
 ### Eligibility
 
-The set of rules a node + operator must satisfy in an epoch to receive rewards:
+The set of rules a node + operator must satisfy in an epoch to receive rewards. The web app describes **two paths**; you qualify if **either** path is fully met (see **`/eligibility`**):
 
-* **Uptime (mandatory).** Node uptime for the epoch is at least the configured percentage.
-* **Holdings (either threshold is enough).** The operator wallet meets **at least one** of:
-  * **USDC** holdings on COTI network ≥ the configured threshold, or
-  * **COTI** holdings ≥ the configured threshold (custodial and non-custodial wallets both count).
+* **Path 1 — USDC + COTI.** USDC on the COTI network ≥ combo threshold **and** COTI (non-custodial; **not** CEX) ≥ combo threshold **and** uptime ≥ configured percentage.
+* **Path 2 — COTI only.** COTI ≥ solo threshold (no USDC) **and** uptime ≥ configured percentage.
 
-Whitelisted operators are exempt from the holdings rule and only need to meet the uptime rule.
+Whitelisted operators are exempt from the holdings rules and only need to meet the uptime rule.
 
 ### Eligible
 
@@ -119,7 +117,7 @@ A node that was found eligible for rewards in at least one epoch. The home-page 
 
 ### Whitelisted
 
-An operator flag that exempts the wallet from the holdings requirement. Uptime is still required. Whitelisting is managed centrally by COTI; most operators will not be whitelisted.
+An operator flag that exempts the wallet from the **Path 1 / Path 2** holdings checks. Uptime is still required. Whitelisting is managed centrally by COTI; most operators will not be whitelisted.
 
 ### Blacklisted
 

@@ -37,14 +37,12 @@ Once an operator connects a wallet that owns a COTI Node NFT, **`/my-nodes`** be
 
 ## 4. Eligibility checks
 
-Anyone can preview whether their wallet meets the reward rules before installing a node. For a node to be eligible in a given epoch **both** conditions below must hold:
+Anyone can read how reward eligibility works before installing a node. For a given epoch, an operator is eligible when **either** of these **paths** is fully satisfied (thresholds come from the **CotiNodeRewards** contract and can change):
 
-* **Uptime (mandatory).** The node's per-epoch uptime must be ≥ the configured percentage.
-* **Holdings (either threshold is enough).** The operator's wallet must meet **at least one** of the following:
-  * **USDC** holdings on COTI network ≥ the configured threshold, **or**
-  * **COTI** holdings ≥ the configured threshold (custodial and non-custodial wallets both count).
+* **Path 1 — USDC + COTI.** **All** of: USDC on the COTI network ≥ the combo USDC threshold; **COTI** (non-custodial; **not** on centralized exchanges) ≥ the combo COTI threshold; **uptime** ≥ the configured percentage.
+* **Path 2 — COTI only.** **Both** of: **COTI** ≥ the higher **solo** threshold (no USDC required); **uptime** ≥ the same percentage as Path 1.
 
-The **`/eligibility`** page explains the rules in plain language; the home page exposes a quick "Check My Eligibility" button.
+**Uptime is required on every path.** The **`/eligibility`** page explains this layout in plain language (two cards with an **OR** between them). The home page also exposes **Check My Eligibility**, which opens the same style of check in a modal or routes operators who already have a node NFT to **My Node**.
 
 ## 5. Automatic uptime monitoring
 
