@@ -252,7 +252,7 @@ Congratulations on setting up your COTI node using the **manual** path. Reward e
 The following related sections may be helpful:
 
 * [COTI Node Ecosystem Litepaper](coti-node-ecosystem-litepaper.md "mention")
-* [**Node Ecosystem overview**](README.md) — eligibility, thresholds, and the managed experience at [dev.nodes.coti.io](https://dev.nodes.coti.io) / [nodes.coti.io](https://nodes.coti.io), including the guided [installer](installation.md), [UI walkthrough](ui-guide.md), and [glossary](glossary.md).
+* [**Node Ecosystem overview**](README.md) — eligibility, thresholds, and the managed experience at [testnet.nodes.coti.io](https://testnet.nodes.coti.io) / [nodes.coti.io](https://nodes.coti.io), including the guided [installer](installation.md), [UI walkthrough](ui-guide.md), and [glossary](glossary.md).
 
 {% hint style="warning" %}
 **Rewards require a valid FQDN and reachable JSON-RPC.** The Node Ecosystem measures uptime by calling your node’s JSON-RPC through the domain you register. A node that syncs locally but is **not** publicly reachable on a valid FQDN will **not** accrue credited uptime and will **not** be eligible for rewards — whether you installed via this manual guide or via the web app wizard. See [Installation](installation.md).

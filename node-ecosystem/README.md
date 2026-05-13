@@ -51,7 +51,7 @@ The ecosystem runs on two networks. All guidance in this section applies to both
 
 |                                 | **Testnet**                                              | **Mainnet**                              |
 | ------------------------------- | -------------------------------------------------------- | ---------------------------------------- |
-| Web app                         | [dev.nodes.coti.io](https://dev.nodes.coti.io)           | [nodes.coti.io](https://nodes.coti.io)   |
+| Web app                         | [testnet.nodes.coti.io](https://testnet.nodes.coti.io)           | [nodes.coti.io](https://nodes.coti.io)   |
 | Status page (public, hot nodes) | [testnet.uptime.coti.io](https://testnet.uptime.coti.io) | [uptime.coti.io](https://uptime.coti.io) |
 | Recommended node disk space     | ≥ 100 GB                                                 | ≥ 700 GB                                 |
 | Installer host                  | `fullnode.testnet.coti.io`                               | `fullnode.mainnet.coti.io`               |
