@@ -171,21 +171,17 @@ If the connected wallet has not started setup and does not own a node NFT, the p
 
 ### Full dashboard
 
-<figure><img src="../../.gitbook/assets/node-ecosystem-my-nodes-dashboard.png" alt="My Node full dashboard with node identity, live status, eligibility panel, all-time stats, and past epochs table"><figcaption><p>Full operator dashboard once the NFT has been minted.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/node-ecosystem-my-nodes-dashboard.png" alt="My Node dashboard: identity card with LIVE, Total Earned and claimable, three stat cards, Eligibility This Epoch with Path 1 and Path 2"><figcaption><p>Full operator dashboard once the NFT has been minted: identity, stats, and this-epoch eligibility paths.</p></figcaption></figure>
 
 Once the NFT exists, the dashboard shows:
 
-* **Node identity card** — NFT image, node name, `LIVE` badge, node ID (address), **Edit** button → `/edit-node`, and the headline **Total Earned** in COTI with a **Claim Now** button that withdraws the accrued balance from the rewards smart contract into the connected wallet. Operators who prefer to claim from outside the UI can also call the rewards contract directly.
-* **At-a-glance stats** — **All-Time Uptime** with a performance badge (for example _Excellent_), **Eligibility Streak (Days)**, and **COTI Claimed**.
-* **Eligibility panel** — two side-by-side **paths** for the current epoch (same structure as **`/eligibility`**): **Path 1 — USDC + COTI** (USDC, COTI, and uptime bars) and **Path 2 — COTI only** (higher COTI bar and uptime). You qualify when **either** path is fully met. Each requirement shows current value vs threshold; cards show met / unmet while loading resolves.
-* **Past Epochs table** — paginated per-epoch history with columns:
-  * **Epoch** — epoch number.
-  * **USDC** — USDC balance at the epoch snapshot.
-  * **COTI** — COTI balance at the epoch snapshot.
-  * **Earned** — COTI credited for the epoch (zero if ineligible).
-  * **Uptime** — uptime percentage for the epoch.
-  * **Status** — **Eligible** / **Ineligible**.
+* **Node identity card** — NFT image, node name, **`LIVE`** badge when the node is considered online, truncated node address, and **Edit** → `/edit-node`. **Total Earned** (all-time COTI from rewards) appears with a secondary **claimable** line (accrued balance not yet withdrawn) and a **Claim Now** button that sends a claim transaction on the rewards contract into the connected wallet. Operators who prefer to claim off-site can call the contract directly.
+* **At-a-glance stats** (three cards) — **All-Time Uptime** with a performance badge (for example **Excellent**), **Eligibility Streak (Days)** with a streak-style badge (for example **On Fire**), and **COTI Claimed** (lifetime claimed amount) with a complementary badge (for example **Stacking**). Icons and colors reinforce each metric.
+* **Eligibility** — section title **Eligibility** with **This Epoch** and a shield icon. The same **two-path** layout as **`/eligibility`**: **Path 1 — USDC + COTI** and **Path 2 — COTI only** separated by **OR**. Each path card can show a corner status (for example **Not yet** while requirements are incomplete). Rows list **USDC Holdings**, **COTI Holdings** (Path 2 includes *No USDC required* helper copy), and **Uptime**, each as **current / threshold** with a progress bar: green when the row is satisfied, yellow or orange when not; row icons mark met vs not met. You are eligible for the epoch when **either** path is fully satisfied (all its rows green).
 
+<figure><img src="../../.gitbook/assets/node-ecosystem-my-nodes-past-epochs.png" alt="Past Epochs table with Epoch USDC COTI Earned Uptime bars and Eligible status, plus pagination footer"><figcaption><p><strong>Past Epochs</strong>: per-epoch snapshots, uptime bars, eligibility badges, and pagination.</p></figcaption></figure>
+
+* **Past Epochs** — subtitle *Historical eligibility data.* A paginated table with columns **Epoch**, **USDC**, **COTI**, **Earned**, **Uptime** (percentage with a horizontal bar), and **Status** (**Eligible** / **Ineligible** as a pill). The footer shows how many epochs are on the current page versus the total (for example *Showing 4 of 90 past epochs*), a page indicator (for example `1 / 23`), and **Previous** / **Next** controls.
 ## Edit Node (`/edit-node`)
 
 A focused flow that renames the node. Because the name is stored on the Soulbound NFT, saving triggers a wallet signature / on-chain transaction. Changes propagate to the public nodes table the next time the UI refreshes NFT metadata.
