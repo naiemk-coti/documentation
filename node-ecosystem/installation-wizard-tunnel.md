@@ -1,6 +1,6 @@
 # Wizard tunnel (COTI subdomain + `--with-frp`)
 
-This is the **simplest** wizard path: you complete the [**UI guide**](ui-guide/README.md), get a **COTI-assigned hostname** (for example under `fullnode.<network>.coti.io`), generate a key, and run the installer with **`--with-frp`**.
+This is the **simplest** wizard path: on **Setup FQDN**, click **Generate FQDN for Me**. The wizard shows a success message and the **Node FQDN** value to use in the installer — a **COTI-assigned hostname** under the network’s managed zone (for example `*.fullnode.<network>.coti.io` or `*.fullnode.<network>.coti.network`, depending on environment). Then run the installer with **`--with-frp`**.
 
 ← Back to [**Installation overview**](installation.md) · Related: [**Own domain (Nginx)**](installation-own-domain.md) · [**Manual full node setup**](manual-full-node.md)
 
@@ -18,7 +18,7 @@ The installer enables the **FRPC** Compose profile, keeps **Nginx + Let’s Encr
 ## Prerequisites
 
 1. **Server** meeting [**Server requirements**](server-requirements.md) (Ubuntu 24.04 LTS, disk, RAM), with **root access**.
-2. The **FQDN** string issued by the wizard (`*.fullnode.<network>.coti.io`-style).
+2. The **FQDN** string shown in the wizard after generation (same value the one-liner expects; hostname pattern is network-specific).
 3. **Node private key** (64 hex chars) from the wizard or your own.
 
 ## One-line command
