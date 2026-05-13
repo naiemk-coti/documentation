@@ -53,7 +53,6 @@ The ecosystem runs on two networks. All guidance in this section applies to both
 | ------------------------------- | -------------------------------------------------------- | ---------------------------------------- |
 | Web app                         | [testnet.nodes.coti.io](https://testnet.nodes.coti.io)   | [nodes.coti.io](https://nodes.coti.io)   |
 | Status page (public, hot nodes) | [testnet.uptime.coti.io](https://testnet.uptime.coti.io) | [uptime.coti.io](https://uptime.coti.io) |
-| Recommended node disk space     | ≥ 100 GB                                                 | ≥ 700 GB                                 |
 | Installer host                  | `fullnode.testnet.coti.io`                               | `fullnode.mainnet.coti.io`               |
 
 The **status page** is the public [Better Stack](https://betterstack.com/) dashboard where every hot node's monitor is visible. It is the fastest way to eyeball the current health of the whole fleet.
