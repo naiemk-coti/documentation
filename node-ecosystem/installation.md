@@ -39,8 +39,8 @@ The [**Wizard tunnel**](installation-wizard-tunnel.md) and [**Own domain**](inst
 |------|-------------|
 | **`--with-frp`** | Tunnel flow — see [Wizard tunnel](installation-wizard-tunnel.md). |
 | **`--nginx`** | Own domain + TLS on host — see [Own domain](installation-own-domain.md). |
-| `--no-nginx` | Skip Nginx (advanced; often not reward-suitable with a BYO domain). |
-| `--frpc` / `--no-frpc` | FRPC without tunnel relaxations — see tunnel page. |
+| `--without-nginx` | Skip Nginx (advanced; often not reward-suitable with a BYO domain). |
+| `--frpc` / `--without-frp` | FRPC without tunnel relaxations — see tunnel page. |
 | `--staging` | Let’s Encrypt staging — only with `--nginx`. |
 
 For **manual** operation (restart, stop, logs, FAQ), see [**Manual full node setup**](manual-full-node.md).
