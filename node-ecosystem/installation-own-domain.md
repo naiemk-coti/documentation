@@ -46,7 +46,7 @@ The script prints success with your HTTPS URL. The node syncs; the wizard waits 
 |------|---------|
 | **`--nginx`** | Nginx + Let’s Encrypt on the host (this guide). |
 | `--staging` | Let’s Encrypt **staging** CA (for dry runs; browsers won’t trust the cert). |
-| `--no-nginx` | Skip TLS on host — usually **not** suitable for reward eligibility with a BYO domain. |
+| `--without-nginx` | Skip TLS on host — usually **not** suitable for reward eligibility with a BYO domain. |
 | `--with-frp` | If you meant the COTI tunnel path instead, see [**Wizard tunnel**](installation-wizard-tunnel.md). |
 
 **Dry-run example:**
