@@ -1,6 +1,6 @@
 # Installation
 
-This page explains what happens when you run the automated installer produced by the [**`/setup`** wizard](ui-guide.md). It is the destination for the **"Learn more about installation"** link in the installer step. See [Networks](README.md#networks) for the testnet and mainnet web-app URLs.
+This page explains what happens when you run the automated installer produced by the [**`/setup`** wizard](ui-guide/). It is the destination for the **"Learn more about installation"** link in the installer step. See [Networks](./#networks) for the testnet and mainnet web-app URLs.
 
 {% hint style="info" %}
 This page covers the **automated** installer (the single `curl | sudo bash` command) — the **web app wizard** path. OS, Docker, and hardware sizing are shared with the manual path — see [**Server requirements**](server-requirements.md). For the **manual** Docker-based procedure (Git clone, start scripts, FAQ) **without** the wizard, see [**Manual full node setup**](manual-full-node.md).
@@ -19,7 +19,7 @@ The **same** certified OS and server sizing apply to the wizard and to [manual f
 5. **A node private key** (64 hex characters) — the wizard can generate one for you, or you can bring your own.
 
 {% hint style="warning" %}
-**The FQDN is a reward prerequisite, not just a convenience.** The installer requests a Let's Encrypt certificate for your FQDN, and the ecosystem later probes your node's JSON-RPC **through that FQDN** to measure uptime. If the FQDN is missing, misconfigured, or the certificate cannot be issued, **your node will not be credited with uptime and will not earn rewards** — even if the node is fully synced. See [glossary.md](glossary.md) for the FQDN entry.
+**The FQDN is a reward prerequisite, not just a convenience.** The installer requests a Let's Encrypt certificate for your FQDN, and the ecosystem later probes your node's JSON-RPC **through that FQDN** to measure uptime. If the FQDN is missing, misconfigured, or the certificate cannot be issued, **your node will not be credited with uptime and will not earn rewards** — even if the node is fully synced. See [glossary.md](ui-guide/glossary.md) for the FQDN entry.
 {% endhint %}
 
 ## The one-line command
@@ -98,17 +98,17 @@ On success the script prints:
 At this point:
 
 * The node starts syncing blocks from peers.
-* The wizard in the browser polls the peer-discovery service every ~60 seconds and advances as soon as your node appears in the peer set.
-* You enter the **warm-up period** — once your node has been continuously observed for `HOT_THRESHOLD_HOURS` inside a `HOT_WINDOW_HOURS` window, a Soulbound **Node NFT** is minted to your operator wallet and your node becomes **hot**. See the [Glossary](glossary.md) for the exact definitions.
+* The wizard in the browser polls the peer-discovery service every \~60 seconds and advances as soon as your node appears in the peer set.
+* You enter the **warm-up period** — once your node has been continuously observed for `HOT_THRESHOLD_HOURS` inside a `HOT_WINDOW_HOURS` window, a Soulbound **Node NFT** is minted to your operator wallet and your node becomes **hot**. See the [Glossary](ui-guide/glossary.md) for the exact definitions.
 
 ## Optional flags
 
 The installer accepts two flags that the wizard does not surface:
 
-| Flag | Purpose |
-|------|---------|
+| Flag         | Purpose                                                                                                                                                              |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--no-nginx` | Skip the Nginx + Let's Encrypt setup. The node still runs on `:8545` / `:8546` but is **not** publicly reachable over HTTPS. Not suitable for reward-eligible nodes. |
-| `--staging` | Use the Let's Encrypt **staging** environment (useful for dry runs; the resulting certificate is not trusted by browsers). |
+| `--staging`  | Use the Let's Encrypt **staging** environment (useful for dry runs; the resulting certificate is not trusted by browsers).                                           |
 
 To use these, invoke the script with the extra argument appended:
 

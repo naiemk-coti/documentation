@@ -32,12 +32,12 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then use [**Installation**](installation.md) and the [**UI guide**](ui-guide.md) for details. [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](./#networks), follow the setup flow, then use [**Installation**](installation.md) and the [**UI guide**](ui-guide/) for details. [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
-| Path | When to use it | Documentation |
-| ---- | --------------- | --------------- |
-| **Web app wizard (recommended first)** | Guided flow, one-liner installer from [Networks](#networks), HTTPS, automatic monitoring hooks. | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
-| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
+| Path                                   | When to use it                                                                                    | Documentation                                                  |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Web app wizard (recommended first)** | Guided flow, one-liner installer from [Networks](./#networks), HTTPS, automatic monitoring hooks. | [**Installation**](installation.md), [**UI guide**](ui-guide/) |
+| **Manual (without the wizard)**        | You administer the stack yourself — not the Nodes web UI installer.                               | [**Manual full node setup**](manual-full-node.md)              |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
@@ -51,7 +51,7 @@ The ecosystem runs on two networks. All guidance in this section applies to both
 
 |                                 | **Testnet**                                              | **Mainnet**                              |
 | ------------------------------- | -------------------------------------------------------- | ---------------------------------------- |
-| Web app                         | [testnet.nodes.coti.io](https://testnet.nodes.coti.io)           | [nodes.coti.io](https://nodes.coti.io)   |
+| Web app                         | [testnet.nodes.coti.io](https://testnet.nodes.coti.io)   | [nodes.coti.io](https://nodes.coti.io)   |
 | Status page (public, hot nodes) | [testnet.uptime.coti.io](https://testnet.uptime.coti.io) | [uptime.coti.io](https://uptime.coti.io) |
 | Recommended node disk space     | ≥ 100 GB                                                 | ≥ 700 GB                                 |
 | Installer host                  | `fullnode.testnet.coti.io`                               | `fullnode.mainnet.coti.io`               |
@@ -108,7 +108,7 @@ flowchart LR
 
 * [**Installation**](installation.md) — what the automated `curl | sudo bash` installer does, DNS and server requirements.
 * [**Server requirements**](server-requirements.md) — certified OS, tested Docker stack, hardware and disk sizing (shared with the manual path).
-* [**UI guide**](ui-guide.md) — page-by-page tour of the web app, spin-up flow, and warm-up period.
+* [**UI guide**](ui-guide/) — page-by-page tour of the web app, spin-up flow, and warm-up period.
 
 **Advanced / self-managed:**
 
@@ -119,4 +119,4 @@ flowchart LR
 * [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) — Node Economy (PDF embed).
 * [**Features**](features.md) — everything the product does, end-to-end.
 * [**Backend services**](backend-services.md) — the five services behind the ecosystem, described from an operator's perspective.
-* [**Glossary**](glossary.md) — thermal states, NFT states, warm-up windows, eligibility, and other terms you will see in the UI.
+* [**Glossary**](ui-guide/glossary.md) — thermal states, NFT states, warm-up windows, eligibility, and other terms you will see in the UI.
