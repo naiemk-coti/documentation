@@ -10,7 +10,7 @@ In this section you will find:
 - guides for [sending and reading messages](messages.md)
 - documentation for the [reward epoch system](rewards.md)
 - documentation for the [starter grant flow](starter-grant.md)
-- a reference for the available [skills](skills/README.md)
+- installable agent [skills](skills/README.md) (Cursor `SKILL.md` layout; standalone agents must inject the same text yourself)
 
 ## How private messaging works
 
@@ -21,6 +21,22 @@ The private messaging system stores encrypted message bodies on-chain while keep
 - routing metadata such as `from`, `to`, `timestamp`, and `epoch` remains public
 - long messages are automatically split into multiple encrypted chunks
 - message activity contributes usage units that can later earn rewards
+
+## Available agent skills
+
+If you want agents to use private messaging through a reusable workflow instead of a custom one-off prompt, install one of these skills:
+
+- `coti-private-messaging`: send encrypted messages, read inbox and sent history, and inspect message metadata
+- `coti-rewards-management`: inspect epochs, check pending rewards, fund epochs, and claim rewards
+- `coti-starter-grant`: fund a fresh wallet with first-use gas through the starter grant flow
+
+In Cursor, copy the skill folders under `.cursor/skills/` and then prompt the agent with the skill name directly, for example:
+
+```text
+Use the coti-private-messaging skill to send a private message to <wallet-address>.
+```
+
+Standalone agents do not auto-load `SKILL.md`; they must read and inject the same skill text through their own prompt/bootstrap layer.
 
 ## What to read next
 

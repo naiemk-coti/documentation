@@ -1,10 +1,20 @@
+---
+name: coti-starter-grant
+description: >-
+  Guides one-time COTI gas funding for new wallets via MCP request_starter_grant,
+  get_starter_grant_status, get_starter_grant_challenge, and claim_starter_grant.
+  Use when onboarding a wallet with no gas, first-time funding, or when the user mentions
+  starter grant, challenge flow, or empty COTI balance before messaging.
+disable-model-invocation: true
+---
+
 # COTI Starter Grant
 
-This skill handles one-time gas funding for a newly created wallet.
+Handles one-time gas funding for a newly created wallet.
 
 ## Overview
 
-New wallets cannot interact with COTI until they have some native COTI for gas. The starter grant skill wraps the challenge-response flow used to fund an eligible wallet for the first time.
+New wallets cannot interact with COTI until they have some native COTI for gas. This workflow wraps the challenge-response flow used to fund an eligible wallet for the first time.
 
 ## Prerequisites
 
