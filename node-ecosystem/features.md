@@ -33,7 +33,7 @@ Once an operator connects a wallet that owns a COTI Node NFT, **`/my-nodes`** be
 * **Warm-up progress bar** for nodes that have just been installed and are not yet hot.
 * All-time totals: uptime, rewards, latency.
 * Per-epoch rewards history with USDC/COTI snapshots, uptime, earned amount, and eligibility status.
-* Edit node flow for renaming the node (the name is stored on the Soulbound NFT).
+* Edit node flow (`/edit-node`) for NFT metadata: name, image URI, and optional more-info URL (stored on the Soulbound NFT).
 
 ## 4. Eligibility checks
 

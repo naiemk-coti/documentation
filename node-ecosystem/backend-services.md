@@ -54,7 +54,7 @@ Because the NFT is soulbound, it cannot be transferred — it is bound to the wa
 **Where it shows up in the UI**
 
 * The node name and avatar shown everywhere the node appears (dashboard, nodes table, node-details modal).
-* The **Edit Node** flow (`/edit-node`) where you rename your node — the name is stored on the NFT.
+* The **Edit Node** flow (`/edit-node`) where you update **NFT metadata** — node name, image URI, and optional more-info URL — all stored on-chain on the Soulbound NFT.
 * The "No Node Detected" / "Warmup Complete" states on `/my-nodes`, which depend on whether the NFT exists for the connected wallet.
 
 ## Better Stack Integration Service
