@@ -7,7 +7,7 @@ The COTI Node Ecosystem packages node operation into a small number of high-leve
 A step-by-step wizard at **`/setup`** takes an operator from a fresh Ubuntu server to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname).
 
 * Generates (or accepts) a node private key locally — the key never leaves the browser.
-* Validates the node's **FQDN** via a live DNS lookup before continuing.
+* On **Setup FQDN**, offers **Generate FQDN for Me** (success banner and read-only **Node FQDN**) or **Bring your own FQDN** (hostname field, A/CNAME reminder, verification checkbox, and **Back to Generation**); for BYO, validates the hostname via a live DNS lookup before continuing.
 * Produces a single-line installer command, tailored to the node's key and hostname, that the operator runs as root on the target server (see [**Installation**](installation.md) — [**Wizard tunnel**](installation-wizard-tunnel.md) or [**Own domain**](installation-own-domain.md)).
 * Watches the peer-discovery network and advances automatically once the node is seen by peers.
 

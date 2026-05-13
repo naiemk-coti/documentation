@@ -1,6 +1,6 @@
 # Own domain (Nginx + Let’s Encrypt + `--nginx`)
 
-Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--nginx`**.
+Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--nginx`**. In **`/setup`**, on **Setup FQDN**, choose **Bring your own FQDN**, enter your hostname in **Node FQDN**, configure **A or CNAME** at your provider as the in-wizard notice describes, then confirm with **I have completed my FQDN settings** before **Next**.
 
 ← Back to [**Installation overview**](installation.md) · Related: [**Wizard tunnel**](installation-wizard-tunnel.md) · [**Manual full node setup**](manual-full-node.md)
 

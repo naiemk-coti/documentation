@@ -65,7 +65,7 @@ Two cards:
 
 ## Spin up a Node (`/setup`)
 
-The installation wizard is a 7-step flow. The top of the page shows a **SetupBar** with step labels; the main panel swaps content per step. The primary **Next** button advances; **Back** goes to the previous step.
+The installation wizard is a 7-step flow. The header shows **Spin COTI Node** and a horizontal **SetupBar** with short step labels — **Watch Video**, **Terms of Use**, **Generate Keys**, **Setup FQDN**, **Run Command**, **Monitor Node**, **Node Live** — aligned with the sections below. The main panel swaps content per step. The primary **Next** button advances; **Back** goes to the previous step.
 
 ### Step 1 — Watch the setup video
 
@@ -96,15 +96,25 @@ The private key is the identity of your node and the wallet that will receive th
 
 ### Step 4 — Setup FQDN
 
-<figure><img src="../../.gitbook/assets/node-ecosystem-setup-4.png" alt="Setup step 4 with the Node FQDN input, an A/CNAME instruction, and an I have completed my FQDN settings checkbox"><figcaption><p>Step 4: the FQDN that will front your node's RPC.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/node-ecosystem-setup-4.png" alt="Setup FQDN step with Generate FQDN for Me and Bring your own FQDN choices"><figcaption><p>Step 4: choose a COTI-generated hostname or bring your own FQDN.</p></figcaption></figure>
 
-Enter the public hostname that will point to your node (for example `node1.example.com`). The checkbox **"I have completed my FQDN settings"** triggers a live DNS lookup via `dns.google.com/resolve`:
+The panel title is **Setup FQDN**, with the line **Connect your FQDN (Fully Qualified Domain Name) to your node.** You pick how the public hostname is supplied:
 
-* Success — the box is checked and you can proceed.
-* Failure — an inline error explains that the domain did not resolve; fix the A/CNAME record at your DNS provider and retry.
+* **Generate FQDN for Me** — the default path for the **COTI-managed hostname** (tunnel / **`--with-frp`** install). You do not create DNS at your registrar; the one-liner and edge routing are described in [**Wizard tunnel**](../installation-wizard-tunnel.md). When you click it, the wizard allocates the name and updates the same step: a green **FQDN generated successfully!** banner appears, and a read-only **Node FQDN** field shows the assigned hostname (for example a `*.fullnode.<network>.coti.network`-style name on testnet — the exact zone depends on the environment).
+
+<figure><img src="../../.gitbook/assets/node-ecosystem-setup-4-generated-fqdn.png" alt="Setup FQDN after generation: green success banner and Node FQDN read-only field"><figcaption><p>After <strong>Generate FQDN for Me</strong>: success confirmation and the assigned hostname before <strong>Next</strong>.</p></figcaption></figure>
+
+* **Bring your own FQDN** — for a hostname **you** control. The wizard shows a **Node FQDN** text field (label includes an example such as `node.yourdomain.com`, placeholder **Enter your FQDN.**). An **Important** callout reminds you to configure an **A or CNAME** record at your DNS provider pointing to your server’s public IP **before** you continue, so the name is reachable on the network. Tick **"I have completed my FQDN settings"** (with the line *I verify that my FQDN points to my node's IP.*) to run a live DNS lookup via `dns.google.com/resolve`:
+
+  * Success — you can proceed with **Next**.
+  * Failure — an inline error explains that the domain did not resolve; fix the record at your registrar and retry.
+
+  **← Back to Generation.** returns to the choice screen if you want **Generate FQDN for Me** instead. This path matches **Nginx + TLS** on your server — see [**Own domain (Nginx + TLS)**](../installation-own-domain.md).
+
+<figure><img src="../../.gitbook/assets/node-ecosystem-setup-4-own-fqdn.png" alt="Bring your own FQDN: Node FQDN input, A or CNAME notice, verification checkbox, and Back to Generation link"><figcaption><p><strong>Bring your own FQDN</strong>: enter your hostname, confirm DNS, or go back to the generated-FQDN path.</p></figcaption></figure>
 
 {% hint style="warning" %}
-**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** Requirements depend on install mode: **own domain + Nginx** needs a live DNS record to your server and reachable **80/443** — see [**Own domain (Nginx + TLS)**](../installation-own-domain.md). **COTI tunnel** (`--with-frp`) uses the COTI-assigned hostname and edge TLS — see [**Wizard tunnel**](../installation-wizard-tunnel.md). Overview: [**Installation**](../installation.md). Without a reachable public RPC name your node cannot earn rewards.
+**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** **Own domain + Nginx** needs a live DNS record to your server and reachable **80/443**. **COTI tunnel** (`--with-frp`) uses the COTI-assigned hostname and edge TLS. Overview: [**Installation**](../installation.md). Without a reachable public RPC name your node cannot earn rewards.
 {% endhint %}
 
 ### Step 5 — Run the command
