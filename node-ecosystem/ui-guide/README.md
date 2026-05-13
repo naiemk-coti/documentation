@@ -12,7 +12,7 @@ The top-level navigation exposes three tabs: **Overview**, **My Node**, and **El
 | `/join`        | (from "Spin up a Node") | Choose between local install and hosted provider                |
 | `/setup`       | (from Join)             | 7-step guided installation wizard                               |
 | `/my-nodes`    | My Node                 | Per-operator dashboard (wallet-gated)                           |
-| `/edit-node`   | (from My Node)          | Rename your node (stored on the NFT)                            |
+| `/edit-node`   | (from My Node)          | Edit node NFT metadata: name, image URI, more-info URL          |
 | `/eligibility` | Eligibility             | Node reward eligibility: two paths (USDC + COTI vs COTI-only) + notes |
 | `/terms`       | (footer)                | Terms of service                                                |
 
@@ -182,9 +182,24 @@ Once the NFT exists, the dashboard shows:
 <figure><img src="../../.gitbook/assets/node-ecosystem-my-nodes-past-epochs.png" alt="Past Epochs table with Epoch USDC COTI Earned Uptime bars and Eligible status, plus pagination footer"><figcaption><p><strong>Past Epochs</strong>: per-epoch snapshots, uptime bars, eligibility badges, and pagination.</p></figcaption></figure>
 
 * **Past Epochs** — subtitle *Historical eligibility data.* A paginated table with columns **Epoch**, **USDC**, **COTI**, **Earned**, **Uptime** (percentage with a horizontal bar), and **Status** (**Eligible** / **Ineligible** as a pill). The footer shows how many epochs are on the current page versus the total (for example *Showing 4 of 90 past epochs*), a page indicator (for example `1 / 23`), and **Previous** / **Next** controls.
+
 ## Edit Node (`/edit-node`)
 
-A focused flow that renames the node. Because the name is stored on the Soulbound NFT, saving triggers a wallet signature / on-chain transaction. Changes propagate to the public nodes table the next time the UI refreshes NFT metadata.
+<figure><img src="../../.gitbook/assets/node-ecosystem-edit-node.png" alt="Edit Node Details form beside Configuration Summary with NFT preview and token details"><figcaption><p><strong>Edit Node</strong>: two-column layout — form on the left, live summary on the right.</p></figcaption></figure>
+
+The header breadcrumb reads **My Node / \<node name\>** so you can see which node you are editing.
+
+Two cards sit side by side:
+
+* **Edit Node Details** — copy explains that **changes are saved to the node's NFT metadata**. Fields:
+  * **Node Name** — display name for the node.
+  * **Node Image URI** — HTTPS URL for the node's avatar image (shown in ecosystem UIs).
+  * **More Info URL** — optional link (placeholder `https://...`) for extra context (site, docs, etc.).
+  * **Submit Node Configuration** — primary action; submitting triggers the wallet flow to update on-chain NFT metadata (signature / transaction, depending on implementation).
+
+* **Configuration Summary** — live preview: rendered **image** from the URI, **Name**, **URL** (or **N/A** when empty), **Node ID (Token)** as the NFT token id, and the **NFT contract address** for reference.
+
+After a successful update, refreshed metadata appears on **My Node** and in the public nodes table once the app reloads chain or indexer data.
 
 ## Eligibility (`/eligibility`)
 
