@@ -17,7 +17,7 @@ The installer enables the **FRPC** Compose profile, keeps **Nginx + Let’s Encr
 
 ## Prerequisites
 
-1. **Server** meeting [**Server requirements**](server-requirements.md) (Ubuntu 24.04 LTS, disk, RAM), with **root access**.
+1. **Server** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 26.04 LTS**; disk, RAM), with **root access**.
 2. The **FQDN** string shown in the wizard after generation (same value the one-liner expects; hostname pattern is network-specific).
 3. **Node private key** (64 hex chars) from the wizard or your own.
 
@@ -33,7 +33,7 @@ curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<
 
 Driven by [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh):
 
-1. **OS and inputs** — Ubuntu check, root, valid hex key and hostname.
+1. **OS and inputs** — Certified Ubuntu version check, root, valid hex key and hostname (non-24.04 may prompt; see [**Server requirements → Windows 11 with WSL 2**](server-requirements.md#windows-11-with-wsl-2)).
 2. **Pre-checks** — Writable install dir, disk space; **no** inbound 80/443/7400 firewall enforcement; **7400** must not already be in use locally.
 3. **Packages** — Docker, Compose, `curl`, `git`, `jq`, `dnsutils` (**no** `certbot` when Nginx is off).
 4. **Clone** — `coti-full-node` into the current directory (must be empty).
