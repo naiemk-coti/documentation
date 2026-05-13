@@ -4,13 +4,42 @@ hidden: true
 
 # Node Ecosystem
 
-The **COTI Node Ecosystem** is the product surface that lets anyone run, monitor, and earn rewards from a COTI full node. It is composed of:
+Running a node helps secure and decentralize the COTI network and support the overall ecosystem. While there are some similarities to other L2 networks, COTI’s architecture has its own nuances and requirements that we cover in this documentation.
+
+## What is a COTI node?
+
+In the COTI network, full nodes are decentralized, lean clients that play a critical role in maintaining the network’s security, scalability, and overall functionality. Anyone can run a full node to support the network and, when they meet the ecosystem’s eligibility rules, earn rewards.
+
+Running a COTI full node downloads a copy of the COTI blockchain and verifies the validity of every block. Unlike validator nodes in Ethereum, COTI full nodes do not actively participate in consensus nor in block proposal; that is the role of the COTI sequencer (see [**COTI Architecture**](https://docs.coti.io/coti-documentation/how-coti-works/introduction/coti-architecture)).
+
+## Why run a node?
+
+Running a COTI node offers several benefits:
+
+* **Network participation** — Contribute to the decentralization and robustness of the network.
+* **Community support** — Strengthen the ecosystem and help drive adoption of COTI’s technology.
+* **Rewards and incentives** — Eligible operators can earn rewards when their node meets the thresholds and rules described in this Node Ecosystem section (for example uptime, DNS reachability, and license or holdings requirements where applicable).
+
+The **COTI Node Ecosystem** is the product surface that lets anyone run, monitor, and earn rewards from a COTI full node through a guided flow. It is composed of:
 
 * a web app that guides operators from zero to a live, reward-eligible node (see [Networks](./#networks) below for the URLs),
 * an automated installer that stands up a COTI full node on Ubuntu 24.04 LTS in a single command,
 * a set of backend services that discover peers, mint node NFTs, monitor uptime, and distribute rewards each epoch.
 
 This section documents the product — what it does, how to install a node through it, how its UI is organized, and the terminology you will encounter along the way.
+
+## Running a full node: two paths
+
+The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself. Pick the path that matches how you want to operate.
+
+| Path | When to use it | Documentation |
+| ---- | --------------- | --------------- |
+| **Web app wizard** | You want the guided flow, the one-liner installer from [Networks](#networks), HTTPS, and automatic monitoring hooks from the product. | [**Installation**](installation.md), [**UI guide**](ui-guide.md) |
+| **Manual (without the wizard)** | You prefer Git clone, Docker Compose, and scripts on your own terms — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
+
+The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
+
+Operators on the **manual** path can still earn **rewards** when they satisfy the same thresholds as wizard users (FQDN, reachability, uptime, license / holdings, etc.) — see [**Installation**](installation.md) and [**Manual full node setup**](manual-full-node.md).
 
 ## Networks
 
@@ -24,10 +53,6 @@ The ecosystem runs on two networks. All guidance in this section applies to both
 | Installer host                  | `fullnode.testnet.coti.io`                               | `fullnode.mainnet.coti.io`               |
 
 The **status page** is the public [Better Stack](https://betterstack.com/) dashboard where every hot node's monitor is visible. It is the fastest way to eyeball the current health of the whole fleet.
-
-{% hint style="info" %}
-If you are looking for the protocol-level **Running a COTI Node** guide (hardware specs, manual Docker flow, ports, FAQ), see [**Running a COTI Node**](../running-a-coti-node/). The current section focuses on the managed, UI-driven experience and the ecosystem that surrounds it.
-{% endhint %}
 
 ## What the COTI Node Ecosystem gives you
 
@@ -75,8 +100,10 @@ flowchart LR
 
 ## Where to go next
 
-* [**Features**](features.md) — everything the product does, end-to-end.
-* [**Installation**](installation.md) — what the automated installer does on your server, and the DNS/server requirements.
+* [**Manual full node setup (without the web app wizard)**](manual-full-node.md) — hardware, Docker Compose, ports, Git clone, restart/stop, FAQ.
+* [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) — Node Economy (PDF embed).
+* [**Installation**](installation.md) — automated installer (wizard path) and DNS/server requirements.
 * [**UI guide**](ui-guide.md) — a page-by-page tour of the web app, with focus on the spin-up flow and the warm-up period.
+* [**Features**](features.md) — everything the product does, end-to-end.
 * [**Backend services**](backend-services.md) — the five services behind the ecosystem, described from an operator's perspective.
 * [**Glossary**](glossary.md) — thermal states, NFT states, warm-up windows, eligibility, and other terms you will see in the UI.

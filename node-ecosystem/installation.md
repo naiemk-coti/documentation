@@ -3,7 +3,7 @@
 This page explains what happens when you run the automated installer produced by the [**`/setup`** wizard](ui-guide.md). It is the destination for the **"Learn more about installation"** link in the installer step. See [Networks](README.md#networks) for the testnet and mainnet web-app URLs.
 
 {% hint style="info" %}
-This page covers the **automated** installer (the single `curl | sudo bash` command). If you want the **manual** Docker-based procedure (hardware specs, ports, step-by-step Git clone and start scripts, FAQ), see [Running a COTI Node](../running-a-coti-node/README.md).
+This page covers the **automated** installer (the single `curl | sudo bash` command) — the **web app wizard** path. If you want the **manual** Docker-based procedure (hardware specs, ports, step-by-step Git clone and start scripts, FAQ) **without** the wizard, see [**Manual full node setup**](manual-full-node.md).
 {% endhint %}
 
 ## Certified operating system
@@ -128,4 +128,4 @@ curl -sL https://fullnode.mainnet.coti.io | sudo bash -s -- "0x..." "node1.examp
 * **`coti-full-node` directory already exists** — The installer requires a clean directory. Remove or archive the previous clone before re-running.
 * **Node does not appear in the wizard** — Confirm the node container is running (`docker ps`), the chain is syncing (`docker logs -f coti-<network>-full-node`), and the FQDN resolves to your server's public IP.
 
-For manual node management (restart, stop, logs, cleanup), see [Running a COTI Node → Restarting Your Node](../running-a-coti-node/README.md#restarting-your-node).
+For manual node management (restart, stop, logs, cleanup) when you run the repo yourself, see [**Manual full node setup → Restarting your node**](manual-full-node.md#restarting-your-node).

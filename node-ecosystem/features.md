@@ -72,4 +72,4 @@ Rewards are distributed each **epoch** (103 hours). At the end of every epoch, t
 
 Rewards are **not** auto-deposited to the operator's wallet. Once the contract has been credited, the operator claims the accrued balance either from the **Claim Now** button in the **My Node** dashboard or by calling the rewards smart contract directly from any wallet they control. Unclaimed rewards remain available until claimed.
 
-The per-operator dashboard shows each past epoch with uptime, holdings, earned amount, and an "Eligible / Ineligible" badge. See the [Node Ecosystem Litepaper](../running-a-coti-node/coti-node-ecosystem-litepaper.md) for the economic model.
+The per-operator dashboard shows each past epoch with uptime, holdings, earned amount, and an "Eligible / Ineligible" badge. See the [Node Ecosystem Litepaper](coti-node-ecosystem-litepaper.md) for the economic model.
