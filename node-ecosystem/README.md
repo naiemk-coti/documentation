@@ -37,13 +37,13 @@ The same **COTI full node** software powers the network whether you onboard thro
 | Path | When to use it | Documentation |
 | ---- | --------------- | --------------- |
 | **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/README.md) |
-| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | [**Manual full node setup**](manual-full-node.md) |
+| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | Under [**Installation**](installation.md): [**Manual full node setup**](manual-full-node.md) |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
 **Certified OS and hardware** for both paths are documented once on [**Server requirements**](server-requirements.md).
 
-Operators on the **manual** path can still earn **rewards** when they satisfy the same thresholds as wizard users (FQDN, reachability, uptime, license / holdings, etc.) — see [**Installation**](installation.md) and [**Manual full node setup**](manual-full-node.md).
+Operators on the **manual** path can still earn **rewards** when they satisfy the same thresholds as wizard users (FQDN, reachability, uptime, license / holdings, etc.) — see the [**Installation**](installation.md) section, especially [**Manual full node setup**](manual-full-node.md).
 
 ## Networks
 
@@ -103,15 +103,17 @@ flowchart LR
 
 ## Where to go next
 
-**Start here (wizard — fastest for most operators):**
+**Installation (pick your path — order matches the docs sidebar):**
 
-* [**Installation**](installation.md) — hub for the automated installer; then [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--nginx`).
-* [**Server requirements**](server-requirements.md) — certified OS, tested Docker stack, hardware and disk sizing (shared with the manual path).
-* [**UI guide**](ui-guide/README.md) — page-by-page tour of the web app, spin-up flow, and warm-up period.
+* [**Installation hub**](installation.md) — overview, shared flags, after-wizard notes.
+* [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) — COTI subdomain, FRP, no host TLS.
+* [**Own domain (Nginx + TLS)**](installation-own-domain.md) (`--nginx`) — your FQDN, Let’s Encrypt on the host.
+* [**Manual full node setup**](manual-full-node.md) — Git clone, Docker Compose, ports, restart/stop, FAQ (no wizard; OS/hardware still [**Server requirements**](server-requirements.md)).
 
-**Advanced / self-managed:**
+**Also:**
 
-* [**Manual full node setup (without the web app wizard)**](manual-full-node.md) — Git clone, Docker Compose, open ports, restart/stop, FAQ (OS and hardware: [**Server requirements**](server-requirements.md)).
+* [**Server requirements**](server-requirements.md) — certified OS, Docker stack, hardware and disk.
+* [**UI guide**](ui-guide/README.md) — wizard walkthrough and warm-up.
 
 **Reference:**
 
