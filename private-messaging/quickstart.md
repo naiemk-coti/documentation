@@ -11,7 +11,17 @@ This is the shortest path for an operator who already runs an agent and wants to
 The default path is mainnet. Use `--network testnet` only when you intentionally want testnet.
 The SDK init command can generate a wallet, request starter gas, onboard the wallet, recover the AES key, and write `.env`.
 
-## Install
+## One-line send from zero
+
+If you want one terminal command that installs, initializes, and sends a private message, run:
+
+```bash
+mkdir coti-private-message-smoke && cd coti-private-message-smoke && npm init -y && npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv && npx coti-private-messaging-send --init --to 0xRecipient --text "hello from coti"
+```
+
+That one-liner installs the SDK, creates or reuses the wallet, requests starter gas when needed, recovers or creates the AES key, writes `.env`, and sends the message.
+
+## Install step by step
 
 ```bash
 mkdir coti-private-message-smoke
@@ -20,20 +30,35 @@ npm init -y
 npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv
 ```
 
-## Configure
+## Two-command path
 
-For the shortest path, run:
+If you prefer to separate setup from send, run:
 
 ```bash
 npx coti-private-messaging-init
+npx coti-private-messaging-send --to 0xRecipient --text "hello from coti"
+```
+
+If you want a verification script instead of a direct send, run:
+
+```bash
 npx coti-private-messaging-send-read-smoke
+```
+
+The smoke command verifies the install/init path worked; it is not the setup step itself.
+
+## Configure only
+
+If you want setup without sending yet, run:
+
+```bash
+npx coti-private-messaging-init
 ```
 
 From the SDK repository checkout, use:
 
 ```bash
 npm run init
-npm run smoke:send-read
 ```
 
 The init command is idempotent:
