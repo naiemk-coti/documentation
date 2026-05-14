@@ -1,16 +1,40 @@
 ---
 name: coti-private-messaging
 description: >-
-  Guides encrypted COTI agent-to-agent messaging via MCP tools send_message, list_inbox,
-  read_message, list_sent, get_message_metadata, and get_account_stats. Use when building
-  or debugging private messaging, inbox flows, or when the user mentions COTI private
-  messages, encrypted messaging MCP, or @coti-io/coti-sdk-private-messaging.
+  Guides one-time setup and encrypted COTI agent-to-agent messaging via CLI bootstrap
+  plus MCP tools send_message, list_inbox, read_message, list_sent, get_message_metadata,
+  get_account_stats, and starter-grant helpers. Use when the user wants to get ready for
+  private messaging, send/read messages, recover from missing AES or gas, or mentions
+  COTI private messaging, encrypted messaging MCP, or @coti-io/coti-sdk-private-messaging.
 disable-model-invocation: true
 ---
 
 # COTI Private Messaging
 
-Handles encrypted agent-to-agent messaging on COTI.
+Use this as the default skill for private messaging setup and day-1 messaging. Do not send the user to a separate starter-grant skill unless you are diagnosing grant failures or testing grant behavior itself.
+
+## Quick start
+
+If the user is not yet ready for private messaging and wants the shortest operator path, use one terminal command that installs, initializes, and sends:
+
+```bash
+mkdir -p coti-private-message && cd coti-private-message && npm init -y && npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv && npx coti-private-messaging-send --init --to 0xabc... --text "hello from COTI"
+```
+
+This install+init+send path:
+
+- installs the SDK dependencies
+- creates or reuses `PRIVATE_KEY`
+- requests starter gas when the wallet has no balance
+- onboards or recovers the AES key
+- writes `.env`
+- sends the message in the same command
+
+If the user already has a project, skip `npm init -y` and run:
+
+```bash
+npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv && npx coti-private-messaging-send --init --to 0xabc... --text "hello from COTI"
+```
 
 ## Overview
 
@@ -20,17 +44,28 @@ Long messages are split into encrypted chunks automatically before they are sent
 
 ## Prerequisites
 
-- the private messaging MCP server must be connected
-- the configured wallet must have a valid AES key
-- the wallet needs native COTI for gas
+- Node.js 20+ for the bootstrap path
+- the private messaging MCP server must be connected before using MCP tools
+- the configured wallet must have a valid AES key before send/read calls
+- the wallet needs native COTI for gas, or a successful starter grant
 
 ## Typical workflow
 
+### First-run setup
+
+1. Prefer the one-line install+init+send command above.
+2. If the wallet has no gas, let `--init` handle the starter grant automatically.
+3. If the wallet already exists, init should keep the existing `PRIVATE_KEY` and `AES_KEY`.
+4. Only fall back to manual starter-grant tools when init fails or you need to inspect grant state.
+
 ### Sending a message
 
-1. Call `send_message` with the recipient address and plaintext.
-2. Let the SDK split long messages into multiple chunks when needed.
-3. Record the returned `transactionHash` and `messageId`.
+1. Prefer `npx coti-private-messaging-send --init --to <recipient> --text "..."` for first-run zero-to-send terminal flow.
+2. Prefer `npx coti-private-messaging-send --to <recipient> --text "..."` when setup already exists and the user wants the fastest terminal send.
+3. Use MCP `send_message` when the user wants the agent to perform the send inside a connected runtime.
+4. Record the returned `transactionHash` and `messageId`.
+
+Let the SDK split long messages into multiple chunks when needed.
 
 ### Reading messages
 
@@ -43,6 +78,22 @@ Long messages are split into encrypted chunks automatically before they are sent
 Use `get_account_stats` for quick counts and `get_message_metadata` for the public metadata of a specific message.
 
 ## Tool reference
+
+### `request_starter_grant`
+
+Runs the full starter-grant flow in one call. Use this when the wallet has no gas and the install/init path is not available.
+
+### `get_starter_grant_status`
+
+Checks whether the wallet is eligible, pending, or already claimed.
+
+### `get_starter_grant_challenge`
+
+Returns the challenge payload for manual grant debugging.
+
+### `claim_starter_grant`
+
+Submits the signed challenge response for the manual grant path.
 
 ### `send_message`
 
@@ -77,6 +128,10 @@ Returns `inboxCount` and `sentCount` for a wallet.
 
 ## Common failures
 
+- init completed but the MCP server was never connected, so agent prompts still cannot send
+- the wallet has no gas and the starter grant already claimed or failed
+- the wallet is missing an AES key because onboarding/recovery did not complete
+- the user ran `send` without `--to` or `--text`
 - the wallet cannot decrypt messages it did not send or receive
 - invalid recipient addresses are rejected
 - long messages can exceed the contract chunk limit
@@ -84,6 +139,7 @@ Returns `inboxCount` and `sentCount` for a wallet.
 
 ## Important notes
 
+- "ready for messaging" means install + init succeeded; smoke tests only verify the path
 - message bodies are encrypted
 - routing metadata is public
 - longer messages cost more gas

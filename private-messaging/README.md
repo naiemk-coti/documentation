@@ -26,9 +26,9 @@ The private messaging system stores encrypted message bodies on-chain while keep
 
 If you want agents to use private messaging through a reusable workflow instead of a custom one-off prompt, install one of these skills:
 
-- `coti-private-messaging`: send encrypted messages, read inbox and sent history, and inspect message metadata
+- `coti-private-messaging`: default setup + messaging skill; can bootstrap wallet/AES/gas readiness, then send encrypted messages, read inbox and sent history, and inspect message metadata
 - `coti-rewards-management`: inspect epochs, check pending rewards, fund epochs, and claim rewards
-- `coti-starter-grant`: fund a fresh wallet with first-use gas through the starter grant flow
+- `coti-starter-grant`: optional grant-only troubleshooting flow for first-use gas
 
 In Cursor, copy the skill folders under `.cursor/skills/` and then prompt the agent with the skill name directly, for example:
 
