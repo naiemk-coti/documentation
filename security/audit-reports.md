@@ -15,4 +15,4 @@ You can find all published audit reports here:
 | 2025 - 11 | Sayfer   | Redeemer        | [2025\_Sayfer](Sayfer_Redeemer.pdf)                                                                         |
 | 2026 - 3  | Sayfer   | Private ERC20   | [2026\_ERC20\_Sayfer](Sayfer-2026-03-Smart-Contract-Audit-Report-for-Coti.pdf)                              |
 | 2026 - 3  | Sayfer   | Metamask Snap   | [2026\_Metamask](https://github.com/coti-io/coti-snap/docs/Sayfer-2026-03-Metamask-Snap-Audit-for-Coti.pdf) |
-
+| 2026-5    | Sayfer   | Privacy Portal  | [2026\_Metamask](https://github.com/coti-io/coti-snap/docs/Sayfer-2026-03-Metamask-Snap-Audit-for-Coti.pdf) |
