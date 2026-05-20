@@ -87,13 +87,6 @@
   * [Backend Services](node-ecosystem/backend-services.md)
 * [COTI Bridge](coti-bridge/README.md)
   * [Swap COTI V1 Funds to COTI V2](coti-bridge/swap-coti-v1-funds-to-coti-v2.md)
-* [Support and Community](support-and-community/README.md)
-  * [Glossary](support-and-community/glossary.md)
-  * [Telegram](https://telegram.coti.io)
-  * [Discord](https://discord.coti.io)
-  * [GitHub](https://github.coti.io)
-  * [X](https://twitter.coti.io)
-  * [YouTube](https://youtube.coti.io)
 * [COTI Builders Program](https://cotinetwork.notion.site/Overview-COTI-Builders-Program-f742a22ff8ef4e648935362b9b4a9c34)
 * [COTI Privacy Portal](coti-privacy-portal/README.md)
   * [User guide](coti-privacy-portal/user-guide/README.md)
@@ -132,3 +125,12 @@
 ## Security
 
 * [Audit Reports](security/audit-reports.md)
+
+## Support
+* [Support and Community](support-and-community/README.md)
+  * [Glossary](support-and-community/glossary.md)
+  * [Telegram](https://telegram.coti.io)
+  * [Discord](https://discord.coti.io)
+  * [GitHub](https://github.coti.io)
+  * [X](https://twitter.coti.io)
+  * [YouTube](https://youtube.coti.io)
