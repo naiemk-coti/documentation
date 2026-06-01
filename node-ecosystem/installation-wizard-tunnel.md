@@ -37,7 +37,7 @@ Driven by [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-nod
 2. **Pre-checks** — Writable install dir, disk space; **no** inbound 80/443/7400 firewall enforcement; **7400** must not already be in use locally.
 3. **Packages** — Docker, Compose, `curl`, `git`, `jq`, `dnsutils` (**no** `certbot` when Nginx is off).
 4. **Clone** — `coti-full-node` into the current directory (must be empty).
-5. **Config** — `.env`, `nodekey`, **FRPC** `frpc-*.toml` files, `FRPC_ENABLED=true`.
+5. **Config** — `installer.env` (image tag, network), `.env` (host flags), `nodekey`, and **FRPC** `frpc-*.toml` when `--with-frp` is set (`FRPC_ENABLED=true`).
 6. **Nginx / Certbot** — **Skipped**; TLS is at COTI’s edge.
 7. **Launch** — `./start_coti-full-node.sh` starts the node and **FRPC** containers.
 
@@ -53,10 +53,11 @@ The script prints a summary (FRPC gateways, custom domain, logs). The node syncs
 
 | Flag | Purpose |
 |------|---------|
-| **`--with-frp`** | Enables FRPC, disables Nginx, relaxes inbound 80/443/7400 firewall checks. |
-| `--frpc` | FRPC only, **without** tunnel relaxations (advanced). |
-| `--without-frp` | Disables FRPC (also clears tunnel mode). |
-| `--nginx` | If passed **after** `--with-frp`, switches to the [own-domain](installation-own-domain.md) behavior. |
+| **`--with-frp`** | Enables FRPC, disables Nginx, relaxes inbound 80/443/7400 firewall checks (this guide). |
+| **`--frpc-enabled=true`** | FRPC relay **without** wizard tunnel relaxations (advanced). Do not combine with **`--with-nginx`**. |
+| **`--with-nginx`** | Own-domain path instead — see [Own domain (Nginx)](installation-own-domain.md). |
+
+FRPC is **off by default**; Do not pass **`--with-frp`** and **`--with-nginx`** on the same install.
 
 ## Troubleshooting
 

@@ -1,6 +1,6 @@
-# Own domain (Nginx + Let’s Encrypt + `--nginx`)
+# Own domain (Nginx + Let’s Encrypt + `--with-nginx`)
 
-Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--nginx`**. In **`/setup`**, on **Setup FQDN**, choose **Bring your own FQDN**, enter your hostname in **Node FQDN**, configure **A or CNAME** at your provider as the in-wizard notice describes, then confirm with **I have completed my FQDN settings** before **Next**.
+Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--with-nginx`**. In **`/setup`**, on **Setup FQDN**, choose **Bring your own FQDN**, enter your hostname in **Node FQDN**, configure **A or CNAME** at your provider as the in-wizard notice describes, then confirm with **I have completed my FQDN settings** before **Next**.
 
 ← Back to [**Installation overview**](installation.md) · Related: [**Wizard tunnel**](installation-wizard-tunnel.md) · [**Manual full node setup**](manual-full-node.md)
 
@@ -19,7 +19,7 @@ Use this flow when you **own a DNS name** and want **HTTPS on your server** via 
 ## One-line command
 
 ```bash
-curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" --nginx
+curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-nginx
 ```
 
 `<network>` is `mainnet` or `testnet`.
@@ -30,7 +30,7 @@ curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<
 2. **Pre-checks** — Disk space; ports **80**, **443**, and **7400** free; `ufw` / `iptables` must not block them when those checks apply.
 3. **Packages** — Docker, Compose, **`certbot`**, plus `curl`, `git`, `jq`, `dnsutils`.
 4. **Clone** — `coti-full-node` into an empty directory.
-5. **Config** — `.env`, `nodekey` (FRPC off unless you add other flags).
+5. **Config** — `installer.env`, `.env`, `nodekey` (`FRPC_ENABLED=false` unless you add **`--with-frp`** or **`--frpc-enabled=true`**).
 6. **HTTPS** — Temporary Nginx on :80, **Certbot** for your FQDN, then full Nginx config for `/rpc`, `/ws`, `/metrics` with TLS.
 7. **Launch** — `./start_coti-full-node.sh` starts the stack.
 
@@ -44,15 +44,15 @@ The script prints success with your HTTPS URL. The node syncs; the wizard waits 
 
 | Flag | Purpose |
 |------|---------|
-| **`--nginx`** | Nginx + Let’s Encrypt on the host (this guide). |
+| **`--with-nginx`** | Nginx + Let’s Encrypt on the host (this guide). |
 | `--staging` | Let’s Encrypt **staging** CA (for dry runs; browsers won’t trust the cert). |
 | `--without-nginx` | Skip TLS on host — usually **not** suitable for reward eligibility with a BYO domain. |
-| `--with-frp` | If you meant the COTI tunnel path instead, see [**Wizard tunnel**](installation-wizard-tunnel.md). |
+| `--with-frp` | COTI tunnel path instead — see [**Wizard tunnel**](installation-wizard-tunnel.md). Do not combine with `--with-nginx`. |
 
 **Dry-run example:**
 
 ```bash
-curl -sL https://fullnode.mainnet.coti.io | sudo bash -s -- "0x..." "node1.example.com" --nginx --staging
+curl -sL https://fullnode.mainnet.coti.io | sudo bash -s -- "0x..." "node1.example.com" --with-nginx --staging
 ```
 
 ## Troubleshooting
