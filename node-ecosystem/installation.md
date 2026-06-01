@@ -17,7 +17,7 @@ The wizard produces a one-liner that runs [`install_coti-full-node.sh`](https://
 | Flow | When | Guide |
 | ---- | ---- | ----- |
 | **COTI-managed tunnel** | COTI-assigned subdomain, **`--with-frp`**, no Nginx/Let’s Encrypt on your VM | [**Wizard tunnel (COTI subdomain)**](installation-wizard-tunnel.md) |
-| **Your own domain** | Your DNS name, **`--nginx`**, Let’s Encrypt + Nginx on the host | [**Own domain (Nginx + TLS)**](installation-own-domain.md) |
+| **Your own domain** | Your DNS name, **`--with-nginx`**, Let’s Encrypt + Nginx on the host | [**Own domain (Nginx + TLS)**](installation-own-domain.md) |
 | **Manual (no wizard)** | Clone [`coti-full-node`](https://github.com/coti-io/coti-full-node), scripts, Compose — not the web app | [**Manual full node setup**](manual-full-node.md) |
 
 {% hint style="danger" %}
@@ -37,10 +37,11 @@ The [**Wizard tunnel**](installation-wizard-tunnel.md) and [**Own domain**](inst
 
 | Flag | Typical use |
 |------|-------------|
-| **`--with-frp`** | Tunnel flow — see [Wizard tunnel](installation-wizard-tunnel.md). |
-| **`--nginx`** | Own domain + TLS on host — see [Own domain](installation-own-domain.md). |
-| `--without-nginx` | Skip Nginx (advanced; often not reward-suitable with a BYO domain). |
-| `--frpc` / `--without-frp` | FRPC without tunnel relaxations — see tunnel page. |
-| `--staging` | Let’s Encrypt staging — only with `--nginx`. |
+| **`--with-frp`** | Tunnel flow — see [Wizard tunnel](installation-wizard-tunnel.md). FRPC off unless you use this or `--frpc-enabled=true`. |
+| **`--with-nginx`** | Own domain + TLS on host — see [Own domain](installation-own-domain.md). |
+| **`--frpc-enabled=true`** | FRPC relay without wizard relaxations (advanced) — see [Wizard tunnel](installation-wizard-tunnel.md). |
+| `--staging` | Let’s Encrypt staging — only with `--with-nginx`. |
+
+Host Nginx and FRPC cannot both be enabled on one install.
 
 For **manual** operation (restart, stop, logs, FAQ), see [**Manual full node setup**](manual-full-node.md).

@@ -32,11 +32,11 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--nginx`) — plus the [**UI guide**](ui-guide/README.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--with-nginx`) — plus the [**UI guide**](ui-guide/README.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
 | Path | When to use it | Documentation |
 | ---- | --------------- | --------------- |
-| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/README.md) |
+| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--with-nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/README.md) |
 | **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | Under [**Installation**](installation.md): [**Manual full node setup**](manual-full-node.md) |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
@@ -107,7 +107,7 @@ flowchart LR
 
 * [**Installation hub**](installation.md) — overview, shared flags, after-wizard notes.
 * [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) — COTI subdomain, FRP, no host TLS.
-* [**Own domain (Nginx + TLS)**](installation-own-domain.md) (`--nginx`) — your FQDN, Let’s Encrypt on the host.
+* [**Own domain (Nginx + TLS)**](installation-own-domain.md) (`--with-nginx`) — your FQDN, Let’s Encrypt on the host.
 * [**Manual full node setup**](manual-full-node.md) — Git clone, Docker Compose, ports, restart/stop, FAQ (no wizard; OS/hardware still [**Server requirements**](server-requirements.md)).
 
 **Also:**
