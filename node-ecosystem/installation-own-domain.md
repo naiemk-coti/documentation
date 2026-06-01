@@ -30,7 +30,7 @@ curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<
 2. **Pre-checks** — Disk space; ports **80**, **443**, and **7400** free; `ufw` / `iptables` must not block them when those checks apply.
 3. **Packages** — Docker, Compose, **`certbot`**, plus `curl`, `git`, `jq`, `dnsutils`.
 4. **Clone** — `coti-full-node` into an empty directory.
-5. **Config** — `installer.env`, `.env`, `nodekey` (`FRPC_ENABLED=false` unless you add **`--with-frp`** or **`--frpc-enabled=true`**).
+5. **Config** — `installer.env`, `.env`, `nodekey` (`FRPC_ENABLED=false` unless you use **`--with-frp`**).
 6. **HTTPS** — Temporary Nginx on :80, **Certbot** for your FQDN, then full Nginx config for `/rpc`, `/ws`, `/metrics` with TLS.
 7. **Launch** — `./start_coti-full-node.sh` starts the stack.
 
@@ -46,8 +46,9 @@ The script prints success with your HTTPS URL. The node syncs; the wizard waits 
 |------|---------|
 | **`--with-nginx`** | Nginx + Let’s Encrypt on the host (this guide). |
 | `--staging` | Let’s Encrypt **staging** CA (for dry runs; browsers won’t trust the cert). |
-| `--without-nginx` | Skip TLS on host — usually **not** suitable for reward eligibility with a BYO domain. |
 | `--with-frp` | COTI tunnel path instead — see [**Wizard tunnel**](installation-wizard-tunnel.md). Do not combine with `--with-nginx`. |
+
+Host Nginx is **off by default**; use **`--with-nginx`** to enable TLS on this machine.
 
 **Dry-run example:**
 

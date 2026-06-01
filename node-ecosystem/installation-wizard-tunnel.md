@@ -54,10 +54,9 @@ The script prints a summary (FRPC gateways, custom domain, logs). The node syncs
 | Flag | Purpose |
 |------|---------|
 | **`--with-frp`** | Enables FRPC, disables Nginx, relaxes inbound 80/443/7400 firewall checks (this guide). |
-| **`--frpc-enabled=true`** | FRPC relay **without** wizard tunnel relaxations (advanced). Do not combine with **`--with-nginx`**. |
 | **`--with-nginx`** | Own-domain path instead — see [Own domain (Nginx)](installation-own-domain.md). |
 
-FRPC is **off by default**; Do not pass **`--with-frp`** and **`--with-nginx`** on the same install.
+FRPC is **off by default**; use **`--with-frp`** to enable it. Do not pass **`--with-frp`** and **`--with-nginx`** on the same install.
 
 ## Troubleshooting
 
