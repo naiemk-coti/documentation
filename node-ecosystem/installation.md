@@ -37,9 +37,8 @@ The [**Wizard tunnel**](installation-wizard-tunnel.md) and [**Own domain**](inst
 
 | Flag | Typical use |
 |------|-------------|
-| **`--with-frp`** | Tunnel flow — see [Wizard tunnel](installation-wizard-tunnel.md). FRPC off unless you use this or `--frpc-enabled=true`. |
+| **`--with-frp`** | Tunnel flow — see [Wizard tunnel](installation-wizard-tunnel.md). |
 | **`--with-nginx`** | Own domain + TLS on host — see [Own domain](installation-own-domain.md). |
-| **`--frpc-enabled=true`** | FRPC relay without wizard relaxations (advanced) — see [Wizard tunnel](installation-wizard-tunnel.md). |
 | `--staging` | Let’s Encrypt staging — only with `--with-nginx`. |
 
 Host Nginx and FRPC cannot both be enabled on one install.
