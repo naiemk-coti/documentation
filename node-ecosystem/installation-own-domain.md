@@ -1,12 +1,12 @@
 # Own domain (Nginx + Let’s Encrypt + `--with-nginx`)
 
-Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--with-nginx`**. In **`/setup`**, on **Setup FQDN**, choose **Bring your own FQDN**, enter your hostname in **Node FQDN**, configure **A or CNAME** at your provider as the in-wizard notice describes, then confirm with **I have completed my FQDN settings** before **Next**.
+Use this flow when you **own a DNS name** and want **HTTPS on your server** via **Nginx** and **Let’s Encrypt**. The wizard’s command includes **`--with-nginx`**. In **`/setup`**, on **Setup FQDN**, choose **Bring your own FQDN**, enter your hostname in **Node FQDN**, configure an **A record** at your provider (or a **CNAME** to another hostname) as the in-wizard notice describes, then confirm with **I have completed my FQDN settings** before **Next**.
 
 ← Back to [**Installation overview**](installation.md) · Related: [**Wizard tunnel**](installation-wizard-tunnel.md) · [**Manual full node setup**](manual-full-node.md)
 
 ## Prerequisites
 
-1. **Environment** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 26.04 LTS**), with **root access**.
+1. **Environment** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 24.04 LTS**), with **root access**.
 2. **Ports 80 and 443** free on the host (ACME HTTP-01 + HTTPS).
 3. **Port 7400 (TCP + UDP)** free and **allowed** through host firewall and cloud security groups — see [**Manual full node setup → Network configuration**](manual-full-node.md#network-configuration) for the port table.
 4. **FQDN** (e.g. `node1.example.com`) with an **A record** to your server’s public IP, propagated **before** install.
