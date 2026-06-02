@@ -198,6 +198,132 @@ To restart your node follow these steps:
 
 If you are running a node without a license, no further configuration of the node is required. Simply ensure you are connected to the network.
 
+For **your own domain** with **HTTPS on the host** (what the wizard does with **`--with-nginx`**), set at least:
+
+```bash
+FULLNODE_FQDN=node1.example.com
+NGINX_ENABLED=true
+FRPC_ENABLED=false
+```
+
+in **`.env`** (see [`.env.example`](https://github.com/coti-io/coti-full-node/blob/main/.env.example)). Do **not** enable host Nginx and **FRPC** on the same install — the automated installer rejects that combination. For a **COTI-managed tunnel** instead, see [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`); skip this section.
+
+### Nginx and Let's Encrypt (HTTPS on your domain)
+
+Use this when the ecosystem must reach your node at **`https://<your-fqdn>/rpc`** (own DNS + TLS on your server). The wizard path is documented in [**Own domain (Nginx + TLS)**](installation-own-domain.md); here you perform the same steps by hand after cloning the repo.
+
+**Authoritative command-line reference:** [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh) — search for **`SSL AND NGINX SETUP`** ([lines 534–630](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L534-L630)). The examples below mirror that script; substitute your **FQDN** and match **upstream** service names to your checked-out `docker-compose.yml` (e.g. `coti-testnet-full-node` on testnet).
+
+#### Prerequisites
+
+1. **DNS** — an **A record** for your FQDN pointing at this server’s public IP, propagated **before** you request a certificate (see [**Own domain**](installation-own-domain.md)).
+2. **Ports** — **80** and **443** free on the host and allowed through firewall / cloud security groups (in addition to **7400** from [Network configuration](#network-configuration)).
+3. **Certbot on the host** — the installer installs it with `apt` when Nginx is enabled:
+
+   ```bash
+   sudo apt update
+   sudo apt install -y certbot
+   ```
+
+4. **`.env`** — `FULLNODE_FQDN`, `NGINX_ENABLED=true`, `FRPC_ENABLED=false` (see [Node configuration](#node-configuration) above).
+
+Run these steps from the **`coti-full-node`** clone root. Prefer doing them **before** your first `./start_coti-full-node.sh` with `NGINX_ENABLED=true`, or stop the stack (`./stop_coti-full-node.sh`), configure TLS, then start again.
+
+#### Step 1 — Prepare Nginx directories
+
+```bash
+mkdir -p ./nginx/certbot ./nginx/sites-enabled
+```
+
+The repo already ships `nginx/nginx.conf`, `nginx/default.conf`, and `nginx/nginx-init_default.conf` for the ACME-only container.
+
+#### Step 2 — Temporary Nginx for the ACME HTTP-01 challenge
+
+Start the **`setup`** profile container (listens on host port **80** only):
+
+```bash
+docker compose --profile setup up -d nginx-init
+# If you use the standalone compose binary:
+# docker-compose --profile setup up -d nginx-init
+```
+
+This matches the installer’s `$DC --profile setup up -d nginx-init`.
+
+#### Step 3 — Obtain a certificate with Certbot (webroot)
+
+Production certificate:
+
+```bash
+certbot certonly --webroot \
+  -w "$(pwd)/nginx/certbot" \
+  -d "$FULLNODE_FQDN" \
+  --register-unsafely-without-email \
+  --agree-tos \
+  --non-interactive
+```
+
+**Dry run** (Let's Encrypt staging — browsers will not trust the cert; same as installer flag **`--staging`**):
+
+```bash
+certbot certonly --webroot \
+  -w "$(pwd)/nginx/certbot" \
+  -d "$FULLNODE_FQDN" \
+  --staging \
+  --register-unsafely-without-email \
+  --agree-tos \
+  --non-interactive
+```
+
+Certificates are written under **`/etc/letsencrypt/live/<fqdn>/`** on the host. The main Nginx container mounts **`/etc/letsencrypt`** read-only (see `docker-compose.yml`).
+
+#### Step 4 — Stop the temporary Nginx
+
+```bash
+docker compose --profile setup down
+```
+
+Port **80** must be free for the production Nginx container.
+
+#### Step 5 — Write the TLS reverse-proxy config
+
+Create **`./nginx/sites-enabled/fullnode.conf`** with the same structure the installer writes: HTTPS on **443** proxying **`/rpc`**, **`/ws`**, **`/metrics`**, and **`/operator/`** to the Docker services, plus HTTP on **80** for `/.well-known/acme-challenge/` and redirect to HTTPS.
+
+Copy the `server { ... }` blocks from [`install_coti-full-node.sh` (lines 559–629)](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L559-L629), replacing:
+
+* `$FQDN` with your hostname (e.g. `node1.example.com`);
+* `$NETWORK` in upstream names with your network label if your compose file uses a different prefix (must match service names in `docker-compose.yml`, e.g. `coti-testnet-full-node:8545`).
+
+Public RPC for monitoring and rewards: **`https://<your-fqdn>/rpc`**.
+
+#### Step 6 — Start the stack with Nginx enabled
+
+Ensure **`NGINX_ENABLED=true`** in **`.env`**, then:
+
+```bash
+./start_coti-full-node.sh
+```
+
+`start_coti-full-node.sh` adds **`--profile proxy-nginx`** when `NGINX_ENABLED` is true, which starts the **`nginx`** service on ports **80** and **443**.
+
+#### Renewal
+
+Schedule renewal on the host (example monthly cron). Use the same webroot path as issuance:
+
+```bash
+certbot renew --webroot -w "$(pwd)/nginx/certbot"
+docker compose exec nginx nginx -s reload
+```
+
+Adjust the reload command if your Nginx container name differs.
+
+#### Troubleshooting (Nginx / TLS)
+
+* **Certbot failed** — confirm `dig <fqdn>` resolves to this server; wait for DNS; ensure port **80** is reachable from the internet while `nginx-init` is up.
+* **Port in use** — stop other services on **80** / **443** (including a leftover `nginx-init` after a failed run).
+* **502 / bad gateway** — upstream names in `fullnode.conf` must match running compose service names; ensure the full node container is healthy (`docker ps`, `docker logs`).
+
+If you prefer not to maintain this by hand, use the [**own-domain wizard one-liner**](installation-own-domain.md) or run the installer script from the repo with **`--with-nginx`** after reviewing [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh).
+
 ### Verifying Node Functionality
 
 * Metrics: Visit [**uptime.coti.io**](https://uptime.coti.io) to track performance and status.
