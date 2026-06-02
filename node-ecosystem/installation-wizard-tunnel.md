@@ -25,13 +25,13 @@ The installer enables the **FRPC** Compose profile, keeps **Nginx + Let’s Encr
 
 The wizard shows **Linux / WSL** and **macOS** tabs. Use the line that matches where Docker runs. `<network>` is `mainnet` or `testnet`. `<FQDN>` is the COTI-assigned hostname; `<PRIVATE_KEY>` may include or omit the `0x` prefix.
 
-**Linux / WSL (Ubuntu 24.04)** — [`install_coti-full-node.sh`](https://fullnode.mainnet.coti.io/install-linux) ([testnet](https://fullnode.testnet.coti.io/install-linux)); run as **root**:
+**Linux / WSL (Ubuntu 24.04)** — `install_coti-full-node.sh` at `https://fullnode.<network>.coti.io/install-linux`; run as **root**:
 
 ```bash
 curl -sL https://fullnode.<network>.coti.io/install-linux | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-frp
 ```
 
-**macOS** — [`install_coti-full-node-mac.sh`](https://fullnode.mainnet.coti.io/install-mac) ([testnet](https://fullnode.testnet.coti.io/install-mac)); **do not** use `sudo`:
+**macOS** — `install_coti-full-node-mac.sh` at `https://fullnode.<network>.coti.io/install-mac`; **do not** use `sudo`:
 
 ```bash
 curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-frp
@@ -41,7 +41,7 @@ curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_K
 
 ## What the installer does (this flow)
 
-Driven by [`install_coti-full-node.sh`](https://fullnode.mainnet.coti.io/install-linux) on Linux/WSL, or [`install_coti-full-node-mac.sh`](https://fullnode.mainnet.coti.io/install-mac) on macOS (on testnet, use `fullnode.testnet.coti.io` with the same paths):
+Driven by `install_coti-full-node.sh` (`https://fullnode.<network>.coti.io/install-linux`) on Linux/WSL, or `install_coti-full-node-mac.sh` (`https://fullnode.<network>.coti.io/install-mac`) on macOS:
 
 1. **OS and inputs** — Certified Ubuntu version check, root, valid hex key and hostname (non-24.04 may prompt; see [**Server requirements → Windows 11 with WSL 2**](server-requirements.md#windows-11-with-wsl-2)).
 2. **Pre-checks** — Writable install dir, disk space; **no** inbound 80/443/7400 firewall enforcement; **7400** must not already be in use locally.

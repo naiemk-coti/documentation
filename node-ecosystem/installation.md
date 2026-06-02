@@ -28,7 +28,7 @@ Pick the guide that matches the **flags** the wizard gives you. **Self-managed**
 | **Manual (no wizard)** | Clone [`coti-full-node`](https://github.com/coti-io/coti-full-node), scripts, Compose — not the web app | [**Manual full node setup**](manual-full-node.md) |
 
 {% hint style="danger" %}
-Piping `curl` into `bash` runs a remote script on your machine. On **Linux / WSL**, the wizard uses **`sudo bash`** (`/install-linux`). On **macOS**, use **`bash` only** (`/install-mac`) — the macOS installer refuses `sudo`. Only use commands from the official wizard at `https://fullnode.testnet.coti.io` or `https://fullnode.mainnet.coti.io` (paths **`/install-linux`** and **`/install-mac`**). When in doubt, review the scripts in the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository.
+Piping `curl` into `bash` runs a remote script on your machine. On **Linux / WSL**, the wizard uses **`sudo bash`** (`/install-linux`). On **macOS**, use **`bash` only** (`/install-mac`) — the macOS installer refuses `sudo`. Only use commands from the official wizard at `https://fullnode.<network>.coti.io` (paths **`/install-linux`** and **`/install-mac`**; `<network>` is `testnet` or `mainnet`). When in doubt, review the scripts in the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository.
 {% endhint %}
 
 ## After any wizard install

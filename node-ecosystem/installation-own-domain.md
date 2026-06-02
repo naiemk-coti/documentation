@@ -63,7 +63,7 @@ Host Nginx is **off by default**; use **`--with-nginx`** to enable TLS on this m
 **Dry-run example (Linux / WSL):**
 
 ```bash
-curl -sL https://fullnode.mainnet.coti.io/install-linux | sudo bash -s -- "0x..." "node1.example.com" --with-nginx --staging
+curl -sL https://fullnode.<network>.coti.io/install-linux | sudo bash -s -- "0x..." "node1.example.com" --with-nginx --staging
 ```
 
 ## Troubleshooting
