@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Node Ecosystem
 
 Running a node helps secure and decentralize the COTI network and support the overall ecosystem. While there are some similarities to other L2 networks, COTI’s architecture has its own nuances and requirements that we cover in this documentation.
@@ -32,12 +28,12 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--with-nginx`) — plus the [**UI guide**](ui-guide/README.md). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](./#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--with-nginx`) — plus the [**UI guide**](ui-guide/). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
-| Path | When to use it | Documentation |
-| ---- | --------------- | --------------- |
-| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--with-nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/README.md) |
-| **Manual (without the wizard)** | You administer the stack yourself — not the Nodes web UI installer. | Under [**Installation**](installation.md): [**Manual full node setup**](manual-full-node.md) |
+| Path                                   | When to use it                                                                                                                                                 | Documentation                                                                                                                                                    |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](./#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--with-nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/) |
+| **Manual (without the wizard)**        | You administer the stack yourself — not the Nodes web UI installer.                                                                                            | Under [**Installation**](installation.md): [**Manual full node setup**](manual-full-node.md)                                                                     |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
 
@@ -115,7 +111,7 @@ flowchart LR
 **Also:**
 
 * [**Server requirements**](server-requirements.md) — certified OS, Docker stack, hardware and disk.
-* [**UI guide**](ui-guide/README.md) — wizard walkthrough and warm-up.
+* [**UI guide**](ui-guide/) — wizard walkthrough and warm-up.
 
 **Reference:**
 
