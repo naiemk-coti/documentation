@@ -18,11 +18,21 @@ Use this flow when you **own a DNS name** and want **HTTPS on your server** via 
 
 ## One-line command
 
+The wizard shows **Linux / WSL** and **macOS** tabs. Use the line that matches where Docker runs. `<network>` is `mainnet` or `testnet`.
+
+**Linux / WSL (Ubuntu 24.04)** — `/install-linux`; run as **root**:
+
 ```bash
-curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-nginx
+curl -sL https://fullnode.<network>.coti.io/install-linux | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-nginx
 ```
 
-`<network>` is `mainnet` or `testnet`.
+**macOS** — `/install-mac`; **do not** use `sudo`:
+
+```bash
+curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_KEY>" "<FQDN>" --with-nginx
+```
+
+**Windows 11:** use **WSL 2** + **Ubuntu 24.04 LTS** and the **Linux** command above.
 
 ## What the installer does (this flow)
 
@@ -50,10 +60,10 @@ The script prints success with your HTTPS URL. The node syncs; the wizard waits 
 
 Host Nginx is **off by default**; use **`--with-nginx`** to enable TLS on this machine.
 
-**Dry-run example:**
+**Dry-run example (Linux / WSL):**
 
 ```bash
-curl -sL https://fullnode.mainnet.coti.io | sudo bash -s -- "0x..." "node1.example.com" --with-nginx --staging
+curl -sL https://fullnode.mainnet.coti.io/install-linux | sudo bash -s -- "0x..." "node1.example.com" --with-nginx --staging
 ```
 
 ## Troubleshooting

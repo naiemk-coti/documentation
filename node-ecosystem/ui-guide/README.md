@@ -119,15 +119,23 @@ The panel title is **Setup FQDN**, with the line **Connect your FQDN (Fully Qual
 
 ### Step 5 — Run the command
 
-<figure><img src="../../.gitbook/assets/node-ecosystem-setup-5.png" alt="Setup step 5 showing a terminal card with the generated curl | sudo bash one-liner and a Learn more about installation link"><figcaption><p>Step 5: the installer command tailored to your key and FQDN.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/node-ecosystem-setup-5.png" alt="Setup step 5 showing Linux or macOS installer tabs with the generated curl one-liner and a Learn more about installation link"><figcaption><p>Step 5: the installer command tailored to your key, FQDN, and OS tab (Linux / WSL or macOS).</p></figcaption></figure>
 
-The wizard displays the one-liner tailored to the key and FQDN from the previous steps:
+The wizard displays a one-liner tailored to your key, FQDN, and install flags. Use the **Linux / WSL** or **macOS** tab to match where Docker runs:
+
+**Linux / WSL** (Ubuntu 24.04, or WSL 2 on Windows 11):
 
 ```bash
-curl -sL https://fullnode.<network>.coti.io | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>"
+curl -sL https://fullnode.<network>.coti.io/install-linux | sudo bash -s -- "<PRIVATE_KEY>" "<FQDN>" [--with-frp | --with-nginx]
 ```
 
-Copy and run it as root on your server. A **"Learn more about installation"** link opens the [**Installation** overview](../installation.md). Tick **"I've run this command"** to advance.
+**macOS** (no `sudo`):
+
+```bash
+curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_KEY>" "<FQDN>" [--with-frp | --with-nginx]
+```
+
+Copy and run the matching command on your machine. A **"Learn more about installation"** link opens the [**Installation** overview](../installation.md). Tick **"I've run this command"** to advance.
 
 ### Step 6 — Waiting for node connection
 

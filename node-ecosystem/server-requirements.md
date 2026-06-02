@@ -2,7 +2,7 @@
 
 This page lists the **certified operating system**, **tested software stack**, and **hardware sizing** that apply to **both**:
 
-* the **wizard** one-liner from [**Installation**](installation.md) (`curl | sudo bash` from the official installer host), and
+* the **wizard** one-liner from [**Installation**](installation.md) (`/install-linux` with `sudo bash`, or `/install-mac` with `bash` only, from the official installer host), and
 * **self-managed** install from [**Manual full node setup**](manual-full-node.md) (Git clone, Docker Compose, and scripts on your own) — also under Installation.
 
 Path-specific steps (DNS, ports, tunnel vs Nginx) live on the [**Installation**](installation.md) subpages linked above.
