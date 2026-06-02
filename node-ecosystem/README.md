@@ -23,7 +23,7 @@ Running a COTI node offers several benefits:
 The **COTI Node Ecosystem** is the product surface that lets anyone run, monitor, and earn rewards from a COTI full node through a guided flow. It is composed of:
 
 * a web app that guides operators from zero to a live, reward-eligible node (see [Networks](./#networks) below for the URLs),
-* an automated installer that stands up a COTI full node on **Ubuntu 24.04 LTS** (Linux servers) or a certified **Windows 11 + WSL 2 + Ubuntu 26.04 LTS** setup in a single command,
+* an automated installer that stands up a COTI full node on **Ubuntu 24.04 LTS** (Linux servers) or a certified **Windows 11 + WSL 2 + Ubuntu 24.04 LTS** setup in a single command,
 * a set of backend services that discover peers, mint node NFTs, monitor uptime, and distribute rewards each epoch.
 
 This section documents the product — what it does, how to install a node through it, how its UI is organized, and the terminology you will encounter along the way.
@@ -59,7 +59,7 @@ The **status page** is the public [Better Stack](https://betterstack.com/) dashb
 
 ## What the COTI Node Ecosystem gives you
 
-* **One-command install** of a COTI full node on a certified OS (**Ubuntu 24.04 LTS** on Linux, or **Windows 11** with **WSL 2** and **Ubuntu 26.04 LTS**), with either a **COTI-managed tunnel** (no host Nginx) or **HTTPS on your server** when you bring your own domain.
+* **One-command install** of a COTI full node on a certified OS (**Ubuntu 24.04 LTS** on Linux, or **Windows 11** with **WSL 2** and **Ubuntu 24.04 LTS**), with either a **COTI-managed tunnel** (no host Nginx) or **HTTPS on your server** when you bring your own domain.
 * **Live visibility** into the node fleet — Who is online, which nodes are hot, how many earned rewards this epoch.
 * **Per-operator dashboard** for your own node(s): thermal state, uptime, latency, rewards history, eligibility.
 * **Automatic monitoring registration** in Better Stack once your node is recognized by the network.

@@ -104,7 +104,7 @@ The panel title is **Setup FQDN**, with the line **Connect your FQDN (Fully Qual
 
 <figure><img src="../../.gitbook/assets/node-ecosystem-setup-4-generated-fqdn.png" alt="Setup FQDN after generation: green success banner and Node FQDN read-only field"><figcaption><p>After <strong>Generate FQDN for Me</strong>: success confirmation and the assigned hostname before <strong>Next</strong>.</p></figcaption></figure>
 
-* **Bring your own FQDN** — for a hostname **you** control. The wizard shows a **Node FQDN** text field (label includes an example such as `node.yourdomain.com`, placeholder **Enter your FQDN.**). An **Important** callout reminds you to configure an **A or CNAME** record at your DNS provider pointing to your server’s public IP **before** you continue, so the name is reachable on the network. Tick **"I have completed my FQDN settings"** (with the line *I verify that my FQDN points to my node's IP.*) to run a live DNS lookup via `dns.google.com/resolve`:
+* **Bring your own FQDN** — for a hostname **you** control. The wizard shows a **Node FQDN** text field (label includes an example such as `node.yourdomain.com`, placeholder **Enter your FQDN.**). An **Important** callout reminds you to configure an **A record** to your server’s public IP (or a **CNAME** to another hostname) at your DNS provider **before** you continue, so the name is reachable on the network. Tick **"I have completed my FQDN settings"** (with the line *I verify that my FQDN points to my node's IP.*) to run a live DNS lookup via `dns.google.com/resolve`:
 
   * Success — you can proceed with **Next**.
   * Failure — an inline error explains that the domain did not resolve; fix the record at your registrar and retry.

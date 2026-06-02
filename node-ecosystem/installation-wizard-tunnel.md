@@ -17,7 +17,7 @@ The installer enables the **FRPC** Compose profile, keeps **Nginx + Let’s Encr
 
 ## Prerequisites
 
-1. **Server** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 26.04 LTS**; disk, RAM), with **root access**.
+1. **Server** meeting [**Server requirements**](server-requirements.md) (certified **Ubuntu 24.04 LTS** on Linux, or **Windows 11** + **WSL 2** + **Ubuntu 24.04 LTS**; disk, RAM), with **root access**.
 2. The **FQDN** string shown in the wizard after generation (same value the one-liner expects; hostname pattern is network-specific).
 3. **Node private key** (64 hex chars) from the wizard or your own.
 

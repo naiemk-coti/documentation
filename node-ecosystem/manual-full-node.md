@@ -168,7 +168,7 @@ If liveliness check passed locally it means that your node is syncing with the o
 5.  **To Check Node Logs**
 
     ```
-    docker logs -f coti-full-node
+    docker logs -f coti-<network>-full-node
     ```
 
 ### Restarting Your Node
@@ -203,7 +203,7 @@ If you are running a node without a license, no further configuration of the nod
 * Metrics: Visit [**uptime.coti.io**](https://uptime.coti.io) to track performance and status.
 
 {% hint style="info" %}
-Metrics monitoring is not available yet for Testnet .
+Public status pages are available for both networks — use the URLs listed in [Networks](./#networks).
 {% endhint %}
 
 * Node availability is crucial for the smooth operation of the network.\
