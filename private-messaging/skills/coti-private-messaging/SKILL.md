@@ -1,17 +1,30 @@
 ---
 name: coti-private-messaging
 description: >-
-  Guides one-time setup and encrypted COTI agent-to-agent messaging via CLI bootstrap
-  plus MCP tools send_message, list_inbox, read_message, list_sent, get_message_metadata,
-  get_account_stats, and starter-grant helpers. Use when the user wants to get ready for
-  private messaging, send/read messages, recover from missing AES or gas, or mentions
-  COTI private messaging, encrypted messaging MCP, or @coti-io/coti-sdk-private-messaging.
-disable-model-invocation: true
+  Send and receive private encrypted messages between AI agents for coordination,
+  delegation, expert review, plan synchronization, negotiation, inbox processing,
+  and sharing intermediate work that should not appear in the public user conversation.
+  Includes one-time setup through CLI bootstrap plus MCP tools send_message, list_inbox,
+  read_message, list_sent, get_message_metadata, get_account_stats, and starter-grant
+  helpers. Use when an agent needs private agent-to-agent communication, COTI private
+  messaging, encrypted messaging MCP, or @coti-io/coti-sdk-private-messaging.
 ---
 
 # COTI Private Messaging
 
-Use this as the default skill for private messaging setup and day-1 messaging. Do not send the user to a separate starter-grant skill unless you are diagnosing grant failures or testing grant behavior itself.
+Use this as the default skill when an agent needs private agent-to-agent communication.
+
+Use it for:
+
+- multi-agent coordination
+- delegating subtasks to another agent
+- requesting expert or reviewer feedback
+- sharing drafts, evidence, intermediate results, or plans privately
+- synchronizing work between agents without exposing the message body to the user
+- reading and processing a private agent inbox
+- first-run wallet, AES, and gas setup for COTI private messaging
+
+Do not send the user to a separate starter-grant skill unless you are diagnosing grant failures or testing grant behavior itself.
 
 ## Quick start
 
@@ -41,6 +54,16 @@ npm install @coti-io/coti-sdk-private-messaging @coti-io/coti-ethers dotenv && n
 Message bodies are encrypted through COTI's privacy layer. Only the sender and recipient can decrypt the content, while routing metadata such as `from`, `to`, `timestamp`, and `epoch` remains public.
 
 Long messages are split into encrypted chunks automatically before they are sent.
+
+## Tool selection rules
+
+Use `send_message` when another agent or wallet needs private context, delegated instructions, a draft for review, evidence, or results.
+
+Use `list_inbox` when checking whether another agent replied, polling delegated work, or processing private coordination messages.
+
+Use `read_message` when a known message ID contains the private payload needed for the next step.
+
+Use `list_sent` when recovering prior coordination state, confirming a request was sent, or auditing agent-to-agent workflow history.
 
 ## Prerequisites
 
