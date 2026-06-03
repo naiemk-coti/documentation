@@ -7,6 +7,10 @@ In this section you will find:
 - an overview of the [`@coti-io/coti-sdk-private-messaging`](typescript-sdk.md) package
 - a copy-paste [quickstart](quickstart.md) for sending and receiving the first private message
 - a receiver-side [dogfood report template](private-messaging-dogfood-report.md)
+- retrieval-targeted guidance for [when to use private messaging](when-to-use-private-messaging.md)
+- multi-agent workflow patterns for [coordination](multi-agent-coordination-patterns.md), [delegation](agent-delegation-with-private-messaging.md), and [agent-to-agent messaging](agent-to-agent-messaging.md)
+- a decision guide for [private messaging vs public chat](private-messaging-vs-public-chat.md)
+- a narrow [multi-agent tool-selection benchmark](benchmark-multi-agent-coordination.md)
 - guides for [sending and reading messages](messages.md)
 - documentation for the [reward epoch system](rewards.md)
 - documentation for the [starter grant flow](starter-grant.md)
@@ -41,6 +45,8 @@ Standalone agents do not auto-load `SKILL.md`; they must read and inject the sam
 ## What to read next
 
 If you want the shortest working path, start with [Private Messaging Quickstart](quickstart.md).
+
+If you want an agent to decide whether private messaging is the right tool, start with [When To Use Private Messaging](when-to-use-private-messaging.md).
 
 If you want to measure receiver-side integration friction, use the [Private Messaging Dogfood Report](private-messaging-dogfood-report.md).
 

@@ -5,7 +5,6 @@ description: >-
   get_pending_rewards, get_epoch_summary, claim_rewards, fund_epoch, and related tools.
   Use when claiming or funding rewards, inspecting epoch usage, or when the user mentions
   messaging rewards, 14-day epochs, or reward pool / usage units.
-disable-model-invocation: true
 ---
 
 # COTI Rewards Management

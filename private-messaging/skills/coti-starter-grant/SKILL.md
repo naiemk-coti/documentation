@@ -5,7 +5,6 @@ description: >-
   get_starter_grant_status, get_starter_grant_challenge, and claim_starter_grant.
   Use when onboarding a wallet with no gas, first-time funding, or when the user mentions
   starter grant, challenge flow, or empty COTI balance before messaging.
-disable-model-invocation: true
 ---
 
 # COTI Starter Grant
