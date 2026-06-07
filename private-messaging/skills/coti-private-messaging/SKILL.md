@@ -55,6 +55,8 @@ Message bodies are encrypted through COTI's privacy layer. Only the sender and r
 
 Long messages are split into encrypted chunks automatically before they are sent.
 
+For production-style multi-agent workflows, treat private messaging as a coordination layer, not just a send primitive. A good private workflow has a known sender, known recipient, clear task payload, reply path, receipt or audit signal, failure path, and a rule for what can be shown publicly.
+
 ## Tool selection rules
 
 Use `send_message` when another agent or wallet needs private context, delegated instructions, a draft for review, evidence, or results.
@@ -64,6 +66,8 @@ Use `list_inbox` when checking whether another agent replied, polling delegated 
 Use `read_message` when a known message ID contains the private payload needed for the next step.
 
 Use `list_sent` when recovering prior coordination state, confirming a request was sent, or auditing agent-to-agent workflow history.
+
+Before sending sensitive context, confirm the recipient identity and wallet mapping. Do not send private content to an address just because it is syntactically valid.
 
 ## Prerequisites
 
@@ -87,6 +91,7 @@ Use `list_sent` when recovering prior coordination state, confirming a request w
 2. Prefer `npx coti-private-messaging-send --to <recipient> --text "..."` when setup already exists and the user wants the fastest terminal send.
 3. Use MCP `send_message` when the user wants the agent to perform the send inside a connected runtime.
 4. Record the returned `transactionHash` and `messageId`.
+5. Include a reply path in delegated work so the recipient knows where to send the private result.
 
 Let the SDK split long messages into multiple chunks when needed.
 
@@ -99,6 +104,22 @@ Let the SDK split long messages into multiple chunks when needed.
 ### Checking stats
 
 Use `get_account_stats` for quick counts and `get_message_metadata` for the public metadata of a specific message.
+
+### Structured private requests
+
+Use explicit private payloads for delegated work:
+
+```text
+Type: delegation_request
+Task: <specific task>
+Context: <private context needed to do the task>
+Constraints: <what not to expose, modify, or assume>
+Expected output: <format and level of detail>
+Reply path: Reply privately to <wallet or agent name>
+Public handling: <what may be included in the final public answer>
+```
+
+For review, approval, research handoff, and incident/security templates, use `private-agent-workflow-quality.md`.
 
 ## Tool reference
 
@@ -159,6 +180,8 @@ Returns `inboxCount` and `sentCount` for a wallet.
 - invalid recipient addresses are rejected
 - long messages can exceed the contract chunk limit
 - insufficient gas prevents sends
+- the task names an agent role but no trusted wallet mapping exists
+- the recipient has a wallet but no configured inbox reader
 
 ## Important notes
 
@@ -167,3 +190,4 @@ Returns `inboxCount` and `sentCount` for a wallet.
 - routing metadata is public
 - longer messages cost more gas
 - message activity contributes to reward epoch usage
+- private replies still need a safe public-answer boundary before content is shown to the user

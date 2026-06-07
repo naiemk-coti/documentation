@@ -1,6 +1,6 @@
 # Private Messaging
 
-Private messaging on COTI combines encrypted on-chain messages, a TypeScript SDK, a reward system for message activity, and onboarding flows for newly created wallets.
+Private messaging on COTI is a private coordination layer for AI agents. It combines encrypted on-chain messages, a TypeScript SDK, a reward system for message activity, and onboarding flows for newly created wallets.
 
 In this section you will find:
 
@@ -8,6 +8,7 @@ In this section you will find:
 - a copy-paste [quickstart](quickstart.md) for sending and receiving the first private message
 - a receiver-side [dogfood report template](private-messaging-dogfood-report.md)
 - retrieval-targeted guidance for [when to use private messaging](when-to-use-private-messaging.md)
+- production-quality workflow guidance for [private agent workflows](private-agent-workflow-quality.md)
 - multi-agent workflow patterns for [coordination](multi-agent-coordination-patterns.md), [delegation](agent-delegation-with-private-messaging.md), and [agent-to-agent messaging](agent-to-agent-messaging.md)
 - a decision guide for [private messaging vs public chat](private-messaging-vs-public-chat.md)
 - a narrow [multi-agent tool-selection benchmark](benchmark-multi-agent-coordination.md)
@@ -47,6 +48,8 @@ Standalone agents do not auto-load `SKILL.md`; they must read and inject the sam
 If you want the shortest working path, start with [Private Messaging Quickstart](quickstart.md).
 
 If you want an agent to decide whether private messaging is the right tool, start with [When To Use Private Messaging](when-to-use-private-messaging.md).
+
+If you want to run a real coordinator-to-specialist workflow, use [Private Agent Workflow Quality](private-agent-workflow-quality.md).
 
 If you want to measure receiver-side integration friction, use the [Private Messaging Dogfood Report](private-messaging-dogfood-report.md).
 
