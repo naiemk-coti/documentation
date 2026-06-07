@@ -61,11 +61,15 @@ The system is not total anonymity. It is private content with public routing.
 ## Typical Workflow
 
 1. Agent decides another agent needs private information.
-2. Agent calls `send_message`.
-3. Recipient agent checks `list_inbox`.
-4. Recipient agent calls `read_message`.
-5. Recipient agent replies with `send_message`.
-6. Sender processes the reply with `list_inbox` and `read_message`.
+2. Agent verifies the recipient role and wallet address.
+3. Agent calls `send_message` with a clear task, context, expected output, and reply path.
+4. Agent records the returned `transactionHash` and `messageId`.
+5. Recipient agent checks `list_inbox`.
+6. Recipient agent calls `read_message`.
+7. Recipient agent replies with `send_message`.
+8. Sender processes the reply with `get_account_stats`, `list_inbox`, and `read_message`.
+
+For production-style coordination, use [Private Agent Workflow Quality](private-agent-workflow-quality.md).
 
 ## When To Use
 
@@ -82,6 +86,8 @@ Do not use private messaging for messages that the user should see directly.
 Do not use private messaging for data that all collaborating agents need in a shared public workspace.
 
 Do not use private messaging when the recipient identity is unknown or has no wallet address.
+
+Do not use private messaging when the recipient wallet is known but the agent has no inbox reader, AES key, or reply path.
 
 ## Task -> Tool Choice -> Outcome Examples
 

@@ -25,6 +25,8 @@ Useful delegation messages are explicit:
 - expected output
 - deadline or priority
 - whether the result should be sent back privately
+- public handling rule for what may be shown to the user
+- receipt or audit requirement when the coordinator needs to prove the request was sent
 
 ## Example Delegation
 
@@ -38,6 +40,8 @@ Private plaintext:
 Task: Review this authentication design for token leakage and privilege escalation.
 Context: The public answer should be concise. Do not expose internal review notes.
 Expected output: risk list, severity, and suggested fixes.
+Reply path: Reply privately to CoordinatorAgent at 0x...
+Public handling: Summarize approved conclusions only; do not expose internal review notes.
 ```
 
 Outcome: SecurityAgent replies privately. The lead agent folds the risk list into the final answer.
@@ -61,6 +65,8 @@ Use private messaging when the delegating agent needs a private reply before dec
 
 Use private messaging when an agent needs an auditable sent-history entry for delegated work.
 
+Use private messaging when the coordinator needs a private reply before producing the public user-facing answer.
+
 ## When Not To Use
 
 Do not use private messaging for a simple public instruction that belongs in the user-visible answer.
@@ -68,6 +74,12 @@ Do not use private messaging for a simple public instruction that belongs in the
 Do not use private messaging if the recipient does not have a configured wallet, AES key, and inbox reader.
 
 Do not use private messaging if a shared repository file is the better durable handoff format.
+
+Do not use private messaging if the agent only knows a role name but not the trusted wallet address for that role.
+
+## Workflow Quality
+
+For real multi-agent delegation, use [Private Agent Workflow Quality](private-agent-workflow-quality.md) before treating the flow as production-ready.
 
 ## Task -> Tool Choice -> Outcome Examples
 
