@@ -12,7 +12,7 @@ Use these helpers from a wallet script, backend service, or dApp frontend once y
 - You can also pass a full encryption service URL.
 - `DataType` distinguishes plaintext types (`Uint64`, `String`, etc.) from **`it*`** types that become ciphertext tuples on chain.
 
-`CotiPodCrypto.decrypt` uses the user's **account AES key** and `@coti-io/coti-sdk-typescript` under the hood.
+`CotiPodCrypto.decrypt` uses the user's **account AES key** and **`@coti-io/coti-sdk-typescript`** (`^1.0.7`) under the hood.
 
 ```typescript
 import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
@@ -20,9 +20,30 @@ import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
 // Encrypt plaintext for Solidity itUint256 parameters
 const enc = await CotiPodCrypto.encrypt("42", "testnet", DataType.itUint256);
 
-// Decrypt scalar ciphertext read from contract storage
-const plain = CotiPodCrypto.decrypt("0x...", accountAesKeyFromOnboarding, DataType.Uint64);
+// Decrypt a narrow scalar ciphertext (one uint256 word) read from contract storage
+const plain64 = CotiPodCrypto.decrypt("0x...", accountAesKeyFromOnboarding, DataType.Uint64);
+
+// Decrypt a ctUint256 value (a struct with two ctUint128 limbs)
+const plain256 = CotiPodCrypto.decrypt(
+  { ciphertextHigh, ciphertextLow },
+  accountAesKeyFromOnboarding,
+  DataType.Uint256
+);
 ```
+
+### Ciphertext shape in the current `MpcCore.sol`
+
+After the gt‑type upgrade, the on‑chain types you read back have these shapes:
+
+| Type                       | Solidity                                                  | Off‑chain shape                                |
+| -------------------------- | --------------------------------------------------------- | ---------------------------------------------- |
+| `gtUint8` … `gtUint256`, `gtBool` | User‑defined value type (`type … is uint256`), no `memory`/`calldata` | n/a — never crosses the chain boundary         |
+| `ctUint8` … `ctUint128`    | User‑defined value type                                   | single `uint256` word                          |
+| `ctUint256`                | Struct `{ ctUint128 ciphertextHigh; ctUint128 ciphertextLow; }` | tuple `{ ciphertextHigh, ciphertextLow }` (each `bigint`) |
+| `itUint*` / `utUint*`      | Struct (ciphertext + signature, unchanged)                | tuple / object                                 |
+| `gtString` / `ctString`    | Struct (array of `gtUint64` / `ctUint64`, unchanged)      | array of words                                 |
+
+When you read a `ctUint256` value via ethers or viem, the storage getter returns the two limbs as a tuple — normalize it to `{ ciphertextHigh, ciphertextLow }` before passing it to `CotiPodCrypto.decrypt` (or to `decryptUint256` from `@coti-io/coti-sdk-typescript`). The narrower `ct*` lanes can still be passed as a `bigint` or `0x`‑prefixed hex string.
 
 ## Gas estimation and method calls (`PodContract`)
 

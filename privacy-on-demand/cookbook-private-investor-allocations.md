@@ -40,7 +40,8 @@ The public version is useful because it gives you a known baseline: owner assign
 - A Solidity toolchain such as Hardhat or Foundry.
 - A Sepolia wallet with test ETH for deploys, transactions, and PoD request fees.
 - Node.js 18+ for scripts.
-- The PoD SDK package: `npm install "@coti/pod-sdk"`.
+- The PoD SDK package: `npm install "@coti/pod-sdk"` (ships the vendored `MpcCore.sol` under `@coti/pod-sdk/contracts/utils/mpc/`, so the COTI‑side contract no longer needs the `@coti-io/coti-contracts` package).
+- The COTI client crypto package: `npm install "@coti-io/coti-sdk-typescript@^1.0.7"` (provides `decryptUint256({ ciphertextHigh, ciphertextLow }, key)` for the 256‑bit ciphertext shape).
 - A way for users to complete PoD onboarding and obtain their account AES key for local decryption.
 
 Before implementing the private version, read:
@@ -411,20 +412,25 @@ const encryptedAllocation = await CotiPodCrypto.encrypt(
 
 If you use `PodContract.encryptAndCallMethod`, you can pass the plaintext string plus `DataType.itUint256`; the SDK encrypts and encodes the argument before sending the transaction. If the browser or backend already encrypted the value, use `callMethod` with the ciphertext JSON.
 
-Investors decrypt only the ciphertext that was off-boarded to them.
+Investors decrypt only the ciphertext that was off-boarded to them. Because `ctUint256` is a struct, the contract read returns a tuple `{ ciphertextHigh, ciphertextLow }`:
 
 ```typescript
-const ct = await sepoliaAllocations.readResultByRequest(requestId);
-const ctHex = typeof ct === "bigint" ? "0x" + ct.toString(16) : String(ct);
+const raw = await sepoliaAllocations.readResultByRequest(requestId);
+const ct = {
+  ciphertextHigh: BigInt(raw.ciphertextHigh ?? raw[0]),
+  ciphertextLow:  BigInt(raw.ciphertextLow  ?? raw[1]),
+};
 
 const plain = CotiPodCrypto.decrypt(
-  ctHex,
+  ct,
   accountAesKeyFromOnboarding,
   DataType.Uint256
 );
 
 console.log("private allocation:", plain);
 ```
+
+Under the hood, the 256‑bit decrypt path calls `decryptUint256({ ciphertextHigh, ciphertextLow }, key)` from `@coti-io/coti-sdk-typescript` (`^1.0.7`). Narrower lanes (`Uint64`, `Uint128`) still take a single ciphertext word.
 
 > **Warning:** Never log, persist, or transmit the account AES key as ordinary application data. Treat it as user-controlled key material.
 
@@ -482,6 +488,8 @@ function onSetAllocationCompleted(bytes memory resultData) external onlyInbox {
 
 For investor reads, the investor asks COTI to off-board their allocation to their address. The callback stores `ctUint256`, and the investor decrypts locally with their account AES key.
 
+`ctUint256` is a Solidity **struct** with two `ctUint128` limbs (`ciphertextHigh`, `ciphertextLow`), so the decoded local needs a `memory` location and the storage mapping holds the two‑limb tuple.
+
 ```solidity
 mapping(bytes32 => ctUint256) public allocationReadResults;
 
@@ -490,7 +498,7 @@ function onAllocationRead(bytes memory resultData) external onlyInbox {
     require(callerChain == COTI_TESTNET_CHAIN_ID && callerContract == cotiAllocationPeer, "not allowed");
 
     bytes32 requestId = IInbox(inbox).inboxSourceRequestId();
-    ctUint256 allocation = abi.decode(resultData, (ctUint256));
+    ctUint256 memory allocation = abi.decode(resultData, (ctUint256));
 
     allocationReadResults[requestId] = allocation;
 }

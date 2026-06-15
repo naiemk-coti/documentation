@@ -41,7 +41,7 @@ The COTI contract **inherits `InboxUser`**, so only the Inbox can enter `receive
 pragma solidity ^0.8.19;
 
 import "../InboxUserCotiTestnet.sol";
-import "@coti-io/coti-contracts/contracts/utils/mpc/MpcCore.sol";
+import "@coti/pod-sdk/contracts/utils/mpc/MpcCore.sol";
 
 contract DirectMessageCotiSide is InboxUserCotiTestnet {
     function receiveMessage(gtString calldata message, address sender, address recipient) external onlyInbox {

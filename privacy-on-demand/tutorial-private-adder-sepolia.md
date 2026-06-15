@@ -93,7 +93,7 @@ contract PrivateAdder is PodLib, PodUserSepolia {
             requestId = inbox.inboxRequestId();
         }
 
-        ctUint256 sum = abi.decode(data, (ctUint256));
+        ctUint256 memory sum = abi.decode(data, (ctUint256));
         sumByRequest[requestId] = sum;
         statusByRequest[requestId] = RequestStatus.Completed;
         emit AddCompleted(requestId);
@@ -105,6 +105,7 @@ contract PrivateAdder is PodLib, PodUserSepolia {
 
 - **`onDefaultMpcError`** is implemented on `PodLibBase` and forwards failures to **`ErrorRemoteCall`** on `PodUser`. Your UI can listen for that event to mark a request failed.
 - **`addCallback`** must stay **`onlyInbox`** so random accounts cannot forge results.
+- **`ctUint256`** is a Solidity **struct** `{ ctUint128 ciphertextHigh; ctUint128 ciphertextLow; }`, so the decoded local must use a `memory` location and the storage mapping holds the two‑limb tuple. The narrower garbled / ciphertext types (`gtUint8…gtUint256`, `gtBool`, and `ctUint8…ctUint128`) are **user‑defined value types** — pass and assign them like `uint256` (no `memory` / `calldata`). Encrypted-input wrappers such as **`itUint256`** stay structs and keep their `calldata` / `memory` location as before.
 
 ## Step 3: Compile and deploy on Sepolia
 
@@ -145,8 +146,10 @@ import {
 import { ethers } from "ethers";
 
 // Minimal ABI fragment — prefer the full artifact from your build (Hardhat / Foundry).
+// itUint256 = { ctUint256 ciphertext; bytes signature }, and ctUint256 = { uint256 ciphertextHigh; uint256 ciphertextLow }
+// so each `itUint256` parameter encodes as ((uint256,uint256),bytes).
 const privateAdderAbi = [
-  "function add((uint256 ciphertext,bytes signature),(uint256 ciphertext,bytes signature),uint256) payable returns (bytes32)",
+  "function add(((uint256,uint256),bytes),((uint256,uint256),bytes),uint256) payable returns (bytes32)",
 ] as const;
 
 const pod = new PodContract(
@@ -206,35 +209,37 @@ Private addition is **asynchronous**: the sum appears only after the Inbox invok
 
 ## Step 7: Read the encrypted sum and decrypt locally
 
-After status is **Completed**, read **`sumByRequest(requestId)`**. The value is **`ctUint256`** (ciphertext), not plaintext.
+After status is **Completed**, read **`sumByRequest(requestId)`**. The value is **`ctUint256`** (ciphertext), not plaintext. Because **`ctUint256`** is a Solidity **struct** with two `ctUint128` limbs, the contract read returns a tuple `{ ciphertextHigh, ciphertextLow }` (each is a single `uint256`).
 
 ```typescript
 import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
 
 // accountAesKey: hex string from your app’s COTI onboarding flow (never log it)
 
-const ct = await privateAdder.sumByRequest(requestId); // bytes32 from extractRequestIds or return value
-const ctHex =
-  typeof ct === "bigint"
-    ? "0x" + ct.toString(16)
-    : String(ct);
+const raw = await privateAdder.sumByRequest(requestId);
+// ethers / viem return the struct as a tuple — normalize to { ciphertextHigh, ciphertextLow }
+const ct = {
+  ciphertextHigh: BigInt(raw.ciphertextHigh ?? raw[0]),
+  ciphertextLow:  BigInt(raw.ciphertextLow  ?? raw[1]),
+};
 
 const decryptedString = CotiPodCrypto.decrypt(
-  ctHex,
+  ct,
   accountAesKey,
-  DataType.Uint64
+  DataType.Uint256
 );
 
 console.log("sum (plaintext string):", decryptedString);
 // Expect "30" for plainA=10 and plainB=20
 ```
 
-`CotiPodCrypto.decrypt` delegates to `@coti-io/coti-sdk-typescript` and expects a **scalar ciphertext** as a **hex string** for `Uint64`, plus the user’s **AES key** (see SDK source [coti-pod-crypto.ts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts)).
+`CotiPodCrypto.decrypt` delegates to **`@coti-io/coti-sdk-typescript`** (`^1.0.7`), which now exposes `decryptUint256({ ciphertextHigh, ciphertextLow }, accountAesKey)` for the 256‑bit lane. Narrower lanes (`Uint64`, `Uint128`, …) still take a single `uint256` ciphertext as a `bigint` or `0x`‑prefixed hex string (see SDK source [coti-pod-crypto.ts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts)).
 
 ## Step 8: Sanity checks and next steps
 
-- **Callback decode** must stay **`(ctUint256)`** — changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
-- **Type lane** — This contract uses **`add256`** with **`itUint256`** / **`ctUint256`** on chain. **`CotiPodCrypto.decrypt`** still takes a **`DataType`** for the scalar decode; keep **`DataType.Uint64`** (or **`Uint256`**, etc.) aligned with how your app and onboarding produce the ciphertext for this flow, per your installed SDK.
+- **Callback decode** must stay **`(ctUint256)`** — and the local must use `memory` because `ctUint256` is a struct. Changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
+- **Type lane** — This contract uses **`add256`** with **`itUint256`** / **`ctUint256`** on chain, so pass **`DataType.Uint256`** to `CotiPodCrypto.decrypt` and feed it the **`{ ciphertextHigh, ciphertextLow }`** tuple read from the contract. Narrower lanes (`Uint64`, `Uint128`) still take a single ciphertext word.
+- **Type model** — In the current `MpcCore.sol`, `gtUint*`, `gtBool`, and `ctUint8…ctUint128` are **user‑defined value types** (`type X is uint256`) — drop `memory` / `calldata` on them. `ctUint256` is a struct (two `ctUint128` limbs); `itUint*` / `utUint*` are also still structs, so keep `calldata` / `memory` on those.
 - **Production**: add tests for non-Inbox callers on `addCallback`, under-funded `msg.value`, and decrypt failures; follow the [first production checklist](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) in Getting started.
 
 ## Reference links
