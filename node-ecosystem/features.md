@@ -1,6 +1,6 @@
 # Features
 
-The COTI Node Ecosystem packages node operation into a small number of high-level features. Each one is surfaced in the web app (see [Networks](./#networks) for the testnet and mainnet URLs) and backed by one or more of the ecosystem services described in [backend-services.md](backend-services.md).
+The COTI Node Ecosystem packages node operation into a small number of high-level features. Each one is surfaced in the web app (see [Networks](README.md#networks) for the testnet and mainnet URLs) and backed by one or more of the ecosystem services described in [backend-services.md](backend-services.md).
 
 ## 1. Guided installation
 
@@ -58,7 +58,7 @@ Once a node has been continuously seen by peer discovery for long enough to be c
 **Rewards require a valid DNS.** The ecosystem only measures uptime by calling the node's RPC through the FQDN the operator supplies during setup. A node without a reachable FQDN cannot be monitored and therefore cannot earn rewards — even if it is fully synced on the network.
 {% endhint %}
 
-The operator does not interact with Better Stack directly — monitoring is fully automatic. A **public status page** aggregates every hot node's monitor and is available at the URL listed in [Networks](./#networks).
+The operator does not interact with Better Stack directly — monitoring is fully automatic. A **public status page** aggregates every hot node's monitor and is available at the URL listed in [Networks](README.md#networks).
 
 ## 6. Rewards distribution
 

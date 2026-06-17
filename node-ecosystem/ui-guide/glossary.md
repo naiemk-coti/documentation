@@ -147,7 +147,7 @@ The external uptime-monitoring platform used by the ecosystem to probe every hot
 
 ### Status page
 
-The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../#networks).
+The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../README.md#networks).
 
 ### Operator status dashboard (local)
 

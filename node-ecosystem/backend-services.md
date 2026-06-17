@@ -1,6 +1,6 @@
 # Backend Services
 
-The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](./#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
+The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](README.md#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
 
 ```mermaid
 flowchart LR
@@ -68,7 +68,7 @@ The operator does not configure or pay for Better Stack — the ecosystem manage
 **Where it shows up in the UI**
 
 * The **all-time uptime percentage** displayed for your node in the dashboard and nodes table.
-* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](./#networks).
+* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](README.md#networks).
 
 {% hint style="info" %}
 Because monitoring happens over HTTPS against your public RPC hostname, a node without valid DNS / routing cannot be monitored — see [**Installation**](installation.md) ([**Own domain**](installation-own-domain.md), [**Wizard tunnel**](installation-wizard-tunnel.md)) and the [Glossary](ui-guide/glossary.md) FQDN entry.

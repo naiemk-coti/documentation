@@ -48,10 +48,10 @@ Size the disk for the **network you join** (Testnet vs Mainnet). Figures are pla
 
 | Network     | Minimum | Recommended | Professional (extra headroom) |
 | ----------- | ------- | ----------- | ----------------------------- |
-| **Testnet** | 100 GB  | 200 GB      | 500 GB                        |
+| **Testnet** | 90 GB  | 200 GB      | 500 GB                        |
 | **Mainnet** | 700 GB  | 1 TB        | 1.5 TB                        |
 
-These bands align with the [**Networks**](README.md#networks) table (≥ 100 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem guidance).
+These bands match the [storage table above](#storage-by-network) (≥ 90 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem guidance).
 
 The **wizard installer** checks free space on the **filesystem where Docker stores images and volumes** (Docker engine root — chain data uses a named volume, not the project folder). Required free space comes from the network profile (`networks/<network>.env`): **90 GB** on Testnet, **700 GB** on Mainnet. Use the **Minimum** column above as planning guidance; leave headroom beyond the installer floor.
 

@@ -1,6 +1,6 @@
 # UI Guide
 
-A page-by-page walkthrough of the COTI Nodes web app (see [Networks](../#networks) for the testnet and mainnet URLs). Read [features.md](../features.md) first for the product-level overview; this page describes what each screen shows and how to use it.
+A page-by-page walkthrough of the COTI Nodes web app (see [Networks](../README.md#networks) for the testnet and mainnet URLs). Read [features.md](../features.md) first for the product-level overview; this page describes what each screen shows and how to use it.
 
 ## Site map
 

@@ -18,7 +18,7 @@ Running a COTI node offers several benefits:
 
 The **COTI Node Ecosystem** is the product surface that lets anyone run, monitor, and earn rewards from a COTI full node through a guided flow. It is composed of:
 
-* a web app that guides operators from zero to a live, reward-eligible node (see [Networks](./#networks) below for the URLs),
+* a web app that guides operators from zero to a live, reward-eligible node (see [Networks](#networks) below for the URLs),
 * an automated installer that stands up a COTI full node on **Ubuntu 24.04 LTS** (Linux servers) or a certified **Windows 11 + WSL 2 + Ubuntu 24.04 LTS** setup in a single command,
 * a set of backend services that discover peers, mint node NFTs, monitor uptime, and distribute rewards each epoch.
 
@@ -28,11 +28,11 @@ This section documents the product — what it does, how to install a node throu
 
 The same **COTI full node** software powers the network whether you onboard through the web app or build the stack yourself.
 
-**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](./#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--with-nginx`) — plus the [**UI guide**](ui-guide/). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
+**If you are new to running a node**, start with the **web app wizard** — it is the fastest path for most people: open the web app from [Networks](#networks), follow the setup flow, then read [**Installation**](installation.md) and the matching subpage — [**Wizard tunnel**](installation-wizard-tunnel.md) (`--with-frp`) or [**Own domain (Nginx)**](installation-own-domain.md) (`--with-nginx`) — plus the [**UI guide**](ui-guide/). [**Manual full node setup**](manual-full-node.md) is for operators who want Git clone, Docker Compose, and scripts **without** the wizard.
 
 | Path                                   | When to use it                                                                                                                                                 | Documentation                                                                                                                                                    |
 | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](./#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--with-nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/) |
+| **Web app wizard (recommended first)** | Guided flow and one-liner from [Networks](#networks). Use **tunnel** (`--with-frp`, COTI subdomain, no host TLS) or **own domain + Nginx** (`--with-nginx`). | [**Installation**](installation.md), [**Wizard tunnel**](installation-wizard-tunnel.md), [**Own domain**](installation-own-domain.md), [**UI guide**](ui-guide/) |
 | **Manual (without the wizard)**        | You administer the stack yourself — not the Nodes web UI installer.                                                                                            | Under [**Installation**](installation.md): [**Manual full node setup**](manual-full-node.md)                                                                     |
 
 The [**COTI Node Ecosystem Litepaper**](coti-node-ecosystem-litepaper.md) summarizes the Node Economy; incentive rules apply to **both** paths when you meet eligibility.
