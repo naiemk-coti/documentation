@@ -137,6 +137,8 @@ curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_K
 
 Copy and run the matching command on your machine. A **"Learn more about installation"** link opens the [**Installation** overview](../installation.md). Tick **"I've run this command"** to advance.
 
+After the stack starts, you can confirm sync locally at [http://127.0.0.1:8090](http://127.0.0.1:8090) on the server (operator status dashboard — see [Glossary → Operator status dashboard](glossary.md#operator-status-dashboard-local)).
+
 ### Step 6 — Waiting for node connection
 
 <figure><img src="../../.gitbook/assets/node-ecosystem-setup-6.png" alt="Setup step 6 with a spinner and the message Listening for node heartbeat"><figcaption><p>Step 6: the wizard polls peer discovery every ~60 seconds and advances automatically once your node is seen.</p></figcaption></figure>

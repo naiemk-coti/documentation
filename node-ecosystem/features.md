@@ -10,6 +10,7 @@ A step-by-step wizard at **`/setup`** takes an operator from a fresh **certified
 * On **Setup FQDN**, offers **Generate FQDN for Me** (success banner and read-only **Node FQDN**) or **Bring your own FQDN** (hostname field, A/CNAME reminder, verification checkbox, and **Back to Generation**); for BYO, validates the hostname via a live DNS lookup before continuing.
 * Produces a single-line installer command, tailored to the node's key and hostname, that the operator runs as root on the target server (see [**Installation**](installation.md) — [**Wizard tunnel**](installation-wizard-tunnel.md) or [**Own domain**](installation-own-domain.md)).
 * Watches the peer-discovery network and advances automatically once the node is seen by peers.
+* Starts a **local operator status dashboard** on the server (`http://127.0.0.1:8090`, and `/operator/` on the public HTTPS hostname when Nginx or the tunnel is enabled) so operators can confirm sync and reachability without using the command line.
 
 See [**Installation**](installation.md) for what the installer does on the server, and the [**UI guide**](ui-guide/README.md) for the wizard walkthrough.
 

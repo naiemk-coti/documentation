@@ -61,6 +61,7 @@ The **status page** is the public [Better Stack](https://betterstack.com/) dashb
 ## What the COTI Node Ecosystem gives you
 
 * **One-command install** of a COTI full node on a certified OS (**Ubuntu 24.04 LTS** on Linux, or **Windows 11** with **WSL 2** and **Ubuntu 24.04 LTS**), with either a **COTI-managed tunnel** (no host Nginx) or **HTTPS on your server** when you bring your own domain.
+* **Local operator status page** on the node host (`http://127.0.0.1:8090`, plus `/operator/` over HTTPS when exposed) for sync, peers, and reachability checks.
 * **Live visibility** into the node fleet — Who is online, which nodes are hot, how many earned rewards this epoch.
 * **Per-operator dashboard** for your own node(s): thermal state, uptime, latency, rewards history, eligibility.
 * **Automatic monitoring registration** in Better Stack once your node is recognized by the network.

@@ -40,15 +40,20 @@ curl -sL https://fullnode.<network>.coti.io/install-mac | bash -s -- "<PRIVATE_K
 2. **Pre-checks** — Disk space; ports **80**, **443**, and **7400** free; `ufw` / `iptables` must not block them when those checks apply.
 3. **Packages** — Docker, Compose, **`certbot`**, plus `curl`, `git`, `jq`, `dnsutils`.
 4. **Clone** — `coti-full-node` into an empty directory.
-5. **Config** — `installer.env`, `.env`, `nodekey` (`FRPC_ENABLED=false` unless you use **`--with-frp`**).
-6. **HTTPS** — Temporary Nginx on :80, **Certbot** for your FQDN, then full Nginx config for `/rpc`, `/ws`, `/metrics` with TLS.
-7. **Launch** — `./start_coti-full-node.sh` starts the stack.
+5. **Config** — `.env` (host: `NETWORK`, image tag, FQDN, `NGINX_ENABLED=true`, `FRPC_ENABLED=false`), chain defaults from **`networks/<network>.env`**, and `nodekey`.
+6. **HTTPS** — Temporary Nginx on :80, **Certbot** for your FQDN, then full Nginx config for `/rpc`, `/ws`, `/metrics`, and **`/operator/`** with TLS.
+7. **Launch** — `./start_coti-full-node.sh` starts the stack (requires **Docker Compose v2**: `docker compose`).
 
 Public RPC is **`https://<your-fqdn>/rpc`** — that is what monitoring uses.
 
 ## After the command finishes
 
 The script prints success with your HTTPS URL. The node syncs; the wizard waits on peer discovery. Warm-up / hot / NFT: [Glossary](ui-guide/glossary.md).
+
+### Operator status page
+
+* **Local (same machine):** [http://127.0.0.1:8090](http://127.0.0.1:8090) — localhost only; use SSH port forwarding if you manage the server remotely.
+* **HTTPS (public):** `https://<your-fqdn>/operator/` — same dashboard through your Nginx TLS reverse proxy.
 
 ## Flags relevant to this flow
 
@@ -57,6 +62,7 @@ The script prints success with your HTTPS URL. The node syncs; the wizard waits 
 | **`--with-nginx`** | Nginx + Let’s Encrypt on the host (this guide). |
 | `--staging` | Let’s Encrypt **staging** CA (for dry runs; browsers won’t trust the cert). |
 | `--with-frp` | COTI tunnel path instead — see [**Wizard tunnel**](installation-wizard-tunnel.md). Do not combine with `--with-nginx`. |
+| **`--testnet`**, **`--mainnet`** | Select chain profile. Piped wizard installs infer network from the FQDN; local script runs require an explicit flag. |
 
 Host Nginx is **off by default**; use **`--with-nginx`** to enable TLS on this machine.
 

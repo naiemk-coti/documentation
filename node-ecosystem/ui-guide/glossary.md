@@ -148,3 +148,7 @@ The external uptime-monitoring platform used by the ecosystem to probe every hot
 ### Status page
 
 The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../#networks).
+
+### Operator status dashboard (local)
+
+A small **local** web UI shipped with [`coti-full-node`](https://github.com/coti-io/coti-full-node), bound to **localhost** at port **8090** after `./start_coti-full-node.sh`. It shows process health, peer count, sync state, and (when configured) DNS/TLS or FRPC gateway checks — distinct from the **Nodes web app** dashboard at `/my-nodes`. With Nginx or the COTI tunnel, the same page is also available at **`https://<fqdn>/operator/`**.

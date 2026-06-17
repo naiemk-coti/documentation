@@ -7,13 +7,13 @@ This is the **simplest** wizard path: on **Setup FQDN**, click **Generate FQDN f
 ## What COTI provides
 
 * **No third-party domain to buy** — DNS for that hostname is operated by COTI.
-* **No TLS certificate on your server** — HTTPS terminates at COTI’s edge; **FRP (frps)** and DNS route traffic to **frpc** on your machine, which forwards to the full node’s JSON-RPC inside Docker.
+* **No TLS certificate on your server** — HTTPS terminates at COTI’s edge; **FRP (frps)** and DNS route traffic to **frpc** on your machine, which forwards through an **internal Nginx gateway** (Docker-only, no certificates) to the full node’s JSON-RPC, WebSocket, metrics, and operator dashboard.
 
 ## What you skip on the host
 
 * **Inbound firewall rules for 80, 443, and 7400 from the public internet** are not required for this mode as designed: RPC over HTTPS reaches you through the tunnel; P2P can work with normal outbound connectivity.
 
-The installer enables the **FRPC** Compose profile, keeps **Nginx + Let’s Encrypt off**, and **skips** `ufw` / `iptables` checks that assume you must open 80/443/7400 inbound. It still requires **port 7400 free locally** (no other process binding it) so the node container can use it.
+The installer enables the **FRPC** Compose profile (including an internal **nginx-frpc-gateway** for `/rpc`, `/ws`, `/metrics`, and `/operator/` path rewrite), keeps **host Nginx + Let’s Encrypt off**, and **skips** `ufw` / `iptables` checks that assume you must open 80/443/7400 inbound. It still requires **port 7400 free locally** (no other process binding it) so the node container can use it.
 
 ## Prerequisites
 
@@ -47,13 +47,19 @@ Driven by `install_coti-full-node.sh` (`https://fullnode.<network>.coti.io/insta
 2. **Pre-checks** — Writable install dir, disk space; **no** inbound 80/443/7400 firewall enforcement; **7400** must not already be in use locally.
 3. **Packages** — Docker, Compose, `curl`, `git`, `jq`, `dnsutils` (**no** `certbot` when Nginx is off).
 4. **Clone** — `coti-full-node` into the current directory (must be empty).
-5. **Config** — `installer.env` (image tag, network), `.env` (host flags), `nodekey`, and **FRPC** `frpc-*.toml` when `--with-frp` is set (`FRPC_ENABLED=true`).
-6. **Nginx / Certbot** — **Skipped**; TLS is at COTI’s edge.
-7. **Launch** — `./start_coti-full-node.sh` starts the node and **FRPC** containers.
+5. **Config** — `.env` (host: `NETWORK`, image tag, FQDN, `FRPC_ENABLED`, FRPS hosts), chain defaults from **`networks/<network>.env`**, `nodekey`, **FRPC** `frpc-*.toml`, and internal **`nginx/frpc-gateway.conf`** when `--with-frp` is set.
+6. **Host Nginx / Certbot** — **Skipped**; TLS is at COTI’s edge. An internal HTTP-only Nginx gateway runs inside Docker for path rewrite.
+7. **Launch** — `./start_coti-full-node.sh` starts the node, **nginx-frpc-gateway**, and two regional **frpc** containers (`frpc-1`, `frpc-2`; defaults in `networks/<network>.env`). Each `frpc` tunnel terminates at the internal gateway on port **8080**, which rewrites `/rpc`, `/ws`, `/metrics`, and `/operator/` to the node and operator dashboard.
 
 ## After the command finishes
 
 The script prints a summary (FRPC gateways, custom domain, logs). The node syncs; the wizard advances when peer discovery sees your node. Warm-up / hot / NFT rules are in the [Glossary](ui-guide/glossary.md).
+
+### Operator status page (local)
+
+After `./start_coti-full-node.sh`, a small **local** dashboard shows whether the node is running, has peers, is syncing, and (when configured) whether DNS or the FRPC gateway look healthy. On the machine where Docker runs, open [http://127.0.0.1:8090](http://127.0.0.1:8090) (localhost only; auto-refreshes about every 15 seconds). Over SSH: `ssh -L 8090:127.0.0.1:8090 user@your-node`, then open the same URL in your desktop browser.
+
+With the tunnel, the same page is also exposed at **`https://<your-coti-fqdn>/operator/`** through the edge (path rewrite via the internal Nginx gateway).
 
 {% hint style="warning" %}
 **Rewards need a reachable public RPC name.** Monitoring uses your **COTI-assigned** hostname and edge TLS. If DNS or the tunnel is wrong, uptime may not accrue. See [Glossary](ui-guide/glossary.md) and [**Server requirements**](server-requirements.md).
@@ -63,13 +69,16 @@ The script prints a summary (FRPC gateways, custom domain, logs). The node syncs
 
 | Flag | Purpose |
 |------|---------|
-| **`--with-frp`** | Enables FRPC, disables Nginx, relaxes inbound 80/443/7400 firewall checks (this guide). |
+| **`--with-frp`** | Enables FRPC + internal Nginx gateway (no host TLS/certs), relaxes inbound 80/443/7400 firewall checks (this guide). |
 | **`--with-nginx`** | Own-domain path instead — see [Own domain (Nginx)](installation-own-domain.md). |
+| **`--testnet`**, **`--mainnet`** | Select chain profile (image, bootnodes, FRPS regional defaults, disk requirement). Piped wizard installs infer network from the FQDN; local script runs require an explicit flag. |
+| **`--frpc-custom-domain=`**, **`--frpc-auth-token=`** | Optional FRPC edge hostname and auth token when COTI assigns them separately from the node FQDN. |
+| **`--frps-server-addr-1=`**, **`--frps-server-addr-2=`**, **`--frps-server-port=`** | Override regional FRPS gateways (defaults in `networks/<network>.env`). |
 
 FRPC is **off by default**; use **`--with-frp`** to enable it. Do not pass **`--with-frp`** and **`--with-nginx`** on the same install.
 
 ## Troubleshooting
 
-* **FRPC / tunnel** — Confirm `docker ps` shows `frpc` containers, and the COTI hostname resolves and reaches the edge. Check logs: `docker logs` on the frpc containers and `coti-<network>-full-node`.
+* **FRPC / tunnel** — Confirm `docker ps` shows `nginx-frpc-gateway`, `frpc-1`, `frpc-2`, and the full-node container; the COTI hostname resolves and reaches the edge. Check logs: `docker logs` on the frpc containers and `coti-<network>-full-node`. Test RPC locally via the gateway: `docker exec coti-<network>-nginx-frpc-gateway wget -qO- --post-data='{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' --header='Content-Type: application/json' http://127.0.0.1:8080/rpc`.
 * **Port 7400 in use** — Another process is bound to 7400; free it before re-running.
 * **Dirty directory** — Installer needs an empty folder; move or remove an old `coti-full-node` clone.

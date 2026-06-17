@@ -125,13 +125,17 @@ The following recommended steps reflect best practices but should be performed c
     \{% endcode %\}
 4.  **Checkout the stable release tag (Recommended):**
 
-    * NOTE: Replace `v1.1.4-mainnet` with the actual latest stable tag (e.g., `v1.1.4-discovery` for Testnet).
+    * Replace the tag below with the latest stable release for your network (see [Networks release notes](../networks/release-notes/README.md) and tags in the [`coti-full-node`](https://github.com/coti-io/coti-full-node) repository).
 
     ```bash
     git checkout tags/<latest_stable_tag>
-    # Example for Mainnet: git checkout tags/v1.1.4-mainnet
+    # Example: git checkout tags/v1.2.0-mainnet
     ```
-5. **Start Your Node**
+5.  **Configure the environment**
+
+    Copy [`.env.example`](https://github.com/coti-io/coti-full-node/blob/main/.env.example) to `.env` and set at least `NETWORK` (`testnet` or `mainnet`), `FULLNODE_FQDN`, and `FULLNODE_EXT_IP` if auto-detection is not suitable. Chain defaults (bootnodes, network id, FRPS regional hosts) load from **`networks/<NETWORK>.env`** when you run `start_coti-full-node.sh`; host values in `.env` override profile defaults.
+
+6. **Start Your Node**
    1.  Navigate to the newly created "coti-full-node" directory
 
        \{% code fullWidth="false" %\}
@@ -146,7 +150,9 @@ The following recommended steps reflect best practices but should be performed c
        ```
        ./start_coti-full-node.sh
        ```
-   3.  Once the docker-compose has started the node, liveliness check will be executed
+
+       Requires **Docker Compose v2** (`docker compose`). The script pulls the configured image, builds the local operator dashboard image, starts containers, and runs the liveness check.
+   3.  Once the stack has started, the liveness check runs automatically (or run it again manually):
 
        ```
        ./liveness_coti-full-node.sh
@@ -165,7 +171,17 @@ The following recommended steps reflect best practices but should be performed c
 If liveliness check passed locally it means that your node is syncing with the other nodes in the network.
 {% endhint %}
 
-5.  **To Check Node Logs**
+### Operator status page
+
+After the stack is up, a small **local** web dashboard helps you see whether the node is running, has peers, is syncing, and (when Nginx or FRPC is configured) whether DNS/HTTPS or the tunnel gateway look healthy.
+
+* **Local:** [http://127.0.0.1:8090](http://127.0.0.1:8090) on the host (localhost only; auto-refreshes about every 15 seconds).
+* **Over SSH:** `ssh -L 8090:127.0.0.1:8090 user@your-node`, then open the same URL in your desktop browser.
+* **Public HTTPS** (when `NGINX_ENABLED=true` or `FRPC_ENABLED=true`): `https://<your-fqdn>/operator/`.
+
+This is separate from the **Nodes web app** per-operator dashboard at `/my-nodes` — see the [UI guide](ui-guide/README.md).
+
+7.  **To Check Node Logs**
 
     ```
     docker logs -f coti-<network>-full-node
@@ -196,7 +212,9 @@ To restart your node follow these steps:
 
 ### Node Configuration
 
-If you are running a node without a license, no further configuration of the node is required. Simply ensure you are connected to the network.
+Configuration is split between **`.env`** (this host) and **`networks/<network>.env`** (chain profile). Start/stop scripts load `.env`, then the network profile, then `.env` again so host values win on overlap. See [Installation → Configuration files](installation.md#configuration-files-after-install) for the full table.
+
+If you are running a node without a license, no further configuration of the node is required beyond choosing the correct `NETWORK` and ensuring peers can reach you on **7400**. Simply ensure you are connected to the network.
 
 For **your own domain** with **HTTPS on the host** (what the wizard does with **`--with-nginx`**), set at least:
 
@@ -212,7 +230,7 @@ in **`.env`** (see [`.env.example`](https://github.com/coti-io/coti-full-node/bl
 
 Use this when the ecosystem must reach your node at **`https://<your-fqdn>/rpc`** (own DNS + TLS on your server). The wizard path is documented in [**Own domain (Nginx + TLS)**](installation-own-domain.md); here you perform the same steps by hand after cloning the repo.
 
-**Authoritative command-line reference:** [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh) — search for **`SSL AND NGINX SETUP`** ([lines 534–630](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L534-L630)). The examples below mirror that script; substitute your **FQDN** and match **upstream** service names to your checked-out `docker-compose.yml` (e.g. `coti-testnet-full-node` on testnet).
+**Authoritative command-line reference:** [`install_coti-full-node.sh`](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh) — search for **`SSL AND NGINX SETUP`** (around [lines 601–704](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L601-L704)). The examples below mirror that script; substitute your **FQDN**. Nginx upstreams use the Compose **service** name `coti-full-node` (container name is `coti-<network>-full-node`).
 
 #### Prerequisites
 
@@ -243,11 +261,9 @@ Start the **`setup`** profile container (listens on host port **80** only):
 
 ```bash
 docker compose --profile setup up -d nginx-init
-# If you use the standalone compose binary:
-# docker-compose --profile setup up -d nginx-init
 ```
 
-This matches the installer’s `$DC --profile setup up -d nginx-init`.
+This matches the installer’s `$DC --profile setup up -d nginx-init` (`$DC` is `docker compose`).
 
 #### Step 3 — Obtain a certificate with Certbot (webroot)
 
@@ -288,10 +304,10 @@ Port **80** must be free for the production Nginx container.
 
 Create **`./nginx/sites-enabled/fullnode.conf`** with the same structure the installer writes: HTTPS on **443** proxying **`/rpc`**, **`/ws`**, **`/metrics`**, and **`/operator/`** to the Docker services, plus HTTP on **80** for `/.well-known/acme-challenge/` and redirect to HTTPS.
 
-Copy the `server { ... }` blocks from [`install_coti-full-node.sh` (lines 559–629)](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L559-L629), replacing:
+Copy the `server { ... }` blocks from [`install_coti-full-node.sh` (lines 626–704)](https://github.com/coti-io/coti-full-node/blob/main/install_coti-full-node.sh#L626-L704), replacing:
 
 * `$FQDN` with your hostname (e.g. `node1.example.com`);
-* `$NETWORK` in upstream names with your network label if your compose file uses a different prefix (must match service names in `docker-compose.yml`, e.g. `coti-testnet-full-node:8545`).
+* upstream blocks already reference the Compose service `coti-full-node` and `coti-operator-dashboard` — do not substitute the container name prefix.
 
 Public RPC for monitoring and rewards: **`https://<your-fqdn>/rpc`**.
 
