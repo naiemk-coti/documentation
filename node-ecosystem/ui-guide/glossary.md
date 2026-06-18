@@ -54,9 +54,42 @@ The length of the rolling window used to decide whether a node is stable enough 
 
 ### HOT\_THRESHOLD\_HOURS
 
-The minimum number of hours _within_ `HOT_WINDOW_HOURS` that a node must be continuously present to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
+The minimum number of hours _within_ `HOT_WINDOW_HOURS` that a node must be present as a peer to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
 
 In plain language: _"To become hot, a node must be seen by peers for at least `HOT_THRESHOLD_HOURS` hours during the last `HOT_WINDOW_HOURS` hours."_
+
+#### Becoming hot — illustrated example (production values)
+
+In production the ecosystem uses **`HOT_THRESHOLD_HOURS` = 72** and **`HOT_WINDOW_HOURS` = 103**. Peer discovery evaluates a **rolling** window: at any moment, only the last 103 hours count. Connected time that started **before** that window has already slid out and no longer contributes.
+
+```
+Each cell = 1 hour.  █ = connected as peer   · = offline or not yet in window
+
+NOW ─────────────────────────────────────────────────────────────────────► time
+                    │◄──────────── 103-hour rolling window ────────────►│
+                    │                                                   │
+Case A — warming up │································████████████░░░░░░░│  50 h connected → not hot yet
+                    │                                                   │  (need 72 h)
+
+Case B — qualifies  │································██████████████████│  72 h connected → HOT
+                    │                                                   │  (NFT minted)
+
+Case C — hours lost │████████████████████ (80 h connected long ago)         │
+                    │                      │◄── 103 h window ──────────►│
+                    │                      ················████████████│  53 h still count
+                    │                      (offline since then)         │  27 h already slid out
+                    │                                                   │  → not hot (need 72 h)
+```
+
+**How to read the diagram**
+
+| Case | What happened | Connected in window | Result |
+| ---- | ------------- | ------------------- | ------ |
+| **A** | Node came online recently and has been up steadily | 50 h | Still **warming up** — 22 h short of 72 |
+| **B** | Same node, still online, a while later | 72 h | **Hot** — threshold met inside the window |
+| **C** | Node was connected for 80 h, then went offline; by the time it is evaluated again, the first 27 h of that streak are older than 103 h | 53 h (80 − 27 lost) | **Not hot** — earlier connected hours are **lost** for warm-up purposes |
+
+The window moves forward continuously. Every hour that passes drops the oldest hour from the count and adds a new empty hour at the trailing edge — unless the node stays connected, in which case that new hour accrues as connected time.
 
 ### COLD\_WINDOW\_HOURS
 
