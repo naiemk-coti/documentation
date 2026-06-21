@@ -23,7 +23,7 @@ Pick the guide that matches the **flags** the wizard gives you. **Self-managed**
 
 | Flow | When | Guide |
 | ---- | ---- | ----- |
-| **COTI-managed tunnel** | COTI-assigned subdomain, **`--with-frp`**, no Nginx/Let’s Encrypt on your VM | [**Wizard tunnel (COTI subdomain)**](installation-wizard-tunnel.md) |
+| **COTI-managed tunnel** | COTI-assigned subdomain, **`--with-frp`**, no **host** Nginx/Let’s Encrypt — traffic goes edge → **frpc** → internal **`nginx-frpc-gateway`** (Docker) → full node | [**Wizard tunnel (COTI subdomain)**](installation-wizard-tunnel.md) |
 | **Your own domain** | Your DNS name, **`--with-nginx`**, Let’s Encrypt + Nginx on the host | [**Own domain (Nginx + TLS)**](installation-own-domain.md) |
 | **Manual (no wizard)** | Clone [`coti-full-node`](https://github.com/coti-io/coti-full-node), scripts, Compose — not the web app | [**Manual full node setup**](manual-full-node.md) |
 
@@ -64,6 +64,6 @@ The [**Wizard tunnel**](installation-wizard-tunnel.md) and [**Own domain**](inst
 | `--staging` | Let’s Encrypt staging — only with `--with-nginx`. |
 | `--frpc-custom-domain=`, `--frps-server-addr-1=`, etc. | Optional FRPC tuning — see [Wizard tunnel](installation-wizard-tunnel.md). |
 
-Host Nginx and FRPC cannot both be enabled on one install. **Nginx/TLS and FRPC are off by default** — pass **`--with-nginx`** or **`--with-frp`** to enable one.
+Host Nginx (`--with-nginx`) and FRPC (`--with-frp`, which starts an internal **`nginx-frpc-gateway`** container) cannot both be enabled on one install. **Host Nginx/TLS and FRPC are off by default** — pass **`--with-nginx`** or **`--with-frp`** to enable one.
 
 For **manual** operation (restart, stop, logs, FAQ), see [**Manual full node setup**](manual-full-node.md).

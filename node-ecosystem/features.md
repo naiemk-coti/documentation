@@ -4,13 +4,13 @@ The COTI Node Ecosystem packages node operation into a small number of high-leve
 
 ## 1. Guided installation
 
-A step-by-step wizard at **`/setup`** takes an operator from a fresh **certified Ubuntu** environment (Linux server or **Windows 11** + **WSL 2** + **Ubuntu 24.04 LTS** — see [**Server requirements**](server-requirements.md)) to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname).
+A step-by-step wizard at **`/setup`** takes an operator from a fresh **certified Ubuntu** environment (Linux server or **Windows 11** + **WSL 2** + **Ubuntu 24.04 LTS** — see [**Server requirements**](server-requirements.md)) to a **running COTI full node** with **public JSON-RPC** (either **HTTPS on your host** via Nginx + Let’s Encrypt with your own domain, or **via the COTI tunnel** with a COTI-assigned hostname — edge TLS, **frpc**, and an internal Docker **`nginx-frpc-gateway`** between the tunnel and the node).
 
 * Generates (or accepts) a node private key locally — the key never leaves the browser.
 * On **Setup FQDN**, offers **Generate FQDN for Me** (success banner and read-only **Node FQDN**) or **Bring your own FQDN** (hostname field, A/CNAME reminder, verification checkbox, and **Back to Generation**); for BYO, validates the hostname via a live DNS lookup before continuing.
 * Produces a single-line installer command, tailored to the node's key and hostname, that the operator runs as root on the target server (see [**Installation**](installation.md) — [**Wizard tunnel**](installation-wizard-tunnel.md) or [**Own domain**](installation-own-domain.md)).
 * Watches the peer-discovery network and advances automatically once the node is seen by peers.
-* Starts a **local operator status dashboard** on the server (`http://127.0.0.1:8090`, and `/operator/` on the public HTTPS hostname when Nginx or the tunnel is enabled) so operators can confirm sync and reachability without using the command line.
+* Starts a **local operator status dashboard** on the server (`http://127.0.0.1:8090`, and `/operator/` on the public HTTPS hostname when host Nginx or the tunnel’s internal gateway is enabled) so operators can confirm sync and reachability without using the command line.
 
 See [**Installation**](installation.md) for what the installer does on the server, and the [**UI guide**](ui-guide/README.md) for the wizard walkthrough.
 
@@ -51,7 +51,7 @@ Once a node has been continuously seen by peer discovery for long enough to be c
 
 1. Mints a Soulbound **Node NFT** to the operator's wallet.
 2. Registers the node's RPC URL with **Better Stack** as a monitored endpoint.
-3. Runs a multi-signal health check against the node's RPC **through its DNS** to confirm the node is actually operating — simply responding is not enough.
+3. Runs a **block progression check** against the node's RPC **through its DNS** (`eth_blockNumber` twice with a short wait) to confirm the node is actually syncing — simply responding is not enough.
 4. Aggregates the resulting uptime per epoch and exposes it in the per-operator dashboard.
 
 {% hint style="warning" %}

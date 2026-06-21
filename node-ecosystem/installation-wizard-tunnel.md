@@ -1,8 +1,12 @@
 # Wizard tunnel (COTI subdomain + `--with-frp`)
 
-This is the **simplest** wizard path: on **Setup FQDN**, click **Generate FQDN for Me**. The wizard shows a success message and the **Node FQDN** value to use in the installer — a **COTI-assigned hostname** under the network’s managed zone (for example `*.fullnode.<network>.coti.io` or `*.fullnode.<network>.coti.network`, depending on environment). Then run the installer with **`--with-frp`**.
+This is the **simplest** wizard path: on **Setup FQDN**, click **Generate FQDN for Me**. The wizard shows a success message and the **Node FQDN** value to use in the installer — a **COTI-assigned hostname** under the network’s managed zone (for example `drove-nova-11.testnet.nodes.coti.network` on testnet; the exact parent suffix depends on the environment). Then run the installer with **`--with-frp`**.
 
 ← Back to [**Installation overview**](installation.md) · Related: [**Own domain (Nginx)**](installation-own-domain.md) · [**Manual full node setup**](manual-full-node.md)
+
+## What runs on your machine
+
+There is **no host Nginx** (no Let’s Encrypt, no ports **80/443** published for TLS on the VM). The tunnel flow **does** run an internal **`nginx-frpc-gateway`** Docker container: **COTI edge → frpc → internal Nginx (:8080) → full node / operator dashboard**. That gateway rewrites `/rpc`, `/ws`, `/metrics`, and `/operator/` to the node services inside Compose.
 
 ## What COTI provides
 
@@ -45,7 +49,7 @@ Driven by `install_coti-full-node.sh` (`https://fullnode.<network>.coti.io/insta
 
 1. **OS and inputs** — Certified Ubuntu version check, root, valid hex key and hostname (non-24.04 may prompt; see [**Server requirements → Windows 11 with WSL 2**](server-requirements.md#windows-11-with-wsl-2)).
 2. **Pre-checks** — Writable install dir, disk space; **no** inbound 80/443/7400 firewall enforcement; **7400** must not already be in use locally.
-3. **Packages** — Docker, Compose, `curl`, `git`, `jq`, `dnsutils` (**no** `certbot` when Nginx is off).
+3. **Packages** — Docker, Compose, `curl`, `git`, `jq`, `dnsutils` (**no** `certbot` — host Nginx/Let’s Encrypt are not used in this flow).
 4. **Clone** — `coti-full-node` into the current directory (must be empty).
 5. **Config** — `.env` (host: `NETWORK`, image tag, FQDN, `FRPC_ENABLED`, FRPS hosts), chain defaults from **`networks/<network>.env`**, `nodekey`, **FRPC** `frpc-*.toml`, and internal **`nginx/frpc-gateway.conf`** when `--with-frp` is set.
 6. **Host Nginx / Certbot** — **Skipped**; TLS is at COTI’s edge. An internal HTTP-only Nginx gateway runs inside Docker for path rewrite.

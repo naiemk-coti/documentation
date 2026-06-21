@@ -9,7 +9,7 @@ This page is the **operator-managed** path: you install and run a COTI full node
 {% hint style="success" %}
 **Web app wizard (recommended for most operators):** follow [**Installation**](installation.md), [**Server requirements**](server-requirements.md) (OS and sizing), and the [**UI guide**](ui-guide/README.md). You get the guided flow, installer from the [Networks](README.md#networks) table, HTTPS, and monitoring hooks from the product.
 
-**This page (manual path):** you clone the repo, configure the host, and run `start` / `stop` scripts yourself. Reward **eligibility is the same** as the wizard path when your node satisfies ecosystem rules (FQDN, JSON-RPC reachability, license / holdings, uptime thresholds, etc.) — see [**Node Ecosystem overview**](README.md) and [**Installation**](installation.md) for authoritative requirements.
+**This page (manual path):** you clone the repo, configure the host, and run `start` / `stop` scripts yourself. Reward **eligibility is the same** as the wizard path when your node satisfies ecosystem rules (FQDN, JSON-RPC reachability, token holdings, uptime thresholds, etc.) — see [**Node Ecosystem overview**](README.md) and [**Installation**](installation.md) for authoritative requirements.
 {% endhint %}
 
 For **what a COTI node is** and **why operators run one**, see [**What is a COTI node?**](README.md#what-is-a-coti-node) and [**Why run a node?**](README.md#why-run-a-node).
@@ -21,7 +21,7 @@ For **what a COTI node is** and **why operators run one**, see [**What is a COTI
 COTI full node software is published as a Docker image.
 
 {% hint style="info" %}
-**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide/README.md) flow or assigning their license to an existing operator.
+**Disclaimer:** Successfully operating, troubleshooting, and maintaining a node requires technical proficiency. Familiarity with tools such as Linux, Docker, and Git is assumed. Users not familiar with this technology stack should consider the [**Installation**](installation.md) / [**UI guide**](ui-guide/README.md) flow or delegating operation to an experienced operator.
 {% endhint %}
 
 **Certified operating system, tested Docker/Compose versions, and hardware** (CPU, memory, disk by network, example cloud SKUs) are **identical** for the [wizard](installation.md) and this manual path — see [**Server requirements**](server-requirements.md).
@@ -173,7 +173,7 @@ If liveliness check passed locally it means that your node is syncing with the o
 
 ### Operator status page
 
-After the stack is up, a small **local** web dashboard helps you see whether the node is running, has peers, is syncing, and (when Nginx or FRPC is configured) whether DNS/HTTPS or the tunnel gateway look healthy.
+After the stack is up, a small **local** web dashboard helps you see whether the node is running, has peers, is syncing, and (when host Nginx or FRPC with its internal **`nginx-frpc-gateway`** is configured) whether DNS/HTTPS or the tunnel gateway look healthy.
 
 * **Local:** [http://127.0.0.1:8090](http://127.0.0.1:8090) on the host (localhost only; auto-refreshes about every 15 seconds).
 * **Over SSH:** `ssh -L 8090:127.0.0.1:8090 user@your-node`, then open the same URL in your desktop browser.
@@ -214,7 +214,7 @@ To restart your node follow these steps:
 
 Configuration is split between **`.env`** (this host) and **`networks/<network>.env`** (chain profile). Start/stop scripts load `.env`, then the network profile, then `.env` again so host values win on overlap. See [Installation → Configuration files](installation.md#configuration-files-after-install) for the full table.
 
-If you are running a node without a license, no further configuration of the node is required beyond choosing the correct `NETWORK` and ensuring peers can reach you on **7400**. Simply ensure you are connected to the network.
+If you are running a node **without** joining the Node Ecosystem rewards program, no further configuration is required beyond choosing the correct `NETWORK` and ensuring peers can reach you on **7400**. Simply ensure you are connected to the network.
 
 For **your own domain** with **HTTPS on the host** (what the wizard does with **`--with-nginx`**), set at least:
 
@@ -354,7 +354,7 @@ Public status pages are available for both networks — use the URLs listed in [
 
 ### Incentives
 
-Validation rewards are governed by the [**Node Ecosystem**](README.md) program (uptime, FQDN reachability, license and holdings rules, epoch cadence, and other thresholds). Exact requirements can change — use the ecosystem documentation, web app, and the **Node Economy** section of the [litepaper](coti-node-ecosystem-litepaper.md) as the source of truth.
+Validation rewards are governed by the [**Node Ecosystem**](README.md) program (uptime, FQDN reachability, token holdings, epoch cadence, and other thresholds). Exact requirements can change — use the ecosystem documentation, web app, and the **Node Economy** section of the [litepaper](coti-node-ecosystem-litepaper.md) as the source of truth.
 
 Licensed full nodes have commonly been expected to sustain **high uptime** (for example **≥ 98%** over an epoch of roughly **103 hours**) to remain eligible for validation rewards; confirm the current bar in the Node Ecosystem pages.
 
@@ -385,9 +385,9 @@ Where to Get Help:
 2. Can I run a node on a VPS or cloud platform?
    1. Absolutely. Just ensure the service meets the hardware, OS, and networking requirements.
 3. Do I earn more rewards by running a more powerful node?
-   1. Generally, consistently high uptime can lead to more consistent rewards, however, the only measure to qualify for rewards is uptime.
-4. Is it mandatory to purchase a node license to run a node?
-   1. No. A node license simply allows you to earn rewards for helping decentralize the network, however, it is not necessary to run a COTI node.
+   1. No. Reward eligibility depends on **uptime** and **token holdings** (see [**Eligibility checks**](features.md#4-eligibility-checks)), not on hardware beyond what is needed to stay online and synced.
+4. Is it mandatory to purchase anything to run a node?
+   1. No. Anyone can run a COTI full node. To **earn rewards**, you must meet the Node Ecosystem eligibility rules (reachable FQDN, uptime, holdings, warm-up / hot state, etc.) — see [**Features**](features.md) and the [**Glossary**](ui-guide/glossary.md).
 
 ### Next Steps
 

@@ -100,7 +100,7 @@ The private key is the identity of your node and the wallet that will receive th
 
 The panel title is **Setup FQDN**, with the line **Connect your FQDN (Fully Qualified Domain Name) to your node.** You pick how the public hostname is supplied:
 
-* **Generate FQDN for Me** — the default path for the **COTI-managed hostname** (tunnel / **`--with-frp`** install). You do not create DNS at your registrar; the one-liner and edge routing are described in [**Wizard tunnel**](../installation-wizard-tunnel.md). When you click it, the wizard allocates the name and updates the same step: a green **FQDN generated successfully!** banner appears, and a read-only **Node FQDN** field shows the assigned hostname (for example a `*.fullnode.<network>.coti.network`-style name on testnet — the exact zone depends on the environment).
+* **Generate FQDN for Me** — the default path for the **COTI-managed hostname** (tunnel / **`--with-frp`** install). You do not create DNS at your registrar; the wizard calls the DNS allocation service and shows the assigned name. The one-liner and edge routing are described in [**Wizard tunnel**](../installation-wizard-tunnel.md). When you click it, the wizard allocates the name and updates the same step: a green **FQDN generated successfully!** banner appears, and a read-only **Node FQDN** field shows the assigned hostname (for example `drove-nova-11.testnet.nodes.coti.network` on testnet — the parent zone depends on the environment).
 
 <figure><img src="../../.gitbook/assets/node-ecosystem-setup-4-generated-fqdn.png" alt="Setup FQDN after generation: green success banner and Node FQDN read-only field"><figcaption><p>After <strong>Generate FQDN for Me</strong>: success confirmation and the assigned hostname before <strong>Next</strong>.</p></figcaption></figure>
 
@@ -114,7 +114,7 @@ The panel title is **Setup FQDN**, with the line **Connect your FQDN (Fully Qual
 <figure><img src="../../.gitbook/assets/node-ecosystem-setup-4-own-fqdn.png" alt="Bring your own FQDN: Node FQDN input, A or CNAME notice, verification checkbox, and Back to Generation link"><figcaption><p><strong>Bring your own FQDN</strong>: enter your hostname, confirm DNS, or go back to the generated-FQDN path.</p></figcaption></figure>
 
 {% hint style="warning" %}
-**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** **Own domain + Nginx** needs a live DNS record to your server and reachable **80/443**. **COTI tunnel** (`--with-frp`) uses the COTI-assigned hostname and edge TLS. Overview: [**Installation**](../installation.md). Without a reachable public RPC name your node cannot earn rewards.
+**This FQDN is the address the ecosystem will use to reach your node's JSON-RPC for uptime monitoring.** **Own domain + host Nginx** needs a live DNS record to your server and reachable **80/443**. **COTI tunnel** (`--with-frp`) uses the COTI-assigned hostname and edge TLS; on your machine, **frpc** forwards to an internal Docker **`nginx-frpc-gateway`** (not host Nginx). Overview: [**Installation**](../installation.md). Without a reachable public RPC name your node cannot earn rewards.
 {% endhint %}
 
 ### Step 5 — Run the command
@@ -155,9 +155,9 @@ This step only confirms that peers can _see_ your node. It does not mean your no
 
 ### Step 7 — Your node is live
 
-<figure><img src="../../.gitbook/assets/node-ecosystem-setup-7.png" alt="Setup step 7 with a success card showing Status Online, Uptime tracking Started, and a Go to Dashboard button"><figcaption><p>Step 7: node is on the network and uptime tracking has started.</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/node-ecosystem-setup-7.png" alt="Setup step 7 success card with Active badge, first heartbeat, and Go to My Dashboard button"><figcaption><p>Step 7: node is on the network; warm-up and NFT minting still follow.</p></figcaption></figure>
 
-A success card with a **Go to Dashboard** button that routes to **My Node**. It also confirms that uptime tracking has started — the node has been registered with the monitoring stack via its FQDN.
+A success card with a **Go to My Dashboard** button that routes to **My Node**. The screen confirms your node's **first heartbeat** was detected and that rewards can accrue this epoch when you stay online and meet eligibility. **Uptime monitoring** (Better Stack) starts only after warm-up completes and the Soulbound NFT is minted — see [Glossary → Warming up](glossary.md#warming-up).
 
 If the connected wallet differs from the node address, the wizard shows a warning explaining that the dashboard only lists nodes owned by the connected wallet — connect the node wallet (or import its private key into MetaMask) to see the node on the dashboard.
 

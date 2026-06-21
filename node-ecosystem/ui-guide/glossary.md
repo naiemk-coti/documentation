@@ -38,7 +38,7 @@ A node is **warming up** when it is online and reachable but has not yet been co
 
 ### Cooling down
 
-A node is **cooling down** when it was previously hot (NFT minted) but has gone offline. If the node comes back online quickly enough, it remains hot. If it stays offline long enough, the NFT flips to cold and the node must warm up again.
+A node is **cooling down** when it was previously hot (NFT minted) but has gone offline. If the node comes back online before all connected time in the rolling **103-hour** window has aged out, it can remain hot. If it stays offline until peer presence in that window reaches zero, the NFT flips to cold and the node must warm up again (~**72 hours** of connected time within the window).
 
 ### Time to thermal update
 
@@ -93,13 +93,13 @@ The window moves forward continuously. Every hour that passes drops the oldest h
 
 ### COLD\_WINDOW\_HOURS
 
-The length of the rolling window used to decide whether a node has become unstable enough to be demoted from hot back to cold. Defaults to **206 hours**.
+The length of the rolling window used to decide whether a previously-hot node should be demoted back to cold. Defaults to **103 hours** (one epoch).
 
 ### COLD\_THRESHOLD\_HOURS
 
-The minimum number of hours _within_ `COLD_WINDOW_HOURS` that a previously-hot node must be absent to be marked cold. When reached, the node must warm up again before it can return to hot. Defaults to **144 hours**.
+Configured alongside `COLD_WINDOW_HOURS`; in production both default to **103 hours**. Peer discovery marks a hot node **cold** when it has **zero peer presence** anywhere in the rolling `COLD_WINDOW_HOURS` window.
 
-In plain language: _"A hot node that stays offline for more than `COLD_THRESHOLD_HOURS` hours in any rolling `COLD_WINDOW_HOURS` window cools back to cold and must redo the warm-up."_
+In plain language: _"A hot node that stays offline until all connected time in the last 103 hours has aged out cools back to cold and must redo the warm-up (~103 hours of continuous absence)."_
 
 ## Identity & ownership
 
@@ -117,13 +117,13 @@ The wallet connected to the web app (for example via MetaMask). For the per-oper
 
 ### FQDN (Fully Qualified Domain Name)
 
-The public hostname the operator uses for their node. It may be **your own domain** (for example `node1.example.com`) or a **COTI-assigned** name when using the tunnel installer (`--with-frp`).
+The public hostname the operator uses for their node. It may be **your own domain** (for example `node1.example.com`) or a **COTI-assigned** name when using the tunnel installer (`--with-frp`), typically under a managed zone such as `*.testnet.nodes.coti.network` on testnet.
 
 The FQDN is a **prerequisite for rewards**: the ecosystem probes JSON-RPC through that name to determine uptime. See [**Installation**](../installation.md), [**Own domain**](../installation-own-domain.md), and [**Wizard tunnel**](../installation-wizard-tunnel.md).
 
 ### RPC URL
 
-The public HTTPS endpoint the node exposes after installation, typically `https://<your-fqdn>/rpc`. This is the URL that Better Stack polls to invoke the Node Health Monitor's health check.
+The public HTTPS endpoint the node exposes after installation, typically `https://<your-fqdn>/rpc`. After your node becomes **hot** and a monitor is registered, Better Stack polls the **Node Health Monitor**, which in turn calls this URL to verify block progression — Better Stack does not call your node directly.
 
 ### Soulbound Node NFT
 
@@ -184,4 +184,4 @@ The public Better Stack dashboard that aggregates every hot node's monitor state
 
 ### Operator status dashboard (local)
 
-A small **local** web UI shipped with [`coti-full-node`](https://github.com/coti-io/coti-full-node), bound to **localhost** at port **8090** after `./start_coti-full-node.sh`. It shows process health, peer count, sync state, and (when configured) DNS/TLS or FRPC gateway checks — distinct from the **Nodes web app** dashboard at `/my-nodes`. With Nginx or the COTI tunnel, the same page is also available at **`https://<fqdn>/operator/`**.
+A small **local** web UI shipped with [`coti-full-node`](https://github.com/coti-io/coti-full-node), bound to **localhost** at port **8090** after `./start_coti-full-node.sh`. It shows process health, peer count, sync state, and (when configured) DNS/TLS or FRPC gateway checks — distinct from the **Nodes web app** dashboard at `/my-nodes`. With **host Nginx** or the **COTI tunnel** (via the internal **`nginx-frpc-gateway`** container), the same page is also available at **`https://<fqdn>/operator/`**.
