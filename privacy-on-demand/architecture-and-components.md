@@ -78,5 +78,6 @@ A fuller table lives in the SDK’s [data types](https://github.com/cotitech-io/
 
 ## Next steps
 
+- **[Interactive PoD architecture (pod.coti.io)](https://pod.coti.io/)** — Explore the same cross-chain picture interactively: step through **MpcAdder**, open linked contracts on GitHub, and see how fees deplete across blocks.
 - [Glossary](glossary.md) — quick term lookup.
 - [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — concrete doc links and checklists.

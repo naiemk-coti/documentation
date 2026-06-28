@@ -83,5 +83,6 @@ Private jobs that cross from your chain to COTI and back incur **network and exe
 
 ## Next steps
 
+- **[Interactive PoD architecture (pod.coti.io)](https://pod.coti.io/)** — Walk through this end-to-end path as an animated demo with contract links and fee consumption.
 - [Architecture and main components](architecture-and-components.md) — how **PodUser**, **PodLib**, and the **Inbox** relate in a component picture.
 - [Async private operations](async-private-operations.md) — why the UI must show **pending** states.
