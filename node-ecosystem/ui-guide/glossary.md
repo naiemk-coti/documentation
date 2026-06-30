@@ -38,7 +38,7 @@ A node is **warming up** when it is online and reachable but has not yet been co
 
 ### Cooling down
 
-A node is **cooling down** when it was previously hot (NFT minted) but has gone offline. If the node comes back online quickly enough, it remains hot. If it stays offline long enough, the NFT flips to cold and the node must warm up again.
+A node is **cooling down** when it was previously hot (NFT minted) but has gone offline. If the node comes back online before all connected time in the rolling **103-hour** window has aged out, it can remain hot. If it stays offline until peer presence in that window reaches zero, the NFT flips to cold and the node must warm up again (~**72 hours** of connected time within the window).
 
 ### Time to thermal update
 
@@ -54,19 +54,52 @@ The length of the rolling window used to decide whether a node is stable enough 
 
 ### HOT\_THRESHOLD\_HOURS
 
-The minimum number of hours _within_ `HOT_WINDOW_HOURS` that a node must be continuously present to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
+The minimum number of hours _within_ `HOT_WINDOW_HOURS` that a node must be present as a peer to qualify as hot and receive its Soulbound NFT. Defaults to **72 hours**.
 
 In plain language: _"To become hot, a node must be seen by peers for at least `HOT_THRESHOLD_HOURS` hours during the last `HOT_WINDOW_HOURS` hours."_
 
+#### Becoming hot — illustrated example (production values)
+
+In production the ecosystem uses **`HOT_THRESHOLD_HOURS` = 72** and **`HOT_WINDOW_HOURS` = 103**. Peer discovery evaluates a **rolling** window: at any moment, only the last 103 hours count. Connected time that started **before** that window has already slid out and no longer contributes.
+
+```
+Each cell = 1 hour.  █ = connected as peer   · = offline or not yet in window
+
+NOW ─────────────────────────────────────────────────────────────────────► time
+                    │◄──────────── 103-hour rolling window ────────────►│
+                    │                                                   │
+Case A — warming up │································████████████░░░░░░░│  50 h connected → not hot yet
+                    │                                                   │  (need 72 h)
+
+Case B — qualifies  │································██████████████████│  72 h connected → HOT
+                    │                                                   │  (NFT minted)
+
+Case C — hours lost │████████████████████ (80 h connected long ago)         │
+                    │                      │◄── 103 h window ──────────►│
+                    │                      ················████████████│  53 h still count
+                    │                      (offline since then)         │  27 h already slid out
+                    │                                                   │  → not hot (need 72 h)
+```
+
+**How to read the diagram**
+
+| Case | What happened | Connected in window | Result |
+| ---- | ------------- | ------------------- | ------ |
+| **A** | Node came online recently and has been up steadily | 50 h | Still **warming up** — 22 h short of 72 |
+| **B** | Same node, still online, a while later | 72 h | **Hot** — threshold met inside the window |
+| **C** | Node was connected for 80 h, then went offline; by the time it is evaluated again, the first 27 h of that streak are older than 103 h | 53 h (80 − 27 lost) | **Not hot** — earlier connected hours are **lost** for warm-up purposes |
+
+The window moves forward continuously. Every hour that passes drops the oldest hour from the count and adds a new empty hour at the trailing edge — unless the node stays connected, in which case that new hour accrues as connected time.
+
 ### COLD\_WINDOW\_HOURS
 
-The length of the rolling window used to decide whether a node has become unstable enough to be demoted from hot back to cold. Defaults to **206 hours**.
+The length of the rolling window used to decide whether a previously-hot node should be demoted back to cold. Defaults to **103 hours** (one epoch).
 
 ### COLD\_THRESHOLD\_HOURS
 
-The minimum number of hours _within_ `COLD_WINDOW_HOURS` that a previously-hot node must be absent to be marked cold. When reached, the node must warm up again before it can return to hot. Defaults to **144 hours**.
+Configured alongside `COLD_WINDOW_HOURS`; in production both default to **103 hours**. Peer discovery marks a hot node **cold** when it has **zero peer presence** anywhere in the rolling `COLD_WINDOW_HOURS` window.
 
-In plain language: _"A hot node that stays offline for more than `COLD_THRESHOLD_HOURS` hours in any rolling `COLD_WINDOW_HOURS` window cools back to cold and must redo the warm-up."_
+In plain language: _"A hot node that stays offline until all connected time in the last 103 hours has aged out cools back to cold and must redo the warm-up (~103 hours of continuous absence)."_
 
 ## Identity & ownership
 
@@ -84,13 +117,13 @@ The wallet connected to the web app (for example via MetaMask). For the per-oper
 
 ### FQDN (Fully Qualified Domain Name)
 
-The public hostname the operator uses for their node. It may be **your own domain** (for example `node1.example.com`) or a **COTI-assigned** name when using the tunnel installer (`--with-frp`).
+The public hostname the operator uses for their node. It may be **your own domain** (for example `node1.example.com`) or a **COTI-assigned** name when using the tunnel installer (`--with-frp`), typically under a managed zone such as `*.testnet.nodes.coti.network` on testnet.
 
 The FQDN is a **prerequisite for rewards**: the ecosystem probes JSON-RPC through that name to determine uptime. See [**Installation**](../installation.md), [**Own domain**](../installation-own-domain.md), and [**Wizard tunnel**](../installation-wizard-tunnel.md).
 
 ### RPC URL
 
-The public HTTPS endpoint the node exposes after installation, typically `https://<your-fqdn>/rpc`. This is the URL that Better Stack polls to invoke the Node Health Monitor's health check.
+The public HTTPS endpoint the node exposes after installation, typically `https://<your-fqdn>/rpc`. After your node becomes **hot** and a monitor is registered, Better Stack polls the **Node Health Monitor**, which in turn calls this URL to verify block progression — Better Stack does not call your node directly.
 
 ### Soulbound Node NFT
 
@@ -147,4 +180,8 @@ The external uptime-monitoring platform used by the ecosystem to probe every hot
 
 ### Status page
 
-The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../#networks).
+The public Better Stack dashboard that aggregates every hot node's monitor state (up / down). It is the fastest way to see the current health of the whole fleet. URLs are listed in [Networks](../README.md#networks).
+
+### Operator status dashboard (local)
+
+A small **local** web UI shipped with [`coti-full-node`](https://github.com/coti-io/coti-full-node), bound to **localhost** at port **8090** after `./start_coti-full-node.sh`. It shows process health, peer count, sync state, and (when configured) DNS/TLS or FRPC gateway checks — distinct from the **Nodes web app** dashboard at `/my-nodes`. With **host Nginx** or the **COTI tunnel** (via the internal **`nginx-frpc-gateway`** container), the same page is also available at **`https://<fqdn>/operator/`**.

@@ -1,6 +1,6 @@
 # Backend Services
 
-The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](./#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
+The ecosystem is powered by five cooperating backend services. Operators do not interact with them directly — the web app (see [Networks](README.md#networks) for URLs) is the only interface. This page describes each service from the operator's perspective: **what it does for you** and **what its outputs look like in the UI**.
 
 ```mermaid
 flowchart LR
@@ -18,8 +18,8 @@ flowchart LR
     NFT -->|"mint Soulbound NFT"| Chain
     NFT -->|"hand off monitoring"| BSI
     BSI -->|"register FQDN"| BetterStack
-    BetterStack -->|"probe RPC"| NHM
-    NHM -->|"health check"| YourNode
+    BetterStack -->|"GET /monitor"| NHM
+    NHM -->|"eth_blockNumber"| YourNode
     NRS -->|"record epoch rewards"| Chain
     BetterStack --> NRS
 ```
@@ -34,7 +34,7 @@ Peer Discovery is also responsible for the **thermal state machine**:
 
 * While your node is newly online, it is **cold** with the NFT not yet minted — it is **warming up**.
 * Once it has been continuously present for enough time (`HOT_THRESHOLD_HOURS` out of a rolling `HOT_WINDOW_HOURS` window), it transitions to **hot** and triggers NFT minting.
-* If a hot node goes offline long enough (`COLD_THRESHOLD_HOURS` out of a `COLD_WINDOW_HOURS` window), it **cools down** back to cold and must warm up again.
+* If a hot node goes offline and has **zero peer presence** for the entire rolling `COLD_WINDOW_HOURS` window (defaults to **103 hours**), it **cools down** back to cold and must warm up again.
 
 **Where it shows up in the UI**
 
@@ -61,14 +61,14 @@ Because the NFT is soulbound, it cannot be transferred — it is bound to the wa
 
 **What it does for you**
 
-Once your node has an NFT, the Better Stack integration service automatically registers your node's `https://<your-fqdn>/rpc` URL with [Better Stack](https://betterstack.com/) as a monitored endpoint. From that point on, Better Stack polls your node on a regular cadence and records the results.
+Once your node has an NFT, the Better Stack integration service registers an uptime monitor for your node. Better Stack polls the **Node Health Monitor** (not your node directly); the monitor uses your node's `https://<your-fqdn>/rpc` URL as the check target.
 
 The operator does not configure or pay for Better Stack — the ecosystem manages the monitor centrally.
 
 **Where it shows up in the UI**
 
 * The **all-time uptime percentage** displayed for your node in the dashboard and nodes table.
-* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](./#networks).
+* A public **status page** that aggregates every hot node's monitor state (up / down). The URL is listed in [Networks](README.md#networks).
 
 {% hint style="info" %}
 Because monitoring happens over HTTPS against your public RPC hostname, a node without valid DNS / routing cannot be monitored — see [**Installation**](installation.md) ([**Own domain**](installation-own-domain.md), [**Wizard tunnel**](installation-wizard-tunnel.md)) and the [Glossary](ui-guide/glossary.md) FQDN entry.
@@ -78,9 +78,7 @@ Because monitoring happens over HTTPS against your public RPC hostname, a node w
 
 **What it does for you**
 
-The Node Health Monitor is the health-check target that Better Stack calls. When Better Stack asks "is this node healthy?", the Node Health Monitor runs a **multi-signal health check** against the node's JSON-RPC through its FQDN and returns a single **healthy / failing** verdict.
-
-The check is designed so that simply answering RPC calls is **not** sufficient — the service confirms that the node is actually operating, not just reachable. Only healthy results accrue uptime; failures are recorded with a reason so operators can diagnose issues.
+The Node Health Monitor is the health-check proxy that Better Stack calls. When Better Stack asks "is this node healthy?", the Node Health Monitor calls the node's JSON-RPC **`eth_blockNumber`** twice (with a short wait between calls) through its FQDN and returns **healthy** only if block height increases — simply answering RPC is not enough.
 
 **Where it shows up in the UI**
 
@@ -118,7 +116,7 @@ For a newly-installed node, the lifecycle is:
 3. **Warm-up period** — the UI shows a progress bar until `HOT_THRESHOLD_HOURS` of presence is reached.
 4. **Peer Discovery** declares the node **hot** → **NFT Service** mints the Soulbound NFT.
 5. **Better Stack Integration** registers the node's FQDN with **Better Stack**.
-6. **Better Stack** starts calling the **Node Health Monitor**, which runs the health check against the node's RPC through the FQDN.
+6. **Better Stack** starts polling the **Node Health Monitor**, which verifies block progression on the node's RPC at `https://<fqdn>/rpc`.
 7. At epoch boundaries, **Node Rewards** reads uptime + holdings and credits eligible nodes in the rewards smart contract; the operator claims from the **My Node** dashboard or directly from the contract.
 
 The operator only ever touches the web app and their own server — the five services coordinate everything in between.

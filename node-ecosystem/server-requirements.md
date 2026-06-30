@@ -29,7 +29,7 @@ Other Windows versions, WSL 1, or non-certified distros under WSL are **not** tr
 These versions reflect **what we have certified and tested at the time this page was written**. Newer **patch and minor** releases of the same software (Ubuntu LTS point releases, Docker Engine, Compose) **usually work** without changes; if you use a newer stack, validate on **Testnet** before relying on it for **Mainnet**.
 
 * **Docker:** version **28.0.1** (tested)
-* **Docker Compose:** version **2.29.1** (tested)
+* **Docker Compose:** version **2.29.1** (tested) — **Compose v2 plugin** (`docker compose`). Legacy `docker-compose` v1 is **not** supported by the node scripts.
 
 See also Docker’s [**Linux system requirements**](https://docs.docker.com/desktop/setup/install/linux/#general-system-requirements) for kernel, cgroup, and storage-driver expectations on Ubuntu.
 
@@ -48,12 +48,12 @@ Size the disk for the **network you join** (Testnet vs Mainnet). Figures are pla
 
 | Network     | Minimum | Recommended | Professional (extra headroom) |
 | ----------- | ------- | ----------- | ----------------------------- |
-| **Testnet** | 100 GB  | 200 GB      | 500 GB                        |
+| **Testnet** | 90 GB  | 200 GB      | 500 GB                        |
 | **Mainnet** | 700 GB  | 1 TB        | 1.5 TB                        |
 
-These bands align with the [**Networks**](README.md#networks) table (≥ 100 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem guidance).
+These bands match the [storage table above](#storage-by-network) (≥ 90 GB Testnet, ≥ 700 GB Mainnet minimum for ecosystem guidance).
 
-The **wizard installer** checks that the **current working directory’s partition** has enough free space for the selected network before cloning — use the **Minimum** column above as the floor you must have **free** at install time.
+The **wizard installer** checks free space on the **filesystem where Docker stores images and volumes** (Docker engine root — chain data uses a named volume, not the project folder). Required free space comes from the network profile (`networks/<network>.env`): **90 GB** on Testnet, **700 GB** on Mainnet. Use the **Minimum** column above as planning guidance; leave headroom beyond the installer floor.
 
 In addition to the above, a **reliable, high-bandwidth internet connection** is recommended.
 

@@ -10,6 +10,7 @@ Privacy on Demand lets applications use **strong privacy for data and computatio
 
 - **[Tutorials: PoD dApps (choose your integration model)](tutorials-privacy-on-demand.md)** — Primitive-only vs custom COTI logic, then links to step-by-step guides.
 - **[Architecture and design](architecture-and-components.md)** — Inbox, MPC executor, PodUser, PodLib, and how they connect.
+- **[Interactive PoD architecture (pod.coti.io)](https://pod.coti.io/)** — Live demo: play the MpcAdder journey across Sepolia, relayer, and COTI, with GitHub source links and gas/fee visualization.
 - **[Learn about fees](how-poa-fees-work.md)** — How PoA/PoD fees split across COTI and your host chain.
 - **[Millionaires demo](https://millionaire.demo.coti.io)** — Live demo (external).
 
