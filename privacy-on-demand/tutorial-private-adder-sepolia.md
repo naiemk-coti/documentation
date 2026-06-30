@@ -2,7 +2,7 @@
 
 This walkthrough is the **primitive-only** path: your host-chain contract calls **`PodLib`** helpers (the SDK surface for **MpcLib**-style primitives) and never deploys custom Solidity on COTI. If you are unsure whether that is enough for your product, read **[Tutorials: building Privacy on Demand (PoD) dApps](tutorials-privacy-on-demand.md)** first.
 
-This guide shows how to build a minimal **Privacy on Demand** dApp that **adds two encrypted integers** on COTI and stores the **encrypted sum** on your EVM contract. It follows the same ideas as the SDK’s [MpcAdder.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/examples/MpcAdder.sol) example, extended with **Sepolia routing presets** and **request correlation** suitable for a real UI.
+This guide shows how to build a minimal **Privacy on Demand** dApp that **adds two encrypted integers** on COTI and stores the **encrypted sum** on your EVM contract. It follows the same ideas as the [MpcAdder.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/examples/MpcAdder.sol) example, extended with **Sepolia routing presets** and **request correlation** suitable for a real UI.
 
 For background on async flows and fees, see [Async private operations](async-private-operations.md), [How do PoA fees work?](how-poa-fees-work.md), and the SDK’s [Fees, gas, and oracle](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/04-fees-gas-and-oracle.md) page.
 
@@ -24,11 +24,12 @@ After that works, you harden for production: per-user request ownership, explici
 - **Sepolia ETH** for deployment and for **`msg.value`** on each `add` call (plus gas).
 - **User onboarding** so your client can obtain an **account AES key** for decryption (see the SDK’s [TypeScript integration](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06-typescript-integration-ux-development.md) and [Onboarding / account AES key](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06c-onboarding-account-account-aes-key.md) docs).
 
-Always confirm **Inbox**, **COTI chain id**, and **MPC executor** against the version of `PodUserSepolia.sol` in your installed `@coti/pod-sdk` package; constants can change between releases.
+Always confirm **Inbox**, **COTI chain id**, and **MPC executor** against the version of `PodUserSepolia.sol` in your installed `@coti-io/coti-contracts` package; constants can change between releases.
 
-## Step 1: Install the SDK
+## Step 1: Install dependencies
 
 ```bash
+npm install "@coti-io/coti-contracts"
 npm install "@coti/pod-sdk"
 ```
 
@@ -44,9 +45,9 @@ Save as `PrivateAdder.sol`. The contract:
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.26;
 
-import "@coti/pod-sdk/contracts/mpc/PodLib.sol";
-import "@coti/pod-sdk/contracts/mpc/PodUserSepolia.sol";
-import "@coti/pod-sdk/contracts/utils/mpc/MpcCore.sol";
+import "@coti-io/coti-contracts/contracts/pod/mpc/PodLib.sol";
+import "@coti-io/coti-contracts/contracts/pod/mpc/PodUserSepolia.sol";
+import "@coti-io/coti-contracts/contracts/utils/mpc/MpcCore.sol";
 
 /// @title PrivateAdder
 /// @notice Adds two encrypted uint64 values via PoD on Sepolia (SDK preset addresses).
@@ -109,7 +110,7 @@ contract PrivateAdder is PodLib, PodUserSepolia {
 
 ## Step 3: Compile and deploy on Sepolia
 
-Configure remappings so `@coti/pod-sdk` resolves (Hardhat `paths`, Foundry `remappings.txt`, etc.), then compile and deploy `PrivateAdder` to **Ethereum Sepolia**. Record the deployed address for scripts.
+Configure remappings so `@coti-io/coti-contracts` resolves (Hardhat `paths`, Foundry `remappings.txt`, etc.), then compile and deploy `PrivateAdder` to **Ethereum Sepolia**. Record the deployed address for scripts.
 
 ## Step 4: Budget `msg.value` and `callbackFeeLocalWei`
 
@@ -239,13 +240,13 @@ console.log("sum (plaintext string):", decryptedString);
 
 - **Callback decode** must stay **`(ctUint256)`** — and the local must use `memory` because `ctUint256` is a struct. Changing the executor op or COTI-side behavior without updating the decode tuple will corrupt storage reads.
 - **Type lane** — This contract uses **`add256`** with **`itUint256`** / **`ctUint256`** on chain, so pass **`DataType.Uint256`** to `CotiPodCrypto.decrypt` and feed it the **`{ ciphertextHigh, ciphertextLow }`** tuple read from the contract. Narrower lanes (`Uint64`, `Uint128`) still take a single ciphertext word.
-- **Type model** — In the current `MpcCore.sol`, `gtUint*`, `gtBool`, and `ctUint8…ctUint128` are **user‑defined value types** (`type X is uint256`) — drop `memory` / `calldata` on them. `ctUint256` is a struct (two `ctUint128` limbs); `itUint*` / `utUint*` are also still structs, so keep `calldata` / `memory` on those.
+- **Type model** — In `MpcCore.sol`, `gtUint*`, `gtBool`, and `ctUint8…ctUint128` are **user‑defined value types** (`type X is uint256`) — drop `memory` / `calldata` on them. `ctUint256` is a struct (two `ctUint128` limbs); `itUint*` / `utUint*` are also still structs, so keep `calldata` / `memory` on those.
 - **Production**: add tests for non-Inbox callers on `addCallback`, under-funded `msg.value`, and decrypt failures; follow the [first production checklist](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) in Getting started.
 
 ## Reference links
 
 - [`pod-method-call.ts` (`PodContract`, fees, `extractRequestIds`)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/pod-method-call.ts)
-- [MpcAdder.sol (minimal repo example)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/examples/MpcAdder.sol)
+- [MpcAdder.sol (minimal repo example)](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/examples/MpcAdder.sol)
 - [Examples with description](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05c-examples-with-description.md)
 - [Getting started (PodUserSepolia pattern)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md)
 - [Async execution](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05a-async-execution.md)

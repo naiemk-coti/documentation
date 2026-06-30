@@ -40,7 +40,8 @@ The public version is useful because it gives you a known baseline: owner assign
 - A Solidity toolchain such as Hardhat or Foundry.
 - A Sepolia wallet with test ETH for deploys, transactions, and PoD request fees.
 - Node.js 18+ for scripts.
-- The PoD SDK package: `npm install "@coti/pod-sdk"` (ships the vendored `MpcCore.sol` under `@coti/pod-sdk/contracts/utils/mpc/`, so the COTI‑side contract no longer needs the `@coti-io/coti-contracts` package).
+- The COTI contracts library: `npm install "@coti-io/coti-contracts"`.
+- The TypeScript PoD SDK: `npm install "@coti/pod-sdk"`.
 - The COTI client crypto package: `npm install "@coti-io/coti-sdk-typescript@^1.0.7"` (provides `decryptUint256({ ciphertextHigh, ciphertextLow }, key)` for the 256‑bit ciphertext shape).
 - A way for users to complete PoD onboarding and obtain their account AES key for local decryption.
 
@@ -447,7 +448,7 @@ function setPrivateAllocation(
     uint256 callbackFeeLocalWei
 ) external payable onlyOwner returns (bytes32 requestId) {
     // Build an Inbox method call to the COTI-side allocation contract.
-    // Follow MpcAbiCodec argument construction from your installed SDK version.
+    // Follow MpcAbiCodec argument construction from your installed @coti-io/coti-contracts version.
 
     requestId = IInbox(inbox).sendTwoWayMessage{value: msg.value}(
         COTI_TESTNET_CHAIN_ID,

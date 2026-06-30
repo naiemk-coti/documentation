@@ -29,7 +29,7 @@ What PoD does **not** automatically guarantee by itself:
 
 ## What ships in the SDK versus what your team builds
 
-The **COTI PoD SDK** ([GitHub](https://github.com/cotitech-io/coti-pod-sdk), [npm](https://www.npmjs.com/package/@coti/pod-sdk)) provides **contracts and TypeScript helpers** for the PoD pattern. Your project still typically supplies:
+The **COTI PoD SDK** ([GitHub](https://github.com/cotitech-io/coti-pod-sdk), [npm](https://www.npmjs.com/package/@coti/pod-sdk)) provides **TypeScript helpers** for the PoD pattern. **Solidity contracts** (`PodLib`, `PodUser`, Inbox interfaces, and related types) ship in **`@coti-io/coti-contracts`**. Your project still typically supplies:
 
 - **Application-specific** EVM contracts and state machines.
 - **User experience** for onboarding, showing **pending / completed / failed** private operations, and **safe key handling**.

@@ -40,8 +40,8 @@ The COTI contract **inherits `InboxUser`**, so only the Inbox can enter `receive
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../InboxUserCotiTestnet.sol";
-import "@coti/pod-sdk/contracts/utils/mpc/MpcCore.sol";
+import "@coti-io/coti-contracts/contracts/pod/InboxUserCotiTestnet.sol";
+import "@coti-io/coti-contracts/contracts/utils/mpc/MpcCore.sol";
 
 contract DirectMessageCotiSide is InboxUserCotiTestnet {
     function receiveMessage(gtString calldata message, address sender, address recipient) external onlyInbox {
@@ -52,8 +52,6 @@ contract DirectMessageCotiSide is InboxUserCotiTestnet {
 }
 ```
 
-Paths like `../InboxUser.sol` assume you follow the SDK’s example layout; adjust imports to your repo.
-
 ## Sepolia-side contract: orchestration only
 
 The Sepolia contract **inherits `PodUserSepolia`** (or your network’s `PodUser` preset), tracks the **COTI peer address**, and:
@@ -61,15 +59,15 @@ The Sepolia contract **inherits `PodUserSepolia`** (or your network’s `PodUser
 1. **`sendMessage`** — Wraps encrypted input (`itString`) and public addresses in an **`IInbox.MpcMethodCall`** built with **`MpcAbiCodec`** (see the SDK’s [Request builder and remote calls](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/03-request-builder-and-remote-calls.md)). It sends a **two-way** message so the result comes back asynchronously.
 2. **`onMessageReceived`** — Decodes the tuple produced on COTI, **re-checks `inboxMsgSender()`**, and stores **`ctString`** keyed by conversation participants (or whatever your product needs).
 
-The Solidity below is **structurally** correct; wire **`MpcAbiCodec`**’s `create` / `addArgument` / `build` steps exactly as in your installed `@coti/pod-sdk` version (argument order and `gt`/`it` interface types **must** match the COTI method signature).
+The Solidity below is **structurally** correct; wire **`MpcAbiCodec`**’s `create` / `addArgument` / `build` steps exactly as in your installed `@coti-io/coti-contracts` version (argument order and `gt`/`it` interface types **must** match the COTI method signature).
 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import {PodUserSepolia} from "../mpc/PodUserSepolia.sol";
-import {MpcAbiCodec} from "../mpccodec/MpcAbiCodec.sol";
-import {IInbox} from "../IInbox.sol";
+import "@coti-io/coti-contracts/contracts/pod/mpc/PodUserSepolia.sol";
+import "@coti-io/coti-contracts/contracts/pod/mpccodec/MpcAbiCodec.sol";
+import "@coti-io/coti-contracts/contracts/pod/IInbox.sol";
 
 // Interface MUST match the COTI `DirectMessageCotiSide.receiveMessage` ABI
 // (including `gt` vs `it` types on each parameter).

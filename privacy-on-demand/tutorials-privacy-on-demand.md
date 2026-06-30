@@ -26,7 +26,7 @@ For **64-, 128-, and 256-bit** lanes, the library surface includes (names may be
 
 **Randomness:** `randBoundedBits`  
 
-For the authoritative list, signatures, and gas notes, use the SDK’s **[MPC library (PodLib)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05b-multi-party-computing-library-mpclib.md)** and **[PodLib.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/mpc/PodLib.sol)** in your installed `@coti/pod-sdk` version.
+For the authoritative list, signatures, and gas notes, use the SDK’s **[MPC library (PodLib)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05b-multi-party-computing-library-mpclib.md)** and **[PodLib.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodLib.sol)** in your installed `@coti-io/coti-contracts` version.
 
 ### Example tutorial (simple PoD dApp)
 

@@ -31,7 +31,7 @@ const plain256 = CotiPodCrypto.decrypt(
 );
 ```
 
-### Ciphertext shape in the current `MpcCore.sol`
+### Ciphertext shape in `MpcCore.sol`
 
 After the gt‑type upgrade, the on‑chain types you read back have these shapes:
 

@@ -16,7 +16,7 @@ Privacy on Demand lets applications use **strong privacy for data and computatio
 
 <h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 1rem; line-height: 1.2;">Further resources</h2>
 
-- **[Examples](https://github.com/cotitech-io/coti-pod-sdk/tree/main/contracts/examples)** — Contract examples in the PoD SDK repo.
+- **[Examples](https://github.com/coti-io/coti-contracts/tree/main/contracts/pod/examples)** — Contract examples in the COTI contracts repo.
 - **[PoD SDK documentation](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)** — Full SDK docs on GitHub.
 
 The same **Quick Access** and **Further resources** blocks appear on the [docs homepage](../README.md).
@@ -25,7 +25,7 @@ The same **Quick Access** and **Further resources** blocks appear on the [docs h
 
 ---
 
-This section explains **what PoD is**, **how it feels to users and operators**, and **how the main pieces fit together**. For step-by-step integration with the **COTI PoD SDK**, use the [npm package](https://www.npmjs.com/package/@coti/pod-sdk), the [documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs), and the links below.
+This section explains **what PoD is**, **how it feels to users and operators**, and **how the main pieces fit together**. For step-by-step integration, use **`@coti-io/coti-contracts`** for Solidity contracts, the [TypeScript PoD SDK](https://www.npmjs.com/package/@coti/pod-sdk) for client helpers, and the links below.
 
 ## Who this documentation is for
 
@@ -60,6 +60,7 @@ This section explains **what PoD is**, **how it feels to users and operators**, 
 
 ## Official technical reference
 
-The machine-readable contracts, types, and APIs live in the open-source SDK. Treat this book chapter as the **human-oriented companion**; treat the repository as the **source of truth** for signatures, fees, and network constants:
+The machine-readable **Solidity contracts** live in [**coti-contracts**](https://github.com/coti-io/coti-contracts). **TypeScript helpers** and integration guides live in the [**PoD SDK**](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs). Treat this book chapter as the **human-oriented companion**; treat those repositories as the **source of truth** for signatures, fees, and network constants:
 
+- [COTI contracts — PoD contracts](https://github.com/coti-io/coti-contracts/tree/main/contracts/pod)
 - [COTI PoD SDK — documentation index](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)

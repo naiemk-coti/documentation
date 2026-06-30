@@ -22,26 +22,26 @@ Then deep dives:
 
 ## Component → source file map
 
-| Concept (this book) | Where it lives in the SDK docs / repo |
+| Concept (this book) | Source / reference |
 | --- | --- |
-| **Inbox** | [IInbox.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/IInbox.sol) and cross-domain flow in the [domain model](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/01-privacy-decentralized-apps-on-any-evm-chain-with-coti-pod.md) diagram. |
-| **Callback guard** | [InboxUser.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/InboxUser.sol) (`onlyInbox`) — see [Features](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/03-features.md). |
-| **PodLib** | [PodLib.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/mpc/PodLib.sol) and width-specific libraries (`PodLib64`, `PodLib128`, `PodLib256`). |
-| **PodUser / presets** | [PodUser.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/mpc/PodUser.sol), network mixins such as [PodUserSepolia.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/mpc/PodUserSepolia.sol) in [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md). |
-| **Types (`it*`, `ct*`, `gt*`)** | Vendored [MpcCore.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/utils/mpc/MpcCore.sol) (and `MpcInterface.sol`) inside the PoD SDK — no separate `@coti-io/coti-contracts` package is needed for PoD apps. See [Data types](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/01-it-ct-gt-data-types.md). |
-| **Custom COTI calls** | [MpcAbiCodec.sol](https://github.com/cotitech-io/coti-pod-sdk/blob/main/contracts/mpccodec/MpcAbiCodec.sol) and the **custom mode** section of [Writing privacy contracts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md). |
+| **Inbox** | [IInbox.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/IInbox.sol) and cross-domain flow in the [domain model](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/01-privacy-decentralized-apps-on-any-evm-chain-with-coti-pod.md) diagram. |
+| **Callback guard** | [InboxUser.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/InboxUser.sol) (`onlyInbox`) — see [Features](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/03-features.md). |
+| **PodLib** | [PodLib.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodLib.sol) and width-specific libraries (`PodLib64`, `PodLib128`, `PodLib256`). |
+| **PodUser / presets** | [PodUser.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodUser.sol), network mixins such as [PodUserSepolia.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodUserSepolia.sol) in [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md). |
+| **Types (`it*`, `ct*`, `gt*`)** | [`MpcCore.sol`](https://github.com/coti-io/coti-contracts/blob/main/contracts/utils/mpc/MpcCore.sol) and [`MpcInterface.sol`](https://github.com/coti-io/coti-contracts/blob/main/contracts/utils/mpc/MpcInterface.sol) in **`@coti-io/coti-contracts`**. See [Data types](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/01-it-ct-gt-data-types.md). |
+| **Custom COTI calls** | [MpcAbiCodec.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpccodec/MpcAbiCodec.sol) and the **custom mode** section of [Writing privacy contracts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md). |
 | **Client crypto** | [coti-pod-crypto.ts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts) via `CotiPodCrypto` ([TypeScript integration](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06-typescript-integration-ux-development.md)). |
 
 ## Type model at a glance
 
-The PoD SDK ships **`MpcCore.sol`** under `@coti/pod-sdk/contracts/utils/mpc/`. In the current revision:
+In the current revision:
 
 - **`gtUint8` … `gtUint256` and `gtBool`** are **user‑defined value types** (`type gtUint256 is uint256`). Pass and assign them like `uint256` — **no `memory` / `calldata` on `gt*` parameters or locals**.
 - **`ctUint8` … `ctUint128`** are also user‑defined value types (single `uint256` word).
 - **`ctUint256`** is a **struct** `{ ctUint128 ciphertextHigh; ctUint128 ciphertextLow; }` — decoded locals and callback variables must use a `memory` location, and off‑chain reads return the two limbs as a tuple.
 - **`itUint*`** (user encrypted inputs, `ciphertext + signature`), **`utUint*`** (dual‑ciphertext), **`gtString`** and **`ctString`** remain structs — keep their `calldata` / `memory` locations.
 
-If you previously imported from **`@coti-io/coti-contracts`** in PoD code, switch the import to **`@coti/pod-sdk/contracts/utils/mpc/MpcCore.sol`**. Off‑chain decryption uses **`@coti-io/coti-sdk-typescript@^1.0.7`**, which exposes `decryptUint256({ ciphertextHigh, ciphertextLow }, accountAesKey)` for the 256‑bit lane.
+Off‑chain decryption uses **`@coti-io/coti-sdk-typescript@^1.0.7`**, which exposes `decryptUint256({ ciphertextHigh, ciphertextLow }, accountAesKey)` for the 256‑bit lane.
 
 ## Implementation checklist (condensed)
 
@@ -62,7 +62,8 @@ If you build **directly on COTI V2** with precompiles and private types, start f
 ## Package install
 
 ```bash
+npm install "@coti-io/coti-contracts"
 npm install "@coti/pod-sdk"
 ```
 
-See [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) for Solidity imports and the `contract MyApp is PodLib, PodUserSepolia` pattern.
+See [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md) for the `contract MyApp is PodLib, PodUserSepolia` pattern.
