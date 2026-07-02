@@ -10,23 +10,9 @@ In the **PoD Solidity SDK**, these primitives are exposed as helpers on **`PodLi
 
 If your business logic **only** needs these operations, and only **once or twice** per user action (or in a similarly small composition), you can usually implement the whole flow from your **host-chain contract** by calling **`PodLib`** helpers, which package the Inbox round-trip to the executor.
 
-### Available primitive families (per width)
+### Primitive catalog
 
-For **64-, 128-, and 256-bit** lanes, the library surface includes (names may be width-suffixed in Solidity, for example `add64` / `add128` / `add256`):
-
-**Arithmetic and bitwise:** `add`, `mul`, `div`, `rem`, `and`, `or`, `xor`  
-
-**Min / max:** `min`, `max`  
-
-**Comparisons:** `eq`, `ne`, `ge`, `le`, `lt`  
-
-**Control:** `mux`  
-
-**Shifts:** `shl`, `shr`  
-
-**Randomness:** `randBoundedBits`  
-
-For the authoritative list, signatures, and gas notes, use the SDK’s **[MPC library (PodLib)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05b-multi-party-computing-library-mpclib.md)** and **[PodLib.sol](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodLib.sol)** in your installed `@coti-io/coti-contracts` version.
+Arithmetic, comparison, bitwise, shift, mux, and randomness helpers exist at **64-, 128-, and 256-bit** widths (`add64`, `add256`, …). Full signatures and categories: [Reference: PodLib primitives](reference-podlib-and-primitives.md).
 
 ### Example tutorial (simple PoD dApp)
 
@@ -42,7 +28,7 @@ Same topic as the **blue callout at the top of this page**: one primitive (`add`
 
 TypeScript usage is documented on a dedicated page so this overview stays short:
 
-- [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md) — encryption/decryption, `estimateFee`, `encryptAndCallMethod`, `callMethod`, and `extractRequestIds`.
+- [TypeScript PoD SDK](typescript-pod-sdk.md) — encryption/decryption, `PodContract`, `PodRequest`, fee estimation, and request tracking.
 
 ### Business dApp cookbook
 
@@ -138,9 +124,9 @@ flowchart LR
 
 | Your situation | Start here |
 | --- | --- |
-| Logic fits the primitive list and a small number of MPC steps | [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md), [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md), then [MPC library (PodLib) — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05b-multi-party-computing-library-mpclib.md) |
+| Logic fits the primitive list and a small number of MPC steps | [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md), [TypeScript PoD SDK](typescript-pod-sdk.md), [Reference: PodLib primitives](reference-podlib-and-primitives.md) |
 | You want a business-oriented public-to-private migration | [Cookbook: private investor allocations with PoD](cookbook-private-investor-allocations.md), then [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) |
-| Logic needs custom COTI processing, `gt*` handling, or richer state | [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md), then [Writing privacy contracts on Ethereum — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md) and [Request builder and remote calls — SDK](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/03-request-builder-and-remote-calls.md) |
+| Logic needs custom COTI processing, `gt*` handling, or richer state | [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md), [Contract patterns checklist](contract-patterns-checklist.md) |
 | Fees, async UX, and components | [How do PoA fees work?](how-poa-fees-work.md), [Async private operations](async-private-operations.md), [Architecture and main components](architecture-and-components.md) |
 
 Return to the [Privacy on Demand section index](README.md).

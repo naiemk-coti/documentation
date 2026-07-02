@@ -29,13 +29,13 @@ What PoD does **not** automatically guarantee by itself:
 
 ## What ships in the SDK versus what your team builds
 
-The **COTI PoD SDK** ([GitHub](https://github.com/cotitech-io/coti-pod-sdk), [npm](https://www.npmjs.com/package/@coti/pod-sdk)) provides **TypeScript helpers** for the PoD pattern. **Solidity contracts** (`PodLib`, `PodUser`, Inbox interfaces, and related types) ship in **`@coti-io/coti-contracts`**. Your project still typically supplies:
+The **COTI PoD SDK** ([GitHub](https://github.com/coti-io/coti-sdk-pod), [npm](https://www.npmjs.com/package/@coti/pod-sdk)) provides **TypeScript helpers**. **Solidity contracts** ship in **`@coti-io/coti-contracts`**; the **Inbox implementation** in **`@coti-io/coti-pod-inbox-contracts`**. See [Architecture and main components](architecture-and-components.md) for how the packages fit together. Your project still typically supplies:
 
 - **Application-specific** EVM contracts and state machines.
 - **User experience** for onboarding, showing **pending / completed / failed** private operations, and **safe key handling**.
 - **Operations**: monitoring, indexing, or internal tools for stuck requests and fee configuration, as appropriate for your deployment.
 
-The SDK’s own [documentation README](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/README.md) states scope clearly: it does not replace deployment scripts, indexers, or backend services for you.
+Full documentation lives in this book ([Privacy on Demand](README.md)). The SDK repo ships code only — it does not replace deployment scripts, indexers, or backend services for you.
 
 ## Next steps
 

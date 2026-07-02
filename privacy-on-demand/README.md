@@ -16,16 +16,17 @@ Privacy on Demand lets applications use **strong privacy for data and computatio
 
 <h2 style="font-size: 2.35rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 1rem; line-height: 1.2;">Further resources</h2>
 
-- **[Examples](https://github.com/coti-io/coti-contracts/tree/main/contracts/pod/examples)** — Contract examples in the COTI contracts repo.
-- **[PoD SDK documentation](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)** — Full SDK docs on GitHub.
-
-The same **Quick Access** and **Further resources** blocks appear on the [docs homepage](../README.md).
+- **[Examples](reference-examples-and-contracts.md)** — Contract examples in `@coti-io/coti-contracts`.
+- **[TypeScript PoD SDK](typescript-pod-sdk.md)** — Full `@coti/pod-sdk` reference.
+- **[coti-sdk-pod on GitHub](https://github.com/coti-io/coti-sdk-pod)** — TypeScript SDK source.
+- **[coti-contracts on GitHub](https://github.com/coti-io/coti-contracts/tree/main/contracts/pod)** — Solidity libraries and examples.
+- **[coti-pod-inbox-contracts on GitHub](https://github.com/coti-io/coti-pod-inbox-contracts)** — Inbox implementation and fee contracts.
 
 </div>
 
 ---
 
-This section explains **what PoD is**, **how it feels to users and operators**, and **how the main pieces fit together**. For step-by-step integration, use **`@coti-io/coti-contracts`** for Solidity contracts, the [TypeScript PoD SDK](https://www.npmjs.com/package/@coti/pod-sdk) for client helpers, and the links below.
+This section is the **canonical user-facing documentation** for PoD. See [Architecture and main components](architecture-and-components.md) for the three-package stack (`@coti/pod-sdk`, `@coti-io/coti-contracts`, `@coti-io/coti-pod-inbox-contracts`).
 
 ## Who this documentation is for
 
@@ -33,34 +34,45 @@ This section explains **what PoD is**, **how it feels to users and operators**, 
 | --- | --- |
 | **Product, compliance, and business readers** | Plain-language model of privacy, where data lives, and what “async” private operations mean in practice. |
 | **Architects and technical leads** | End-to-end diagrams, component roles, and boundaries between chains and domains. |
-| **Developers** | A clear map from concepts to Solidity/TypeScript work, plus pointers to the authoritative SDK docs. |
+| **Developers** | Tutorials, API reference, checklists, and links to authoritative contract source. |
 
 ## Table of contents
 
 ### Understand first (readable without writing code)
 
-1. [What is Privacy on Demand?](what-is-privacy-on-demand.md) — Problem, promise, and constraints in everyday language.
-2. [How a private request travels end to end](how-a-private-request-travels-end-to-end.md) — Timeline from user action to decrypted result.
-3. [Architecture and main components](architecture-and-components.md) — Where **Inbox**, **MPC executor**, **PodUser**, and **PodLib** sit, with diagrams.
-4. [Glossary](glossary.md) — Short definitions of terms you will see in PoD and SDK docs.
+1. [What is Privacy on Demand?](what-is-privacy-on-demand.md)
+2. [Privacy on Demand (PoD) for Dummies](pod-for-dummies.md) — non-technical overview
+3. [How a private request travels end to end](how-a-private-request-travels-end-to-end.md)
+4. [Architecture and main components](architecture-and-components.md)
+5. [Glossary](glossary.md)
 
 ### Deeper context
 
-5. [Async private operations (why it is not instant)](async-private-operations.md) — What “pending” means and why UX must reflect it.
-6. [How do PoA fees work?](how-poa-fees-work.md) — Two-way Inbox budgets, oracle conversion, and step-by-step gas-unit consumption (worked example).
-7. [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — Checklists and links to the [PoD SDK documentation on GitHub](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs).
+6. [Async private operations (why it is not instant)](async-private-operations.md)
+7. [How do PoA fees work?](how-poa-fees-work.md)
+8. [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md)
+
+### Integration reference
+
+9. [Account onboarding (AES key)](account-onboarding-aes-key.md)
+10. [COTI TypeScript SDK for PoD](coti-typescript-sdk-for-pod.md)
+11. [TypeScript PoD SDK](typescript-pod-sdk.md) — full `@coti/pod-sdk` reference
+12. [Reference: data types (`it*`, `ct*`, `gt*`)](reference-data-types.md)
+13. [Reference: PodLib primitives](reference-podlib-and-primitives.md)
+14. [Contract patterns checklist](contract-patterns-checklist.md)
+15. [Reference: examples and contracts](reference-examples-and-contracts.md)
 
 ### Tutorials (hands-on)
 
-8. [Tutorials: building PoD dApps](tutorials-privacy-on-demand.md) — When to use **MpcLib / PodLib** primitives vs **custom COTI + host** contracts, with links to focused walkthroughs.
-9. [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md) — Encryption/decryption, fee estimation, method calls, and request ID extraction.
-10. [Cookbook: private investor allocations with PoD](cookbook-private-investor-allocations.md) — Start from a familiar public Sepolia allocation dApp, then make allocation reads and withdrawals private with PoD.
-11. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — Minimal primitive-only adder: `PodUserSepolia`, fees, TypeScript crypto.
-12. [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) — Encrypted messaging shape: `DirectMessageCotiSide` + Sepolia orchestrator.
+16. [Tutorials: building PoD dApps](tutorials-privacy-on-demand.md)
+17. [Cookbook: private investor allocations with PoD](cookbook-private-investor-allocations.md)
+18. [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md)
+19. [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md)
 
-## Official technical reference
+## Official code repositories
 
-The machine-readable **Solidity contracts** live in [**coti-contracts**](https://github.com/coti-io/coti-contracts). **TypeScript helpers** and integration guides live in the [**PoD SDK**](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs). Treat this book chapter as the **human-oriented companion**; treat those repositories as the **source of truth** for signatures, fees, and network constants:
+Machine-readable **signatures and constants** live in the repos above. This book is the **documentation source of truth** for integration guidance:
 
 - [COTI contracts — PoD contracts](https://github.com/coti-io/coti-contracts/tree/main/contracts/pod)
-- [COTI PoD SDK — documentation index](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)
+- [COTI PoD SDK — TypeScript source](https://github.com/coti-io/coti-sdk-pod)
+- [COTI PoD inbox contracts](https://github.com/coti-io/coti-pod-inbox-contracts)

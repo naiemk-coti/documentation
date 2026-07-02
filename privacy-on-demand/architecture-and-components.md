@@ -3,21 +3,29 @@
 ## Vocabulary: PoD versus “Pod” in code
 
 - **PoD** — **Privacy on Demand**, the **product pattern**: private work on COTI, orchestration on your EVM chain.
-- **PodUser / PodLib** — **Solidity building blocks**. They help your **dApp contract** configure routing and call common private operations. They are **not** a separate blockchain; they are **libraries and base contracts** you inherit or use.
+- **PodUser / PodLib** — **Solidity building blocks** in `@coti-io/coti-contracts`. They help your **dApp contract** configure routing and call common private operations. They are **not** a separate blockchain.
+
+## Three repositories
+
+| Package | What it ships |
+| --- | --- |
+| `@coti-io/coti-contracts` | `PodLib`, `PodUser*`, `IInbox` interface, `MpcAbiCodec`, examples, tokens |
+| `@coti-io/coti-pod-inbox-contracts` | Inbox **implementation**, `InboxMiner`, `InboxFeeManager`, `PriceOracle` |
+| `@coti/pod-sdk` | TypeScript client: encrypt/decrypt, fee-aware calls, request tracking |
+
+The Inbox uses a **CREATE3 deterministic address** shared across Sepolia, COTI testnet, and Avalanche Fuji (`0xAb625bE229F603f6BBF964474AFf6d5487e364De` in [`PodNetworkConstants`](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/PodNetworkConstants.sol)).
 
 ## High-level deployment view
 
 Think of **three domains**:
 
 1. **User device** — keys, encryption, decryption, UX.
-2. **Your EVM chain** — your app’s contracts, assets, and the **Inbox** contract that speaks cross-domain.
-3. **COTI execution** — private computation and the **MPC executor** contract your integration targets.
+2. **Your EVM chain** — your app’s contracts, assets, and the **Inbox** contract.
+3. **COTI execution** — private computation and the **MPC executor** (or custom COTI contract).
 
-**Inbox** sits on **your chain** and is the **trusted bridge** between your contract logic and COTI. **MPC executor** sits on **COTI** and is the **entry point** for the SDK-configured private operation flow.
+**Inbox** sits on **your chain** and is the **trusted bridge** between your contract logic and COTI. A matching Inbox on COTI receives cross-domain messages for the return leg.
 
-## Component diagram: your dApp contract’s perspective
-
-The next diagram shows **logical modules** as engineers wire them. Exact inheritance names come from the SDK (for example `PodUserSepolia` on test networks).
+## Component diagram
 
 ```mermaid
 flowchart TB
@@ -26,10 +34,9 @@ flowchart TB
         PodInboxEvm["Inbox contract (EVM)"]
     end
 
-
-    subgraph CotiSyetem["Privacy Application (EVM)"]
+    subgraph CotiSystem["COTI testnet"]
         PodInboxCoti["Inbox contract (COTI)"]
-        Exec["MPC executor or Custom Executor (COTI)"]
+        Exec["MPC executor or custom contract"]
     end
 
     AppLogic --> PodInboxEvm
@@ -39,45 +46,43 @@ flowchart TB
 
 ### Inbox
 
-- **What it is**: An on-chain **message router** and **callback** mechanism between domains.
-- **Why it matters**: Without it, your EVM contract cannot **reach** COTI private execution or **receive** structured answers.
-- **Analogy**: A **certified courier** between two offices: it does not replace either office, but **only** it can hand off the parcel and bring the signed reply back.
+- **What it is**: On-chain **message router** and **callback** mechanism between domains.
+- **Implementation**: [`coti-pod-inbox-contracts`](https://github.com/coti-io/coti-pod-inbox-contracts); interface in [`IInbox.sol`](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/IInbox.sol).
+- **Why it matters**: Without it, your EVM contract cannot reach COTI private execution or receive structured answers.
 
 ### MPC executor (COTI)
 
-- **What it is**: The **COTI-side contract address** your dApp is configured to call for a given deployment. The SDK’s network presets expose this as a constant you set during construction (for example `MPC_EXECUTOR_ADDRESS` alongside `COTI_CHAIN_ID` in [Getting started](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/04-getting-started.md)).
-- **Why it matters**: It anchors **where** private execution is invoked in the COTI environment for **library-style** flows.
+- **What it is**: The COTI-side contract your dApp targets for **library-style** flows. Network presets such as [`PodUserSepolia`](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/mpc/PodUserSepolia.sol) call `configureCoti` in their constructor with the current executor address from `PodNetworkConstants`.
+- **Why it matters**: Anchors where private execution is invoked on COTI.
 
 ### PodUser
 
-- **What it is**: A **configuration surface** for integrators: **which Inbox**, **which COTI chain**, **which executor**. Administrative changes are expected to be **access-controlled** (`onlyOwner` patterns in the SDK).
-- **Why it matters**: Lets the same codebase target **different environments** (testnet vs mainnet, future routing updates) without rewriting core logic—**if** governance is handled responsibly.
+- **What it is**: Configuration surface for **Inbox address**, **COTI chain id**, and **executor address**. Presets (`PodUserSepolia`, `PodUserFuji`) auto-wire testnet values; production changes should be **access-controlled** (`onlyOwner`).
+- **Why it matters**: Same codebase can target different environments without rewriting core logic.
 
 ### PodLib
 
-- **What it is**: **High-level helpers** for **common private operations** (for example comparisons and arithmetic at fixed bit widths—see the SDK [features](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/03-features.md) table).
-- **Why it matters**: Faster path than writing a **custom** COTI contract for every operation. If you outgrow it, you move to **custom** encoding and COTI-side contracts using `MpcAbiCodec`, described in the SDK’s [Writing privacy contracts](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/05-writing-privacy-contracts-on-ethereum.md).
+- **What it is**: High-level helpers for **common private operations** (arithmetic, comparison, bitwise ops at 64/128/256 bits). See [Reference: PodLib primitives](reference-podlib-and-primitives.md).
+- **Why it matters**: Faster than a custom COTI contract for every operation. When you outgrow it, use `MpcAbiCodec` and custom COTI contracts ([Tutorial: custom privacy logic](tutorial-custom-logic.md)).
 
-## Data shapes: a non-developer mental model
+## Data shapes
 
-Engineers talk about **`it*`**, **`gt*`**, and **`ct*`**. At a high level:
-
-| Symbol (in docs) | Think of it as | Where it “lives” |
+| Symbol | Think of it as | Where it lives |
 | --- | --- | --- |
-| **`it*`** | **Signed, encrypted user input** bundled for submission | Built on the **client**, consumed by **your EVM contract** |
-| **`gt*`** | **Private compute representation** during the operation | **Inside COTI** private execution |
-| **`ct*`** | **Encrypted output** you can **store on your chain** and **decrypt client-side** | **Returned** to your contract, **read** by the user’s app |
+| **`it*`** | Signed encrypted user input | Built on **client**, consumed by **EVM contract** |
+| **`gt*`** | Private compute representation | **Inside COTI** execution |
+| **`ct*`** | Encrypted output stored on-chain | **Returned** to your contract, **decrypted** client-side |
 
-A fuller table lives in the SDK’s [data types](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/contracts/01-it-ct-gt-data-types.md) page.
+Full reference: [Reference: data types](reference-data-types.md).
 
-## Trust and security highlights (for architects)
+## Trust and security highlights
 
-- **Callback authentication**: Your contract should only accept **Inbox-originated** callbacks for private results—otherwise anyone could try to spoof answers. The SDK’s `onlyInbox` pattern exists for this boundary ([features](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/03-features.md)).
-- **Request correlation**: Private work completes **later**; your system must track **request IDs** and statuses honestly in UX and backends ([Async private operations](async-private-operations.md)).
-- **Key stewardship**: Client-side AES material is powerful; treat it like **credentials**, not analytics metadata ([TypeScript integration](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06-typescript-integration-ux-development.md)).
+- **Callback authentication**: Only accept **Inbox-originated** callbacks (`onlyInbox` from [`InboxUser.sol`](https://github.com/coti-io/coti-contracts/blob/main/contracts/pod/InboxUser.sol)).
+- **Request correlation**: Track **request IDs** in UX and backends ([Async private operations](async-private-operations.md), [`PodRequest`](typescript-pod-sdk.md)).
+- **Key stewardship**: Account AES keys are credentials ([Account onboarding](account-onboarding-aes-key.md)).
 
 ## Next steps
 
-- **[Interactive PoD architecture (pod.coti.io)](https://pod.coti.io/)** — Explore the same cross-chain picture interactively: step through **MpcAdder**, open linked contracts on GitHub, and see how fees deplete across blocks.
-- [Glossary](glossary.md) — quick term lookup.
-- [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md) — concrete doc links and checklists.
+- **[Interactive PoD architecture (pod.coti.io)](https://pod.coti.io/)**
+- [Glossary](glossary.md)
+- [For developers: mapping concepts to the SDK](for-developers-mapping-to-the-sdk.md)
