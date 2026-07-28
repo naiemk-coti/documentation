@@ -125,6 +125,7 @@
   * [Networks](privacy-on-demand/networks/README.md)
     * [COTI Testnet](privacy-on-demand/networks/coti-testnet.md)
     * [Avalanche Fuji](privacy-on-demand/networks/fuji.md)
+    * [Ethereum Sepolia](privacy-on-demand/networks/sepolia.md)
   * [Glossary](privacy-on-demand/glossary.md)
   * [Async private operations](privacy-on-demand/async-private-operations.md)
   * [How do PoA fees work?](privacy-on-demand/how-poa-fees-work.md)

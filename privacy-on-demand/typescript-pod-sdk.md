@@ -1,6 +1,6 @@
 # TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)
 
-The npm package **`@coti/pod-sdk`** ships TypeScript helpers for **encrypting and decrypting** PoD payloads and for **encoding, fee estimation, and sending** calls against your host-chain contract through [`coti-pod-crypto.ts`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/coti-pod-crypto.ts) and [`pod-method-call.ts`](https://github.com/cotitech-io/coti-pod-sdk/blob/main/src/pod-method-call.ts).
+The npm package **`@coti-io/pod-sdk`** ships **TypeScript** helpers for **encrypting and decrypting** PoD payloads and for **encoding, fee estimation, and sending** calls against your host-chain contract through [`coti-pod-crypto.ts`](https://github.com/coti-io/coti-sdk-pod/blob/main/src/coti-pod-crypto.ts) and [`pod-method-call.ts`](https://github.com/coti-io/coti-sdk-pod/blob/main/src/pod-method-call.ts). Solidity (`PodLib`, `PodUserSepolia`, `MpcCore`) lives in **`@coti-io/coti-contracts`**, not in this package.
 
 Use these helpers from a wallet script, backend service, or dApp frontend once you have a **`Signer`** (or **`Provider`** for read-only helpers) and your contract **ABI**.
 
@@ -15,7 +15,7 @@ Use these helpers from a wallet script, backend service, or dApp frontend once y
 `CotiPodCrypto.decrypt` uses the user's **account AES key** and **`@coti-io/coti-sdk-typescript`** (`^1.0.7`) under the hood.
 
 ```typescript
-import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
+import { CotiPodCrypto, DataType } from "@coti-io/pod-sdk";
 
 // Encrypt plaintext for Solidity itUint256 parameters
 const enc = await CotiPodCrypto.encrypt("42", "testnet", DataType.itUint256);
@@ -60,7 +60,7 @@ import {
   DataType,
   type PodFeeEstimationConfig,
   type PodMethodArgument,
-} from "@coti/pod-sdk";
+} from "@coti-io/pod-sdk";
 import { ethers } from "ethers";
 
 const pod = new PodContract(contractAddress, abi, signer, {
@@ -104,5 +104,5 @@ const requestIds = receipt?.hash ? await pod.extractRequestIds(receipt.hash) : [
 
 - [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md) — full walkthrough including `PodContract` and `extractRequestIds`.
 - [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md) — custom COTI-side pattern.
-- [TypeScript integration (SDK docs)](https://github.com/cotitech-io/coti-pod-sdk/blob/main/docs/06-typescript-integration-ux-development.md)
-- [PoD SDK docs index](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)
+- [TypeScript integration (SDK docs)](https://github.com/coti-io/coti-sdk-pod/tree/main/site/06-typescript-integration-ux-development)
+- [PoD SDK docs index](https://github.com/coti-io/coti-sdk-pod/tree/main/site)

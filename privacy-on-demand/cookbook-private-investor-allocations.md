@@ -40,7 +40,8 @@ The public version is useful because it gives you a known baseline: owner assign
 - A Solidity toolchain such as Hardhat or Foundry.
 - A Sepolia wallet with test ETH for deploys, transactions, and PoD request fees.
 - Node.js 18+ for scripts.
-- The PoD SDK package: `npm install "@coti/pod-sdk"` (ships the vendored `MpcCore.sol` under `@coti/pod-sdk/contracts/utils/mpc/`, so the COTI‑side contract no longer needs the `@coti-io/coti-contracts` package).
+- The PoD TypeScript SDK: `npm install @coti-io/pod-sdk` (encrypt / fees / send helpers only — **no Solidity** in the npm package).
+- Solidity contracts and types: `npm install github:coti-io/coti-contracts#main` (`MpcCore.sol`, `PodLib`, `PodUserSepolia`, … under `@coti-io/coti-contracts`).
 - The COTI client crypto package: `npm install "@coti-io/coti-sdk-typescript@^1.0.7"` (provides `decryptUint256({ ciphertextHigh, ciphertextLow }, key)` for the 256‑bit ciphertext shape).
 - A way for users to complete PoD onboarding and obtain their account AES key for local decryption.
 
@@ -374,7 +375,7 @@ import {
   PodContract,
   type PodFeeEstimationConfig,
   type PodMethodArgument,
-} from "@coti/pod-sdk";
+} from "@coti-io/pod-sdk";
 
 const args: PodMethodArgument[] = [
   { type: DataType.Address, value: investorAddress, isCallBackFee: false },
@@ -401,7 +402,7 @@ Tune `forwardGasLimit`, `callBackGasLimit`, and `callBackDataSize` from real mea
 The project owner encrypts allocation amounts before submitting them to the private flow.
 
 ```typescript
-import { CotiPodCrypto, DataType } from "@coti/pod-sdk";
+import { CotiPodCrypto, DataType } from "@coti-io/pod-sdk";
 
 const encryptedAllocation = await CotiPodCrypto.encrypt(
   ethers.parseUnits("1000", 18).toString(),
@@ -591,4 +592,4 @@ Before adapting this cookbook for a real launch, add:
 - [Tutorial: private Adder on Sepolia](tutorial-private-adder-sepolia.md)
 - [Tutorial: custom privacy logic with PoD](tutorial-custom-logic.md)
 - [TypeScript PoD SDK (`CotiPodCrypto`, `PodContract`)](typescript-pod-sdk.md)
-- [PoD SDK documentation](https://github.com/cotitech-io/coti-pod-sdk/tree/main/docs)
+- [PoD SDK documentation](https://github.com/coti-io/coti-sdk-pod/tree/main/site)

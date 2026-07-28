@@ -4,7 +4,7 @@ Avalanche Fuji C-Chain is the **primary host chain** for this Privacy on Avalanc
 
 Use the Solidity preset **`PodUserFuji`** (or configure the Inbox + COTI executor manually) so Fuji dApps route to COTI Testnet chain ID `7082400`.
 
-> **Note:** Addresses below reflect the current PoD test deployment. They may change after contract redeploys. Confirm against your SDK release or environment before production use.
+> **Note:** Addresses below match `pod-ecosystem-integration/deployConfig.json` (Inbox salt `pod.inbox.v2.2`). They may change after contract redeploys. Confirm against that file or your SDK release before production use.
 
 ## Network details
 
@@ -22,27 +22,27 @@ Private execution for Fuji dApps targets **COTI Testnet** (`7082400`). See [COTI
 
 | Contract | Address | Description |
 | --- | --- | --- |
-| Inbox | [`0xAb625bE229F603f6BBF964474AFf6d5487e364De`](https://testnet.snowscan.xyz/address/0xAb625bE229F603f6BBF964474AFf6d5487e364De) | Cross-chain message router (CREATE3; same address on every PoD chain) |
-| Price oracle | [`0xbf615045803edb0dbb2c9b9afedcd782c383a09b`](https://testnet.snowscan.xyz/address/0xbf615045803edb0dbb2c9b9afedcd782c383a09b) | Local/remote token prices used by Inbox fee conversion |
-| MpcAdder (example) | [`0xf51c789e4c60d33a2abcfd656e607724f56aaf0d`](https://testnet.snowscan.xyz/address/0xf51c789e4c60d33a2abcfd656e607724f56aaf0d) | Reference primitive-only adder dApp on Fuji |
+| Inbox | [`0x3b8B70819f27e0438cBcE7f31894f799da52648F`](https://testnet.snowscan.xyz/address/0x3b8B70819f27e0438cBcE7f31894f799da52648F) | Cross-chain message router (CREATE3; same address on every PoD chain) |
+| Price oracle | [`0x95ce33378c88734f3d86b51a4c6dc588722995fd`](https://testnet.snowscan.xyz/address/0x95ce33378c88734f3d86b51a4c6dc588722995fd) | Local/remote token prices used by Inbox fee conversion |
+| MpcAdder (example) | [`0x8b7d9e70477aabe68500b72acb7f367993edde39`](https://testnet.snowscan.xyz/address/0x8b7d9e70477aabe68500b72acb7f367993edde39) | Reference primitive-only adder dApp on Fuji |
 
-## Privacy Portal (Fuji)
+## PoD cross-chain Privacy Portal (Fuji)
 
-Deployed factory and implementations for private-token flows on Fuji:
+This is the **PoD host-chain Privacy Portal** (factory + pTokens on Fuji, private compute via COTI Inbox). It is **not** the [native COTI Privacy Portal / PrivateERC20](../../coti-privacy-portal/README.md) that runs entirely on COTI.
 
 | Contract | Address |
 | --- | --- |
-| Privacy Portal factory | [`0x5230856b5ce21ee5efdd113f8d4849a4b02d3a57`](https://testnet.snowscan.xyz/address/0x5230856b5ce21ee5efdd113f8d4849a4b02d3a57) |
-| Portal implementation | [`0x01dee3b8046a94896fe97d531aa2019ea2557ce3`](https://testnet.snowscan.xyz/address/0x01dee3b8046a94896fe97d531aa2019ea2557ce3) |
-| Pod token implementation | [`0x0c8ec0f93cae026db214755388d2c41c8b5be08d`](https://testnet.snowscan.xyz/address/0x0c8ec0f93cae026db214755388d2c41c8b5be08d) |
+| Privacy Portal factory | [`0x0e6b35da5aa3e3aeb6f98471821d5b16552efced`](https://testnet.snowscan.xyz/address/0x0e6b35da5aa3e3aeb6f98471821d5b16552efced) |
+| Portal implementation | [`0xf7f7472394868e7e32bddbbd2bd66994a40f047b`](https://testnet.snowscan.xyz/address/0xf7f7472394868e7e32bddbbd2bd66994a40f047b) |
+| Pod token implementation | [`0xa7e4838327317f4ce6cc8b5ab07a57fdba842c77`](https://testnet.snowscan.xyz/address/0xa7e4838327317f4ce6cc8b5ab07a57fdba842c77) |
 
 ### Privacy Portal tokens
 
 | Token | Underlying | Portal | pToken |
 | --- | --- | --- | --- |
-| pMTT | `0x328e70e1c52662cd5f19f824fcb8b463d77a6686` | `0x9a82B356c9f7F59aE2c04200358122eb99aE6364` | `0xc1258E5C04A6933940105FE94cC9A4C2439d3402` |
-| pUSDC | `0x5425890298aed601595a70AB815c96711a31Bc65` | `0x32146Ce8a96F2b0102c5C0f27e45E53eA30ef18B` | `0xAd40C2E98ef9d37827F5206D0a6641c29f2247c5` |
-| pWAVAX | `0xd00ae08403B9bbb9124bB305C09058E32C39A48c` | `0xdf75091D4AF11b94FA318eeBC6CEBC106899E25C` | `0x44392E67f6Fc5179BD25302519b1B85B87afc5D8` |
+| pMTT | `0x328e70e1c52662cd5f19f824fcb8b463d77a6686` | `0x397b1DE4EbAaC2e522B583120C29ff97F011c84c` | `0x7BE9Cd10b51eFf6FFCE8f620EA17f6C4dc37a379` |
+| pUSDC | `0x5425890298aed601595a70AB815c96711a31Bc65` | `0xa15aBf3BBf23795F7F6d018D592B448F3af1A2e5` | `0x01635605900E3200679079BD35AF0BefF25e2072` |
+| pWAVAX | `0xd00ae08403B9bbb9124bB305C09058E32C39A48c` | `0x1A775D5a9d034f27dB1328B446088E93BC1bF9EE` | `0x5910f4f38660A7932485a6De854e9895E6d78D85` |
 
 ## How this network fits PoD
 
@@ -61,7 +61,7 @@ In `@coti-io/pod-sdk` / `@coti-io/coti-contracts`:
 | Constant | Value |
 | --- | --- |
 | Chain ID | `43113` (`AVALANCHE_FUJI_CHAIN_ID`) |
-| Inbox | `0xAb625bE229F603f6BBF964474AFf6d5487e364De` (`FUJI_DEFAULT_INBOX_ADDRESS`) |
+| Inbox | `0x3b8B70819f27e0438cBcE7f31894f799da52648F` (`FUJI_DEFAULT_INBOX_ADDRESS`) |
 | Solidity preset | `PodUserFuji` — sets Fuji Inbox and configures COTI Testnet MPC executor |
 
 Point `configureCoti` at the [COTI Testnet MPC executor](coti-testnet.md#pod-contracts) and chain ID `7082400` if you are not using `PodUserFuji`.

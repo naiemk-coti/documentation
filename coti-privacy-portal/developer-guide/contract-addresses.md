@@ -1,5 +1,7 @@
 # Contract Addresses
 
+> **Native COTI Privacy Portal** — Addresses on this page are for the **on-COTI** Privacy Portal / `PrivateERC20` stack. They are **not** the PoD cross-chain Privacy Portal (Fuji/Sepolia factory + pTokens). For PoD host-chain portals, see [Fuji](../../privacy-on-demand/networks/fuji.md) and [Sepolia](../../privacy-on-demand/networks/sepolia.md).
+
 Addresses for **COTI Testnet (7082400)** below match the Privacy Portal source of truth: `coti-privacy-portal/src/contracts/config.ts`. They may change after contract redeploys; always verify against that file or your deployed environment.
 
 #### COTI Testnet (Chain ID: 7082400)
