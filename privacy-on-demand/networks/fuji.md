@@ -30,17 +30,17 @@ This is the **PoD host-chain Privacy Portal** (factory + pTokens on Fuji, privat
 
 | Contract | Address |
 | --- | --- |
-| Privacy Portal factory | [`0x0e6b35da5aa3e3aeb6f98471821d5b16552efced`](https://testnet.snowscan.xyz/address/0x0e6b35da5aa3e3aeb6f98471821d5b16552efced) |
-| Portal implementation | [`0xf7f7472394868e7e32bddbbd2bd66994a40f047b`](https://testnet.snowscan.xyz/address/0xf7f7472394868e7e32bddbbd2bd66994a40f047b) |
-| Pod token implementation | [`0xa7e4838327317f4ce6cc8b5ab07a57fdba842c77`](https://testnet.snowscan.xyz/address/0xa7e4838327317f4ce6cc8b5ab07a57fdba842c77) |
+| Privacy Portal factory | [`0xaf9327277cb370d536d2c8a9e15a0a7ff6c42c15`](https://testnet.snowscan.xyz/address/0xaf9327277cb370d536d2c8a9e15a0a7ff6c42c15) |
+| Portal implementation | [`0xf4fb32758e41c1b465049c5c967a6604b6c28dce`](https://testnet.snowscan.xyz/address/0xf4fb32758e41c1b465049c5c967a6604b6c28dce) |
+| Pod token implementation | [`0x1c0b982e084451e0b272cddcce902b04c679317d`](https://testnet.snowscan.xyz/address/0x1c0b982e084451e0b272cddcce902b04c679317d) |
 
 ### Privacy Portal tokens
 
 | Token | Underlying | Portal | pToken |
 | --- | --- | --- | --- |
-| pMTT | `0x328e70e1c52662cd5f19f824fcb8b463d77a6686` | `0x397b1DE4EbAaC2e522B583120C29ff97F011c84c` | `0x7BE9Cd10b51eFf6FFCE8f620EA17f6C4dc37a379` |
-| pUSDC | `0x5425890298aed601595a70AB815c96711a31Bc65` | `0xa15aBf3BBf23795F7F6d018D592B448F3af1A2e5` | `0x01635605900E3200679079BD35AF0BefF25e2072` |
-| pWAVAX | `0xd00ae08403B9bbb9124bB305C09058E32C39A48c` | `0x1A775D5a9d034f27dB1328B446088E93BC1bF9EE` | `0x5910f4f38660A7932485a6De854e9895E6d78D85` |
+| p.MTT | `0x328e70e1c52662cd5f19f824fcb8b463d77a6686` | `0x758a8F9a216A95773DDf6F73004B85d59f224518` | `0x02f284a1968160E1d3e4bC2BA3261be49725E765` |
+| p.USDC | `0x5425890298aed601595a70AB815c96711a31Bc65` | `0xE75373ADb4AD1A5634a10f4644822943830b18c5` | `0x21576D8CCE47d044C5815bd59eca1F6DA94c65A5` |
+| p.WAVAX | `0xd00ae08403B9bbb9124bB305C09058E32C39A48c` | `0xe6932f6Ab846bf389f7ef355dd5830594623B8E5` | `0x74d47cD68203066c97BA99787Fe1e0c68Ce42b04` |
 
 ## How this network fits PoD
 

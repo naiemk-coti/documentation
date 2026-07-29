@@ -30,17 +30,17 @@ This is the **PoD host-chain Privacy Portal** (factory + pTokens on Sepolia, pri
 
 | Contract | Address |
 | --- | --- |
-| Privacy Portal factory | [`0x6bffca5073e83cde03438cca60feed6e49582044`](https://sepolia.etherscan.io/address/0x6bffca5073e83cde03438cca60feed6e49582044) |
-| Portal implementation | [`0xd22f4182d57637dd6f125ae8464a82f5647023cd`](https://sepolia.etherscan.io/address/0xd22f4182d57637dd6f125ae8464a82f5647023cd) |
-| Pod token implementation | [`0xe8e2fdd23ea2d5f9bb4632d11f7267602a059e5d`](https://sepolia.etherscan.io/address/0xe8e2fdd23ea2d5f9bb4632d11f7267602a059e5d) |
+| Privacy Portal factory | [`0x11a27bdf2b2c251609d78d5c9b53b3c2d71d663c`](https://sepolia.etherscan.io/address/0x11a27bdf2b2c251609d78d5c9b53b3c2d71d663c) |
+| Portal implementation | [`0x9f4607850ebff3e364bea998816b13f7a59933fb`](https://sepolia.etherscan.io/address/0x9f4607850ebff3e364bea998816b13f7a59933fb) |
+| Pod token implementation | [`0x3d6510ad5b4139f4fc2f8e94ab9d740e1b9f72ad`](https://sepolia.etherscan.io/address/0x3d6510ad5b4139f4fc2f8e94ab9d740e1b9f72ad) |
 
 ### Privacy Portal tokens
 
 | Token | Underlying | Portal | pToken |
 | --- | --- | --- | --- |
-| pMTT | `0xd3f5c63f4D87D2235b295FbA83351d31d0eD1BeE` | `0x3af63ceb47E47CD9742F0Cf9C715c5A1c778d548` | `0xbf5971D4791EaC5c727eE23a613E5f755ED7dE37` |
-| pUSDC | `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238` | `0xc32F55450db6fD66d0Bf5c875e791803271b6862` | `0x433e0AFDe6b8a0102a1C93aeEd61aE27794ae484` |
-| pWETH | `0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9` | `0xc666c0eFA5C5DDb953dF3881bC3C54C770bc59A4` | `0x00A69024717Ae8D6EA128972a52F969951474279` |
+| p.MTT | `0xd3f5c63f4D87D2235b295FbA83351d31d0eD1BeE` | `0x7e1fecDBC7393A7165Ae7f5F1c56baA4D12c6fc0` | `0x0510F0b32828D5fB472dE5A5bE30b370c5D1a056` |
+| p.USDC | `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238` | `0x0D02bD729698630c6f9776cDE1C8e5E00146202e` | `0xD7B3D49F85000489708B7db5B0f1a8693Fc707f3` |
+| p.WETH | `0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9` | `0x2C8B9bBeC8604143863c90D02FdF626a7D5a51C5` | `0xd33A363459c6Ee0C4F8504E380E8D3Aa4F209116` |
 
 ## How this network fits PoD
 
