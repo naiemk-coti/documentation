@@ -79,7 +79,7 @@ sequenceDiagram
 
 ## Fees and gas
 
-Private jobs that cross from your chain to COTI and back incur **network and execution costs**. Integrations typically attach **native token value** on the request and split it between **remote execution** and the **callback** leg. Operators configure **fee parameters** and **oracle** behavior on supporting contracts (see the SDK’s [Fees, gas, and oracle](https://github.com/coti-io/coti-sdk-pod/tree/main/site/contracts/04-fees-gas-and-oracle) page).
+Private jobs that cross from your chain to COTI and back incur **network and execution costs**. Integrations typically attach **native token value** on the request and split it between **remote execution** and the **callback** leg. Operators configure **fee parameters**, **gas-price bounds**, and **oracle** behavior on supporting contracts (see the SDK’s [Fees, gas, and oracle](https://github.com/coti-io/coti-sdk-pod/tree/main/site/contracts/04-fees-gas-and-oracle) page).
 
 ## Next steps
 
